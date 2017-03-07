@@ -1,5 +1,5 @@
 type Query {
-    tasks: [TaskEntity]
+    tasks(assignee: String): [TaskEntity]
     processes: [ExecutionEntity]
 }
 
