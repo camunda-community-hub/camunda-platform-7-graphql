@@ -31,9 +31,11 @@ public class Query extends GraphQLRootResolver {
         runtimeService = pe.getRuntimeService();
     }
 
-    public List<Task> tasks(String assignee) {
+    public List<Task> tasks(String assignee, String name, String nameLike) {
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery = (assignee != null) ? taskQuery.taskAssignee(assignee):taskQuery;
+        taskQuery = (name != null) ? taskQuery.taskName(name):taskQuery;
+        taskQuery = (nameLike != null) ? taskQuery.taskNameLike(nameLike):taskQuery;
         List<Task> tasks = taskQuery.list();
         return tasks;
     }

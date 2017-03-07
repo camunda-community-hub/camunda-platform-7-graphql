@@ -1,5 +1,13 @@
 type Query {
-    tasks(assignee: String): [TaskEntity]
+
+    tasks(
+        assignee: String @doc(d: "Only select tasks which are assigned to the given user.")
+        name: String @doc(d: "Only select tasks with the given name")
+        nameLike: String @doc(d: "Only select tasks with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%activiti%)")
+    )
+    : [TaskEntity]
+    @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
+
     processes: [ExecutionEntity]
 }
 
