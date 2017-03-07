@@ -1,0 +1,32 @@
+type Query {
+    tasks: [TaskEntity]
+    processes: [ExecutionEntity]
+}
+
+
+type TaskEntity {
+    id: String
+    name: String
+    description: String
+    priority: Int
+    owner: String
+    assignee: String
+    processInstanceId: String
+    executionEntity: ExecutionEntity
+    processDefinitionId: String
+    processDefinition: ProcessDefinition
+    caseInstanceId: String
+    caseExecutionId: String
+    caseDefinitionId: String
+    executionId: String
+    createTime: String
+    taskDefinitionKey: String
+    parentTaskId: String
+    isSuspended: Boolean
+    tenantId: String
+}
+
+type ProcessDefinition {
+    id: String
+    name: String
+}

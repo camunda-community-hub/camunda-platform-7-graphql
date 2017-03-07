@@ -1,0 +1,9 @@
+type ExecutionEntity {
+    id: String
+    processInstanceId: String
+    tenantId: String
+    isEnded: Boolean
+    processDefinitionId: String
+    businessKey: String
+    CaseInstanceId: String
+}
