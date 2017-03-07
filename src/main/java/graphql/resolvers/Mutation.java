@@ -5,7 +5,6 @@ import org.camunda.bpm.BpmPlatform;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.TaskService;
-import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.stereotype.Component;
 
@@ -25,11 +24,11 @@ public class Mutation extends GraphQLRootResolver {
 
     }
 
-    public TaskEntity setAssignee(String taskEntityId, String assignee) {
-        TaskEntity taskEntity = (TaskEntity)taskService.createTaskQuery().taskId(taskEntityId).singleResult();
-        taskEntity.setAssignee(assignee);
-        taskService.saveTask(taskEntity);
-        return taskEntity;
+    public Task setAssignee(String taskEntityId, String assignee) {
+        Task task = taskService.createTaskQuery().taskId(taskEntityId).singleResult();
+        task.setAssignee(assignee);
+        taskService.saveTask(task);
+        return task;
 
     }
 }
