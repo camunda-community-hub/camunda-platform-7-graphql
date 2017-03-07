@@ -11,6 +11,15 @@ type Query {
     processes: [ExecutionEntity]
 }
 
+type Mutation {
+    setAssignee(
+        taskEntityId: String!
+        assignee: String!
+    )
+    : TaskEntity
+    @doc(d: "sets the assignee of a Task")
+}
+
 
 type TaskEntity {
     id: String
