@@ -4,7 +4,7 @@ Camunda GraphQL
 This repository contains Camunda GraphQL.
 
 Camunda GraphQL allows you to query existing Camunda BPM Process Engine data in a simple way.<br> 
-See http://graphql.org/ for more Info about GraphQL. It's amazing. 
+See http://graphql.org/ for more info about GraphQL. It's amazing. 
 
 
 Installation
@@ -27,5 +27,7 @@ Installation
    * https://github.com/graphql/graphiql
      
 
+####Camunda Forum
 
- 
+Thread: <br> 
+https://forum.camunda.org/t/developing-the-camunda-graphql-extension 
