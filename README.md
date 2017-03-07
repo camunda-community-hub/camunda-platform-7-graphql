@@ -21,6 +21,8 @@ Installation
    Configure GraphiQL to point to the GraphQL endpoint as defined in step 1. 
 
    You can google for GraphiQL or install GraphiQL from these places: <br>
+   * https://github.com/redound/graphql-ide <br>
+   (Windows, Mac OS X)
    * https://github.com/skevy/graphiql-app <br>
    (Mac User just type: `brew cask install graphiql`)<br>
    
