@@ -18,6 +18,12 @@ type Mutation {
     )
     : TaskEntity
     @doc(d: "sets the assignee of a Task")
+
+    createProcessInstance(
+        processDefintionKey: String!  @doc(d: "unique name for all versions this definition")
+    )
+    : ProcessInstance
+    @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
 }
 
 

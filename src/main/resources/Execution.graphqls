@@ -1,4 +1,5 @@
-interface ProcessInstance {
+interface ProcessInstance @doc(d: "Represents one execution of a ProcessDefinition.")
+    {
     id: String
     processInstanceId: String
     tenantId: String
