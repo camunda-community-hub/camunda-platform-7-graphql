@@ -40,7 +40,7 @@ public class Query extends GraphQLRootResolver {
         return tasks;
     }
 
-    public List<ProcessInstance> processes() {
+    public List<ProcessInstance> processesInstances() {
         List<ProcessInstance> processInstances = runtimeService.createProcessInstanceQuery().list();
         return processInstances;
     }

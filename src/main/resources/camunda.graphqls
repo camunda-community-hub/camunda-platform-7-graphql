@@ -8,7 +8,7 @@ type Query {
     : [TaskEntity]
     @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
 
-    processes: [ProcessInstance]
+    processesInstances: [ProcessInstance]
 }
 
 type Mutation {
