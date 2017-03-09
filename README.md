@@ -28,7 +28,12 @@ Installation
    
    * https://github.com/graphql/graphiql
      
+### Basic Auth
 
+You need to send with every request an Authorization header (username: user, password: password).
+```
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+```
 ####Camunda Forum
 
 Thread: <br> 
