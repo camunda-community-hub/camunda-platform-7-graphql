@@ -1,4 +1,4 @@
-type ExecutionEntity {
+interface ProcessInstance {
     id: String
     processInstanceId: String
     tenantId: String
@@ -6,4 +6,26 @@ type ExecutionEntity {
     processDefinitionId: String
     businessKey: String
     CaseInstanceId: String
+}
+
+type ExecutionEntity implements ProcessInstance {
+    id: String
+    processInstanceId: String
+    tenantId: String
+    isEnded: Boolean
+    processDefinitionId: String
+    businessKey: String
+    CaseInstanceId: String
+}
+
+type ProcessInstanceWithVariablesImpl implements ProcessInstance {
+    id: String
+    processInstanceId: String
+    tenantId: String
+    isEnded: Boolean
+    processDefinitionId: String
+    businessKey: String
+    CaseInstanceId: String
+
+    variables: String
 }
