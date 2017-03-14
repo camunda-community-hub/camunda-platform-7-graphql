@@ -5,7 +5,7 @@ type Query {
         name: String @doc(d: "Only select tasks with the given name")
         nameLike: String @doc(d: "Only select tasks with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%activiti%)")
     )
-    : [TaskEntity]
+    : [Task]
     @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
 
     processesInstances: [ProcessInstance]
@@ -26,28 +26,6 @@ type Mutation {
     @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
 }
 
-
-type TaskEntity {
-    id: String
-    name: String
-    description: String
-    priority: Int
-    owner: String
-    assignee: String
-    processInstanceId: String
-    executionEntity: ExecutionEntity
-    processDefinitionId: String
-    processDefinition: ProcessDefinition
-    caseInstanceId: String
-    caseExecutionId: String
-    caseDefinitionId: String
-    executionId: String
-    createTime: String
-    taskDefinitionKey: String
-    parentTaskId: String
-    isSuspended: Boolean
-    tenantId: String
-}
 
 type ProcessDefinition {
     id: String

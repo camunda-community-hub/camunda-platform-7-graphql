@@ -1,0 +1,52 @@
+interface Task {
+    id: String
+    name: String
+    description: String
+    priority: Int
+    owner: String
+    assignee: String
+    #delegationState: DelegationState
+    processInstanceId: String
+    #processInstance: ProcessInstance
+    #@todo: fix executionEntity
+    executionEntity: ExecutionEntity
+    executionId: String
+    processDefinitionId: String
+    processDefinition: ProcessDefinition
+    caseInstanceId: String
+    caseExecutionId: String
+    caseDefinitionId: String
+    createTime: String
+    taskDefinitionKey: String
+    #dueDate
+    #followUpDate
+    parentTaskId: String
+    isSuspended: Boolean
+    formKey: String
+    tenantId: String
+}
+
+type TaskEntity implements Task {
+    id: String
+    name: String
+    description: String
+    priority: Int
+    owner: String
+    assignee: String
+    processInstanceId: String
+    executionEntity: ExecutionEntity
+    executionId: String
+    processDefinitionId: String
+    processDefinition: ProcessDefinition
+    caseInstanceId: String
+    caseExecutionId: String
+    caseDefinitionId: String
+    createTime: String
+    taskDefinitionKey: String
+    parentTaskId: String
+    isSuspended: Boolean
+    formKey: String
+    tenantId: String
+
+    eventName: String
+}

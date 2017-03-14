@@ -9,6 +9,7 @@ import org.camunda.bpm.engine.impl.persistence.entity.ProcessInstanceWithVariabl
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,8 +39,9 @@ public class GraphQLServer extends SpringBootServletInitializer {
         return SchemaParser.newParser()
                 .file("camunda.graphqls")
                 .file("Execution.graphqls")
+                .file("Task.graphqls")
                 .resolvers(resolvers)
-                .dataClasses(TaskEntity.class, ProcessInstance.class, ProcessDefinition.class, ExecutionEntity.class, ProcessInstanceWithVariablesImpl.class)
+                .dataClasses(Task.class, TaskEntity.class, ProcessInstance.class, ProcessDefinition.class, ExecutionEntity.class, ProcessInstanceWithVariablesImpl.class)
                 .build()
                 .makeExecutableSchema();
     }
