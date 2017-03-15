@@ -7,7 +7,7 @@ interface Task {
     assignee: String
     #delegationState: DelegationState
     processInstanceId: String
-    #processInstance: ProcessInstance
+    processInstance: ProcessInstance
     #@todo: fix executionEntity
     executionEntity: ExecutionEntity
     executionId: String
@@ -34,6 +34,7 @@ type TaskEntity implements Task {
     owner: String
     assignee: String
     processInstanceId: String
+    processInstance: ProcessInstance
     executionEntity: ExecutionEntity
     executionId: String
     processDefinitionId: String
