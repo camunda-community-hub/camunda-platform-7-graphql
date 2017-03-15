@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-servlet</artifactId>
-            <version>0.9.0</version>
+            <version>0.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.bpm</groupId>
