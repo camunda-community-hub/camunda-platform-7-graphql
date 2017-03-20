@@ -3,17 +3,52 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch.loydl</groupId>
-    <artifactId>camunda-graphql</artifactId>
-    <version>0.1.0</version>
+    <parent>
+        <groupId>org.camunda</groupId>
+        <artifactId>camunda-release-parent</artifactId>
+        <version>2.5</version>
+        <!-- DO NOT REMOVE EMPTY TAG https://issues.apache.org/jira/browse/MNG-4687 -->
+        <relativePath />
+    </parent>
+
+    <groupId>org.camunda.bpm.extension.graphql</groupId>
+    <artifactId>camunda-bpm-graphql</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
 
     <packaging>war</packaging>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.1.RELEASE</version>
-    </parent>
+    <properties>
+        <java.version>1.8</java.version>
+        <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
+        <camunda.version>7.6.0</camunda.version>
+
+        <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+        <!-- disable javadoc linter for JDK8 to not fail on incomplete javadoc -->
+        <additionalparam>-Xdoclint:none</additionalparam>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from camunda -->
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>${camunda.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
     <dependencies>
         <dependency>
@@ -43,26 +78,98 @@
         <dependency>
             <groupId>org.camunda.bpm</groupId>
             <artifactId>camunda-engine</artifactId>
-            <version>7.6.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-
     <build>
+        <pluginManagement>
+            <plugins>
+                <!-- set version for spring-boot-maven-plugin because we use the
+                  spring-boot-parent only in dependencyManagement section, not as parent. -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <configuration>
+                    <rules>
+                        <requireJavaVersion>
+                            <version>[${java.version},)</version>
+                        </requireJavaVersion>
+                    </rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</connection>
+        <url>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</url>
+        <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
+    <distributionManagement>
+        <repository>
+            <id>camunda-nexus</id>
+            <name>camunda bpm community extensions</name>
+            <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions</url>
+        </repository>
+        <snapshotRepository>
+            <id>camunda-nexus</id>
+            <name>camunda bpm community extensions snapshots</name>
+            <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions-snapshots</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
     <repositories>
+        <repository>
+            <id>camunda.com.public</id>
+            <name>Camunda Repository</name>
+            <url>https://app.camunda.com/nexus/content/groups/public</url>
+        </repository>
         <repository>
             <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
