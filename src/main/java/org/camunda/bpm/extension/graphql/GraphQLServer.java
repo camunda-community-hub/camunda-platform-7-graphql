@@ -2,18 +2,22 @@ package org.camunda.bpm.extension.graphql;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.coxautodev.graphql.tools.SchemaParser;
+import graphql.execution.ExecutionStrategy;
+import graphql.execution.SimpleExecutionStrategy;
 import graphql.schema.GraphQLSchema;
+import graphql.servlet.GraphQLOperationListener;
+import graphql.servlet.SimpleGraphQLServlet;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessInstanceWithVariablesImpl;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
-import graphql.servlet.GraphQLController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
@@ -47,8 +51,12 @@ public class GraphQLServer extends SpringBootServletInitializer {
     }
 
     @Bean
-    GraphQLController graphQLController() {
-        return new GraphQLController();
+    ExecutionStrategy executionStrategy() {
+        return new SimpleExecutionStrategy();
     }
 
+    @Bean
+    ServletRegistrationBean graphQLServletRegistrationBean(GraphQLSchema schema, ExecutionStrategy executionStrategy) {
+        return new ServletRegistrationBean(new SimpleGraphQLServlet(schema, executionStrategy), "/");
+    }
 }
