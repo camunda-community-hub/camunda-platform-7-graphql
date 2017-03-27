@@ -1,4 +1,4 @@
-package graphql.resolvers;
+package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import org.camunda.bpm.BpmPlatform;
