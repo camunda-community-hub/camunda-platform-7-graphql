@@ -36,6 +36,7 @@ public class Query extends GraphQLRootResolver {
         taskQuery = (assignee != null) ? taskQuery.taskAssignee(assignee):taskQuery;
         taskQuery = (name != null) ? taskQuery.taskName(name):taskQuery;
         taskQuery = (nameLike != null) ? taskQuery.taskNameLike(nameLike):taskQuery;
+        taskQuery.initializeFormKeys();
         List<Task> tasks = taskQuery.list();
         return tasks;
     }
