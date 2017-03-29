@@ -1,0 +1,13 @@
+interface User {
+    id: String
+    email: String
+    firstName: String
+    lastName: String
+}
+
+type UserEntity implements User {
+    id: String
+    email: String
+    firstName: String
+    lastName: String
+}

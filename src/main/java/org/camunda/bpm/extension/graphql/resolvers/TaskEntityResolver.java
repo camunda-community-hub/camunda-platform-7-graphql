@@ -2,12 +2,11 @@ package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import org.camunda.bpm.BpmPlatform;
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.ProcessEngines;
-import org.camunda.bpm.engine.RepositoryService;
-import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.*;
+import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
+import org.camunda.bpm.engine.impl.persistence.entity.UserEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.springframework.stereotype.Component;
@@ -18,6 +17,7 @@ public class TaskEntityResolver extends GraphQLResolver {
     private ProcessEngine pe;
     private RepositoryService repositoryService;
     private RuntimeService runtimeService;
+    private IdentityService identityService;
 
     public TaskEntityResolver() {
         super(TaskEntity.class);
@@ -27,6 +27,7 @@ public class TaskEntityResolver extends GraphQLResolver {
         }
         repositoryService = pe.getRepositoryService();
         runtimeService = pe.getRuntimeService();
+        identityService = pe.getIdentityService();
     }
 
     public ProcessDefinition processDefinition(TaskEntity taskEntity) {
@@ -50,5 +51,16 @@ public class TaskEntityResolver extends GraphQLResolver {
     public ExecutionEntity executionEntity(TaskEntity taskEntity) {
         //@todo: implement this!
         return null;
+    }
+
+    public User assignee(TaskEntity taskEntity) {
+        String userId = taskEntity.getAssignee();
+
+        if(userId != null) {
+            User user = identityService.createUserQuery().userId(userId).singleResult();
+            return user;
+        } else {
+            return null;
+        }
     }
 }

@@ -4,7 +4,7 @@ interface Task {
     description: String
     priority: Int
     owner: String
-    assignee: String
+    assignee: UserEntity
     #delegationState: DelegationState
     processInstanceId: String
     processInstance: ProcessInstance
@@ -32,7 +32,7 @@ type TaskEntity implements Task {
     description: String
     priority: Int
     owner: String
-    assignee: String
+    assignee: UserEntity
     processInstanceId: String
     processInstance: ProcessInstance
     executionEntity: ExecutionEntity
