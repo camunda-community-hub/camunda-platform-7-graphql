@@ -10,6 +10,8 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class Mutation extends GraphQLRootResolver {
 
@@ -38,6 +40,27 @@ public class Mutation extends GraphQLRootResolver {
 
     public ProcessInstance createProcessInstance(String processDefintionKey) {
         ProcessInstance pi = runtimeService.createProcessInstanceByKey(processDefintionKey).executeWithVariablesInReturn();
+        return pi;
+    }
+
+    public ProcessInstance claimTask(String taskId, String userId) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        taskService.claim(taskId, userId);
+
+        String piId = task.getProcessInstanceId();
+        if (piId != null) {
+            ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
+            return pi;
+        } else {
+            return null;
+        }
+    }
+
+    //@todo: implement next
+    public ProcessInstance completeTask(String taskId, Map<String, String> variables) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        ProcessInstance pi = runtimeService.createProcessInstanceQuery().caseInstanceId(task.getCaseInstanceId()).singleResult();
+
         return pi;
     }
 }

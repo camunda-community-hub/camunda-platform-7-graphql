@@ -24,6 +24,24 @@ type Mutation {
     )
     : ProcessInstance
     @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
+
+    completeTask(
+        taskId: String!
+    )
+    : ProcessInstance
+    @doc(d: "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided.")
+
+    claimTask(
+        taskId: String! @doc(d: "task to claim, cannot be null.")
+        userId: String @doc(d: "user that claims the task. When userId is null the task is unclaimed, assigned to no one.")
+    )
+    : ProcessInstance
+    @doc(d: "Claim responsibility for a task: the given user is made assignee for the task. The difference with setAssignee(String, String) is that here a check is done if the task already has a user assigned to it. No check is done whether the user is known by the identity component.")
+}
+
+type TaskVariable {
+    key: String
+    value: String
 }
 
 
