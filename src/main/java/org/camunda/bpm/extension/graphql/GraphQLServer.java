@@ -45,7 +45,7 @@ public class GraphQLServer extends SpringBootServletInitializer {
                 .file("camunda.graphqls")
                 .file("Execution.graphqls")
                 .file("Task.graphqls")
-                .file(".graphqls")
+                .file("User.graphqls")
                 .resolvers(resolvers)
                 .dataClasses(Task.class, TaskEntity.class, ProcessInstance.class, ProcessDefinition.class, ExecutionEntity.class, ProcessInstanceWithVariablesImpl.class, TaskVariable.class, UserEntity.class)
                 .build()
