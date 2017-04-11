@@ -41,6 +41,14 @@ public class Query extends GraphQLRootResolver {
         return tasks;
     }
 
+    public Task task(String id) {
+        TaskQuery taskQuery = taskService.createTaskQuery();
+        taskQuery = taskQuery.taskId(id);
+        taskQuery.initializeFormKeys();
+        Task task = taskQuery.singleResult();
+        return task;
+    }
+
     public List<ProcessInstance> processesInstances() {
         List<ProcessInstance> processInstances = runtimeService.createProcessInstanceQuery().list();
         return processInstances;

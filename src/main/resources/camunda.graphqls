@@ -8,6 +8,10 @@ type Query {
     : [Task]
     @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
 
+    task(
+        id: String!
+    ): Task
+
     processesInstances: [ProcessInstance]
 }
 
