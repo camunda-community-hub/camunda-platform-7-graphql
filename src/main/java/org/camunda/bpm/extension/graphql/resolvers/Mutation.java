@@ -46,17 +46,11 @@ public class Mutation extends GraphQLRootResolver {
         return pi;
     }
 
-    public ProcessInstance claimTask(String taskId, String userId) {
+    public Task claimTask(String taskId, String userId) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         taskService.claim(taskId, userId);
-        String piId = task.getProcessInstanceId();
 
-        if (piId != null) {
-            ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
-            return pi;
-        } else {
-            return null;
-        }
+        return task;
     }
 
     //@todo issue: ArrayList<LinkedHashMap> should be ArrayList<KeyValuePair>
