@@ -28,8 +28,16 @@ Installation
    
    * https://github.com/graphql/graphiql
    
-   Configure GraphiQL to point to the GraphQL endpoint as defined in step 1. <br> 
-   See examples below. <br>
+   Configure GraphiQL to point to the GraphQL endpoint as defined in step 1. <br><br>
+   **Basic Authentication**: <br>
+   You must add an Authorization-Header to your GraphQL-request! <br>
+   Example for user 'demo' and 'password 'demo' is: <br>
+   Key='Authorization' <br>
+   Value='Basic ZGVtbzpkZW1v' <br>
+   
+   In GraphiQL (graphiql-app) there is a link 'Edit HTTP headers' where you can adjust your request headers.
+    
+   <br>
    
   <br>
    
