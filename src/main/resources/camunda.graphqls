@@ -8,11 +8,14 @@ type Query {
     : [Task]
     @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
 
-    task(
-        id: String!
-    ): Task
-
-    processesInstances: [ProcessInstance]
+	task(
+		id: String!
+	): Task
+ 
+    processesInstances(
+    	businessKey: String @doc(d: "Only select process instances with a certain business key.")
+   	): [ProcessInstance]
+   	
 }
 
 type Mutation {
@@ -30,8 +33,8 @@ type Mutation {
     @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
 
     completeTask(
-        taskId: String!
-        variables: [KeyValuePair]!
+        taskId: String! 
+    	variables: [KeyValuePairInput]!    
     )
     : ProcessInstance
     @doc(d: "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided.")
@@ -44,9 +47,16 @@ type Mutation {
     @doc(d: "Claim responsibility for a task: the given user is made assignee for the task. The difference with setAssignee(String, String) is that here a check is done if the task already has a user assigned to it. No check is done whether the user is known by the identity component.")
 }
 
-input KeyValuePair {
+type KeyValuePair {
     key: String!
     value: String!
+    valueType: String
+}
+
+input KeyValuePairInput {
+    key: String!
+    value: String!
+    valueType: String
 }
 
 

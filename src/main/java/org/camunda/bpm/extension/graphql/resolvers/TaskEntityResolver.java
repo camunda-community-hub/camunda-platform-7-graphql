@@ -12,7 +12,7 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TaskEntityResolver extends GraphQLResolver {
+public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
 
     private ProcessEngine pe;
     private RepositoryService repositoryService;
@@ -20,7 +20,7 @@ public class TaskEntityResolver extends GraphQLResolver {
     private IdentityService identityService;
 
     public TaskEntityResolver() {
-        super(TaskEntity.class);
+        //super(TaskEntity.class);
         pe = BpmPlatform.getDefaultProcessEngine();
         if (pe == null) {
             pe = ProcessEngines.getDefaultProcessEngine(false);

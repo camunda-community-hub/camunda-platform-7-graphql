@@ -37,7 +37,7 @@ public class GraphQLServer extends SpringBootServletInitializer {
     }
 
     @Autowired
-    private List<GraphQLResolver> resolvers;
+    private List<GraphQLResolver<?>> resolvers;
 
     @Bean
     public GraphQLSchema graphQLSchema() {
