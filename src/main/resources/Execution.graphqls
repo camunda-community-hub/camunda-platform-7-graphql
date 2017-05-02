@@ -6,8 +6,10 @@ interface ProcessInstance @doc(d: "Represents one execution of a ProcessDefiniti
     isEnded: Boolean
     processDefinitionId: String
     businessKey: String
-    CaseInstanceId: String
+    caseInstanceId: String
+    variables: [KeyValuePair]
 }
+
 
 type ExecutionEntity implements ProcessInstance {
     id: String
@@ -16,17 +18,6 @@ type ExecutionEntity implements ProcessInstance {
     isEnded: Boolean
     processDefinitionId: String
     businessKey: String
-    CaseInstanceId: String
-}
-
-type ProcessInstanceWithVariablesImpl implements ProcessInstance {
-    id: String
-    processInstanceId: String
-    tenantId: String
-    isEnded: Boolean
-    processDefinitionId: String
-    businessKey: String
-    CaseInstanceId: String
-
-    variables: String
+    caseInstanceId: String
+    variables: [KeyValuePair]
 }

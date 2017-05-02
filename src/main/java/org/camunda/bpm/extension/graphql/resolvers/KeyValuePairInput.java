@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 //@todo: implement next
 @Component
-public class KeyValuePair {
+public class KeyValuePairInput {
 
     private String key = null;
     private String value = null;
