@@ -7,6 +7,7 @@ import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.task.TaskQuery;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class Query extends GraphQLRootResolver {
+public class Query implements GraphQLRootResolver {
 
     private ProcessEngine pe;
 
@@ -49,8 +50,10 @@ public class Query extends GraphQLRootResolver {
         return task;
     }
 
-    public List<ProcessInstance> processesInstances() {
-        List<ProcessInstance> processInstances = runtimeService.createProcessInstanceQuery().list();
+    public List<ProcessInstance> processesInstances(String businessKey) {
+    	ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
+    	processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
+        List<ProcessInstance> processInstances = processInstanceQuery.list();
         return processInstances;
     }
 }

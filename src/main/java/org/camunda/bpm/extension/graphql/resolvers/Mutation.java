@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class Mutation extends GraphQLRootResolver {
+public class Mutation implements GraphQLRootResolver {
 
     private ProcessEngine pe;
     private TaskService taskService;
