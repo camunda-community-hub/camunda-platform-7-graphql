@@ -47,7 +47,7 @@ public class GraphQLServer extends SpringBootServletInitializer {
                 .file("Task.graphqls")
                 .file("User.graphqls")
                 .resolvers(resolvers)
-                .dataClasses(Task.class, TaskEntity.class, ProcessInstance.class, ProcessDefinition.class, ExecutionEntity.class, ProcessInstanceWithVariablesImpl.class, KeyValuePair.class, UserEntity.class)
+                .dictionary(Task.class, TaskEntity.class, ProcessInstance.class, ProcessDefinition.class, ExecutionEntity.class, ProcessInstanceWithVariablesImpl.class, KeyValuePair.class, UserEntity.class)
                 .build()
                 .makeExecutableSchema();
     }
