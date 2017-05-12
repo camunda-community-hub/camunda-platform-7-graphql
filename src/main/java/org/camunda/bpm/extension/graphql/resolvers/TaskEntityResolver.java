@@ -6,9 +6,9 @@ import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
-import org.camunda.bpm.engine.impl.persistence.entity.UserEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -62,5 +62,14 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
         } else {
             return null;
         }
+    }
+
+    public String contextPath(TaskEntity taskEntity) {
+        String pdid = taskEntity.getProcessDefinitionId();
+        if (pdid != null) {
+            String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(pe, taskEntity.getProcessDefinitionId());
+            return contextPath;
+        } else
+            return null;
     }
 }
