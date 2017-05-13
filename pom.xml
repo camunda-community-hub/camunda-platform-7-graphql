@@ -85,11 +85,16 @@
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
         </dependency>
-	    <dependency>
-	          <groupId>javax.ws.rs</groupId>
-	          <artifactId>javax.ws.rs-api</artifactId>
-	          <version>2.0.1</version>
-	    </dependency>
+  	    <dependency>
+  	          <groupId>javax.ws.rs</groupId>
+  	          <artifactId>javax.ws.rs-api</artifactId>
+  	          <version>2.0.1</version>
+  	    </dependency>
+        <dependency>
+          <groupId>org.camunda.bpm</groupId>
+          <artifactId>camunda-engine-rest</artifactId>
+          <classifier>classes</classifier>
+        </dependency>
     </dependencies>
 
     <build>
