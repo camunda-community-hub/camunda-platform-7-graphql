@@ -56,4 +56,11 @@ public class Query implements GraphQLRootResolver {
         List<ProcessInstance> processInstances = processInstanceQuery.list();
         return processInstances;
     }
+ 
+    public ProcessInstance processInstance(String id, String businessKey){
+		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
+		processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
+		ProcessInstance processInstance = processInstanceQuery.processInstanceId(id).singleResult();
+		return processInstance;
+    }    
 }

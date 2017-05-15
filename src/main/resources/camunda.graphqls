@@ -16,6 +16,11 @@ type Query {
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")
    	): [ProcessInstance]
    	
+   	processInstance(
+   		id: String!
+   		businessKey: String @doc(d: "Only select process instance with a certain business key.")
+   	): ProcessInstance
+   	
 }
 
 type Mutation {
