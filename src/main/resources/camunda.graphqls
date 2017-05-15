@@ -38,7 +38,7 @@ type Mutation {
 
     completeTask(
         taskId: String! 
-    	variables: [KeyValuePairInput]!    
+        variables: [KeyValuePairInput]!    
     )
     : ProcessInstance
     @doc(d: "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided.")
