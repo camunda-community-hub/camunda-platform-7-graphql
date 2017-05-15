@@ -24,6 +24,8 @@ interface Task {
     isSuspended: Boolean
     formKey: String
     tenantId: String
+
+    contextPath: String
 }
 
 type TaskEntity implements Task {
@@ -50,4 +52,5 @@ type TaskEntity implements Task {
     tenantId: String
 
     eventName: String
+    contextPath: String
 }
