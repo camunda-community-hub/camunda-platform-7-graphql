@@ -51,16 +51,16 @@ public class Query implements GraphQLRootResolver {
     }
 
     public List<ProcessInstance> processesInstances(String businessKey) {
-    	ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-    	processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
+        ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
+        processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
         List<ProcessInstance> processInstances = processInstanceQuery.list();
         return processInstances;
     }
  
     public ProcessInstance processInstance(String id, String businessKey){
-		ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-		processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
-		ProcessInstance processInstance = processInstanceQuery.processInstanceId(id).singleResult();
-		return processInstance;
-    }    
+        ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
+        processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
+        ProcessInstance processInstance = processInstanceQuery.processInstanceId(id).singleResult();
+        return processInstance;
+    }
 }
