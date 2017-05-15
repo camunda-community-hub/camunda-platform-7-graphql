@@ -8,14 +8,40 @@ type Query {
     : [Task]
     @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
 
-	task(
-		id: String!
-	): Task
+    task(
+        id: String!
+    ): Task
  
     processesInstances(
-    	businessKey: String @doc(d: "Only select process instances with a certain business key.")
-   	): [ProcessInstance]
-   	
+        businessKey: String @doc(d: "Only select process instances with a certain business key.")
+    ): [ProcessInstance]
+
+    processInstance(
+        id: String!
+        businessKey: String @doc(d: "Only select process instance with a certain business key.")
+    ): ProcessInstance
+    
+    groups(
+        name: String @doc(d: "Only select groups with the given name")
+        nameLike: String @doc(d: "Only select groups with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)")
+        type: String @doc(d: "Only select specific type of groups")
+    ): [Group]
+    
+    group(
+        id: String! @doc(d: "Only select a group by group id")
+    ): Group
+      
+    users(
+        firstName: String @doc(d: "Only select users with the given first name")
+        firstNameLike: String @doc(d: "Only select users with a first name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)")
+        groupId: String @doc(d: "The group of user belongs to")
+    ): [User]
+    
+    user(
+        id: String! @doc(d: "Only select a user by user id")
+    ): User
+    
+     
 }
 
 type Mutation {
@@ -34,7 +60,7 @@ type Mutation {
 
     completeTask(
         taskId: String! 
-    	variables: [KeyValuePairInput]!    
+        variables: [KeyValuePairInput]!    
     )
     : ProcessInstance
     @doc(d: "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided.")
