@@ -7,6 +7,7 @@ import graphql.execution.SimpleExecutionStrategy;
 import graphql.schema.GraphQLSchema;
 import graphql.servlet.SimpleGraphQLServlet;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
+import org.camunda.bpm.engine.impl.persistence.entity.GroupEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessInstanceWithVariablesImpl;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.UserEntity;
@@ -46,8 +47,19 @@ public class GraphQLServer extends SpringBootServletInitializer {
                 .file("Execution.graphqls")
                 .file("Task.graphqls")
                 .file("User.graphqls")
+                .file("Group.graphqls")
                 .resolvers(resolvers)
-                .dictionary(Task.class, TaskEntity.class, ProcessInstance.class, ProcessDefinition.class, ExecutionEntity.class, ProcessInstanceWithVariablesImpl.class, KeyValuePair.class, UserEntity.class)
+                .dictionary(
+                        Task.class, 
+                        TaskEntity.class, 
+                        ProcessInstance.class, 
+                        ProcessDefinition.class, 
+                        ExecutionEntity.class, 
+                        ProcessInstanceWithVariablesImpl.class, 
+                        KeyValuePair.class, 
+                        UserEntity.class,
+                        GroupEntity.class
+                        )
                 .build()
                 .makeExecutableSchema();
     }

@@ -20,6 +20,28 @@ type Query {
         id: String!
         businessKey: String @doc(d: "Only select process instance with a certain business key.")
     ): ProcessInstance
+    
+    groups(
+        name: String @doc(d: "Only select groups with the given name")
+        nameLike: String @doc(d: "Only select groups with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)")
+        type: String @doc(d: "Only select specific type of groups")
+    ): [Group]
+    
+    group(
+        id: String! @doc(d: "Only select a group by group id")
+    ): Group
+      
+    users(
+        firstName: String @doc(d: "Only select users with the given first name")
+        firstNameLike: String @doc(d: "Only select users with a first name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)")
+        groupId: String @doc(d: "The group of user belongs to")
+    ): [User]
+    
+    user(
+        id: String! @doc(d: "Only select a user by user id")
+    ): User
+    
+     
 }
 
 type Mutation {
