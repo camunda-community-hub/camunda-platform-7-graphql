@@ -2,10 +2,9 @@ package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLRootResolver;
 import org.camunda.bpm.BpmPlatform;
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.ProcessEngines;
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.*;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.camunda.bpm.engine.repository.ProcessDefinitionQuery;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
 import org.camunda.bpm.engine.task.Task;
@@ -21,6 +20,7 @@ public class Query implements GraphQLRootResolver {
 
     private TaskService taskService;
     private RuntimeService runtimeService;
+    private RepositoryService repositoryService;
 
     public Query() {
         super();
@@ -30,6 +30,7 @@ public class Query implements GraphQLRootResolver {
         }
         taskService = pe.getTaskService();
         runtimeService = pe.getRuntimeService();
+        repositoryService = pe.getRepositoryService();
     }
 
     public List<Task> tasks(String assignee, String name, String nameLike) {
@@ -55,5 +56,12 @@ public class Query implements GraphQLRootResolver {
     	processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
         List<ProcessInstance> processInstances = processInstanceQuery.list();
         return processInstances;
+    }
+
+    public List<ProcessDefinition> processDefinitions(Boolean isSuspended) {
+        ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+        processDefinitionQuery = (isSuspended != null && isSuspended == true) ? processDefinitionQuery.suspended() : processDefinitionQuery;
+        List <ProcessDefinition> processDefinitionList = processDefinitionQuery.list();
+        return processDefinitionList;
     }
 }

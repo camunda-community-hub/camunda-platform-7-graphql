@@ -1,0 +1,19 @@
+interface ProcessDefinition @doc(d: "An object structure representing an executable process composed of activities and transitions.")
+{
+    id: String
+    name: String
+    description: String
+    #startFormKey: String @doc(d: "Does this process definition has a {@link FormService#getStartFormData(String) start form key}.")
+    isSuspended: Boolean @doc(d: "Returns true if the process definition is in suspended state.")
+    versionTag: String @doc(d: "Version tag of the process definition.")
+}
+
+type ProcessDefinitionEntity implements ProcessDefinition
+{
+    id: String
+    name: String
+    description: String
+    #startFormKey: String @doc(d: "Does this process definition has a {@link FormService#getStartFormData(String) start form key}.")
+    isSuspended: Boolean @doc(d: "Returns true if the process definition is in suspended state.")
+    versionTag: String @doc(d: "Version tag of the process definition.")
+}

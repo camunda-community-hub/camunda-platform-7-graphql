@@ -15,6 +15,10 @@ type Query {
     processesInstances(
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")
    	): [ProcessInstance]
+
+    processDefinitions(
+        isSuspended: Boolean @doc(d: "process definition suspended state. true: get process definitions in suspended state, ommitted: get all process definitions")
+    ): [ProcessDefinition]
    	
 }
 
@@ -57,10 +61,4 @@ input KeyValuePairInput {
     key: String!
     value: String!
     valueType: String
-}
-
-
-type ProcessDefinition {
-    id: String
-    name: String
 }
