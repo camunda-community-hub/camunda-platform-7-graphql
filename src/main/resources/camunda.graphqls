@@ -18,6 +18,7 @@ type Query {
 
     processDefinitions(
         isSuspended: Boolean @doc(d: "process definition suspended state. true: get process definitions in suspended state, ommitted: get all process definitions")
+        latest: Boolean @doc(d: "Only select the process definitions which are the latest deployed (ie. which have the highest version number for the given key). ")
     ): [ProcessDefinition]
    	
 }

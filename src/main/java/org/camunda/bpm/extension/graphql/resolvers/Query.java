@@ -58,9 +58,11 @@ public class Query implements GraphQLRootResolver {
         return processInstances;
     }
 
-    public List<ProcessDefinition> processDefinitions(Boolean isSuspended) {
+    public List<ProcessDefinition> processDefinitions(Boolean isSuspended, Boolean latest) {
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
         processDefinitionQuery = (isSuspended != null && isSuspended == true) ? processDefinitionQuery.suspended() : processDefinitionQuery;
+        processDefinitionQuery = (latest != null && latest == true) ? processDefinitionQuery.latestVersion() : processDefinitionQuery;
+
         List <ProcessDefinition> processDefinitionList = processDefinitionQuery.list();
         return processDefinitionList;
     }
