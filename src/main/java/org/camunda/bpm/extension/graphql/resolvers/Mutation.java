@@ -76,8 +76,11 @@ public class Mutation implements GraphQLRootResolver {
         } else {
             return null;
         }
+    }
 
+    public ProcessInstance startProcessInstanceByKey(String key) {
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey(key);
 
-
+        return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
     }
 }
