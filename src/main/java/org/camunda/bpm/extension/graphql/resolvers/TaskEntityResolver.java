@@ -3,6 +3,7 @@ package org.camunda.bpm.extension.graphql.resolvers;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import org.camunda.bpm.BpmPlatform;
 import org.camunda.bpm.engine.*;
+import org.camunda.bpm.engine.history.HistoricVariableInstance;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
@@ -10,6 +11,8 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
@@ -71,5 +74,12 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
             return contextPath;
         } else
             return null;
+    }
+
+    public List<HistoricVariableInstance> variables(TaskEntity taskEntity) {
+        List<HistoricVariableInstance> variables = pe.getHistoryService().createHistoricVariableInstanceQuery().processInstanceId(taskEntity.getProcessInstanceId()).list();
+
+
+        return variables;
     }
 }
