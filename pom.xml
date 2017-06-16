@@ -95,6 +95,11 @@
           <artifactId>camunda-engine-rest</artifactId>
           <classifier>classes</classifier>
         </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
