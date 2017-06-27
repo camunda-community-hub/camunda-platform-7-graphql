@@ -66,4 +66,11 @@ public class Query implements GraphQLRootResolver {
         List <ProcessDefinition> processDefinitionList = processDefinitionQuery.list();
         return processDefinitionList;
     }
+
+    public ProcessDefinition processDefinition(String id) {
+        ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+        ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(id).singleResult();
+
+        return processDefinition;
+    }
 }
