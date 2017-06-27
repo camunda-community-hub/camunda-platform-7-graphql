@@ -1,4 +1,4 @@
-package org.camunda.bpm.extension.graphql.resolvers;
+package org.camunda.bpm.extension.graphql.types;
 
 import org.springframework.stereotype.Component;
 

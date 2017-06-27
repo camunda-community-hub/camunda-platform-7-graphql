@@ -6,12 +6,13 @@ import graphql.execution.ExecutionStrategy;
 import graphql.execution.SimpleExecutionStrategy;
 import graphql.schema.GraphQLSchema;
 import graphql.servlet.SimpleGraphQLServlet;
-import org.camunda.bpm.engine.history.HistoricActivityInstance;
 import org.camunda.bpm.engine.impl.persistence.entity.*;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.runtime.ProcessInstanceWithVariables;
 import org.camunda.bpm.engine.task.Task;
-import org.camunda.bpm.extension.graphql.resolvers.KeyValuePair;
+import org.camunda.bpm.extension.graphql.types.KeyValuePair;
+import org.camunda.bpm.extension.graphql.types.ValueTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -46,7 +47,19 @@ public class GraphQLServer extends SpringBootServletInitializer {
                 .file("User.graphqls")
                 .file("ProcessDefinition.graphqls")
                 .resolvers(resolvers)
-                .dictionary(Task.class, TaskEntity.class, ProcessInstance.class, ProcessDefinition.class, ProcessDefinitionEntity.class, ExecutionEntity.class, ProcessInstanceWithVariablesImpl.class, KeyValuePair.class, UserEntity.class, HistoricVariableInstanceEntity.class)
+                .dictionary(
+                        Task.class,
+                        TaskEntity.class,
+                        ProcessInstance.class,
+                        ProcessDefinition.class,
+                        ProcessDefinitionEntity.class,
+                        ExecutionEntity.class,
+                        KeyValuePair.class,
+                        UserEntity.class,
+                        HistoricVariableInstanceEntity.class,
+                        ProcessInstanceWithVariablesImpl.class,
+                        ValueTypeEnum.class
+                )
                 .build()
                 .makeExecutableSchema();
     }

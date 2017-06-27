@@ -1,4 +1,4 @@
-package org.camunda.bpm.extension.graphql.resolvers;
+package org.camunda.bpm.extension.graphql.types;
 
 import org.springframework.stereotype.Component;
 
@@ -8,15 +8,15 @@ public class KeyValuePairInput {
 
     private String key = null;
     private String value = null;
-    private String valueType = null;
+    private ValueTypeEnum valueType = null;
 
 
   
-	public String getValueType() {
+	public ValueTypeEnum getValueType() {
 		return valueType;
 	}
 
-	public void setValueType(String valueType) {
+	public void setValueType(ValueTypeEnum valueType) {
 		this.valueType = valueType;
 	}
 
