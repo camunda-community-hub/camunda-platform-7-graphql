@@ -8,8 +8,12 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.impl.persistence.entity.ProcessInstanceWithVariablesImpl;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.runtime.ProcessInstanceWithVariables;
+import org.camunda.bpm.engine.runtime.ProcessInstantiationBuilder;
 import org.camunda.bpm.engine.task.Task;
+import org.camunda.bpm.extension.graphql.types.ValueTypeEnum;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -41,9 +45,17 @@ public class Mutation implements GraphQLRootResolver {
 
     }
 
-    public ProcessInstance createProcessInstance(String processDefintionKey) {
-        ProcessInstance pi = runtimeService.createProcessInstanceByKey(processDefintionKey).executeWithVariablesInReturn();
-        return pi;
+    public ProcessInstanceWithVariables createProcessInstance(String processDefintionKey, ArrayList<LinkedHashMap> variables) {
+        ProcessInstantiationBuilder pib = runtimeService.createProcessInstanceByKey(processDefintionKey);
+
+        if (variables != null) {
+
+            pib.setVariables(getVariablesMap(variables));
+            return pib.executeWithVariablesInReturn();
+        } else {
+            return pib.executeWithVariablesInReturn();
+        }
+
     }
 
     public Task claimTask(String taskId, String userId) {
@@ -59,12 +71,7 @@ public class Mutation implements GraphQLRootResolver {
         String piId = task.getProcessInstanceId();
 
         if (variables != null) {
-            Map<String, Object> map = new HashMap<>();
-            for (LinkedHashMap i : variables) map.put(i.get("key").toString(), i.get("value"));
-
-            // for (KeyValuePair i: variables) map.put(i.getKey(), i.getValue());
-
-            taskService.complete(taskId, map);
+            taskService.complete(taskId, getVariablesMap(variables));
         } else {
             taskService.complete(taskId);
         }
@@ -83,4 +90,19 @@ public class Mutation implements GraphQLRootResolver {
 
         return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
     }
+
+    private Map<String, Object> getVariablesMap (ArrayList<LinkedHashMap> variables) {
+        Map<String, Object> map = new HashMap<>();
+        for (LinkedHashMap i : variables) {
+            switch (i.get("valueType").toString()) {
+                case "String":      map.put(i.get("key").toString(), i.get("value")); break;
+                case "Int":         map.put(i.get("key").toString(), Long.parseLong(i.get("value").toString())); break;
+                case "Float":       map.put(i.get("key").toString(), Double.parseDouble(i.get("value").toString())); break;
+                case "Boolean":     map.put(i.get("key").toString(), Boolean.parseBoolean(i.get("value").toString())); break;
+                default:            map.put(i.get("key").toString(), i.get("value")); break;
+            }
+        }
+        return map;
+    }
+
 }
