@@ -9,11 +9,17 @@ Camunda GraphQL is a Community Extension for Camunda BPM that allows you to use 
 Installation
 ------------
 
-1. Build and deploy the war file of this project to your Camunda BPM Server. <br>
+1. Checkout this repository using Git<br>
+2. Build the project using `mvn clean package`<br>
+3. Deploy the `.war` file located in the `target/` folder to the server<br>
    Use Application Context `/graphql`.<br>
-   This will add a GraphQL endpoint to your Camunda BPM server at `http://<server-name>:<PORT>/graphql`<br>
+4. Open a GraphQL client: 
+ - set the URL to `http://<server-name>:<PORT>/graphql` <br>
+ - submit GraphQL statements :-)
 
-2. To play around with GraphQL on your Camunda BPM server you might want to install a GraphiQL client:<br>
+GraphQL client
+--------------- 
+You can easily explore GraphQL with one of these clients:<br>
 
    * https://github.com/redound/graphql-ide <br>
    (Windows, Mac OS X - needs npm/yarn)
@@ -32,6 +38,40 @@ Installation
    Future releases of Camunda GraphQL will include a GraphiQL client out-of-the-box (additionally to whatever other client you like to use).<br>
    <br>
    
+
+Example GraphQL Queries
+-----------------------
+
+
+**Fetch all Tasks:**<br>
+
+![query tasks](/src/main/resources/png/query_tasks.png?raw=true "simple GraphQL query")
+
+(on the left side is the query we just typed in. After pressing the Play-Button on top the result appears on the right side. )
+
+**Fetch Tasks with Filter:**<br>
+
+![query tasks with args](/src/main/resources/png/query_tasks_w_filter_nameLike.png?raw=true "simple GraphQL query with arguments")
+
+(Queries are based on the Camunda Process Engine API)
+
+Example GraphQL Mutation
+------------------------
+
+**Assign a task:** <br>
+
+![setAssigne mutation](/src/main/resources/png/mutation_01.png?raw=true "simple GraphQL mutation")
+
+(Here it's specified that the fields `id`, `name` and `assignee` should be returned after the mutation.)
+
+GraphQL Types - automatically generated documentation
+-------------------------------------------------------------
+
+**Fields of a TaskEntity (right hand side in screenshot)** <br>
+
+![type Task](/src/main/resources/png/type_TaskEntity.png?raw=true "type TaskEntity")
+
+
 Authentication
 --------------
 The Camunda GraphQL server supports three Authentication methods: <br>
@@ -53,7 +93,7 @@ These properties can be set as<br>
 E.g. if you are using Tomcat you can add them to catalina.properties.<br>
 
 If authentication is switched on (Basic or JWT) the Camunda GraphQL Server expects an Authorization-Header in the client request.<br>
-GraphiQL clients let you define these request headers, e.g. the [graphiql-app](https://github.com/skevy/graphiql-app) has a link _Edit HTTP headers_, see screenshots below.<br>
+GraphQL clients let you define these request headers, e.g. the [graphiql-app](https://github.com/skevy/graphiql-app) has a link _Edit HTTP headers_, see screenshots below.<br>
 
 
 Basic Authentication
@@ -112,40 +152,9 @@ or delete this property, e.g. in catalina.properties put it in a comment:<br>
 (If the value of `auth.Filter` is equal `JWT` or `BASIC` than authentication is switched on, otherwise it is switched off.)    
 <br>
 
-Example GraphQL Queries
------------------------
-
-
-**Fetch all Tasks:**<br>
-
-![query tasks](/src/main/resources/png/query_tasks.png?raw=true "simple GraphQL query")
-
-(on the left side is the query we just typed in. After pressing the Play-Button on top the result appears on the right side. )
-
-**Fetch Tasks with Filter:**<br>
-
-![query tasks with args](/src/main/resources/png/query_tasks_w_filter_nameLike.png?raw=true "simple GraphQL query with arguments")
-
-(Queries are based on the Camunda Process Engine API)
-
-Example GraphQL Mutation
-------------------------
-
-**Assign a task:** <br>
-
-![setAssigne mutation](/src/main/resources/png/mutation_01.png?raw=true "simple GraphQL mutation")
-
-(Here it's specified that the fields `id`, `name` and `assignee` should be returned after the mutation.)
-
-GraphQL Types - automatically generated documentation
--------------------------------------------------------------
-
-**Fields of a TaskEntity (right hand side in screenshot)** <br>
-
-![type Task](/src/main/resources/png/type_TaskEntity.png?raw=true "type TaskEntity")
-
 
 Camunda Forum Thread (initial)
 ------------------------------
 
 https://forum.camunda.org/t/developing-the-camunda-graphql-extension
+
