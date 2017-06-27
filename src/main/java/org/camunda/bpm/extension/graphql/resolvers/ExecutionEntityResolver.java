@@ -3,20 +3,15 @@ package org.camunda.bpm.extension.graphql.resolvers;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.camunda.bpm.BpmPlatform;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 import org.springframework.stereotype.Component;
 import org.camunda.bpm.engine.variable.VariableMap;
-import org.camunda.bpm.engine.variable.Variables;
-import org.camunda.bpm.engine.variable.value.FileValue;
-import org.camunda.bpm.engine.variable.value.SerializableValue;
 import org.camunda.bpm.engine.variable.value.TypedValue;
 
 @Component
