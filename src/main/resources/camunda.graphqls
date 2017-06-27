@@ -16,6 +16,10 @@ type Query {
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")
    	): [ProcessInstance]
 
+    processDefinition(
+        id: String!
+    ): ProcessDefinition
+
     processDefinitions(
         isSuspended: Boolean @doc(d: "process definition suspended state. true: get process definitions in suspended state, ommitted: get all process definitions")
         latest: Boolean @doc(d: "Only select the process definitions which are the latest deployed (ie. which have the highest version number for the given key). ")
@@ -33,13 +37,14 @@ type Mutation {
 
     createProcessInstance(
         processDefintionKey: String!  @doc(d: "unique name for all versions this definition")
+        variables: [KeyValuePairInput]
     )
-    : ProcessInstance
+    : ProcessInstanceWithVariablesImpl
     @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
 
     completeTask(
         taskId: String! 
-    	variables: [KeyValuePairInput]!    
+    	variables: [KeyValuePairInput]
     )
     : ProcessInstance
     @doc(d: "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided.")
@@ -65,5 +70,12 @@ type KeyValuePair {
 input KeyValuePairInput {
     key: String!
     value: String!
-    valueType: String
+    valueType: ValueTypeEnum
+}
+
+enum ValueTypeEnum {
+    Int
+    Float
+    String
+    Boolean
 }

@@ -3,10 +3,11 @@ interface ProcessDefinition @doc(d: "An object structure representing an executa
     id: String
     name: String
     description: String
-    #startFormKey: String @doc(d: "Does this process definition has a {@link FormService#getStartFormData(String) start form key}.")
+    startFormKey: String @doc(d: "Does this process definition has a {@link FormService#getStartFormData(String) start form key}.")
     isSuspended: Boolean @doc(d: "Returns true if the process definition is in suspended state.")
     versionTag: String @doc(d: "Version tag of the process definition.")
     key: String
+    contextPath: String
 }
 
 type ProcessDefinitionEntity implements ProcessDefinition
@@ -14,8 +15,9 @@ type ProcessDefinitionEntity implements ProcessDefinition
     id: String
     name: String
     description: String
-    #startFormKey: String @doc(d: "Does this process definition has a {@link FormService#getStartFormData(String) start form key}.")
+    startFormKey: String @doc(d: "Does this process definition has a {@link FormService#getStartFormData(String) start form key}.")
     isSuspended: Boolean @doc(d: "Returns true if the process definition is in suspended state.")
     versionTag: String @doc(d: "Version tag of the process definition.")
     key: String
+    contextPath: String
 }
