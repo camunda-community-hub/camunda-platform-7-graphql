@@ -18,6 +18,7 @@ type ProcessInstanceWithVariablesImpl implements ProcessInstance {
     processDefinitionId: String
     businessKey: String
     caseInstanceId: String
+    variables: [KeyValuePair]
 }
 
 type ExecutionEntity implements ProcessInstance {
