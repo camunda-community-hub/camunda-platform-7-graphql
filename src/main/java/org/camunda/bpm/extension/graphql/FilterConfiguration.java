@@ -29,7 +29,7 @@ public class FilterConfiguration {
 		registration.addUrlPatterns("/*");
 		registration.addInitParameter("secret", secret);
 		registration.addInitParameter("issuer", issuer);
-		registration.setName("JWT");
+		registration.setName("JWT-Auth");
 		registration.setOrder(1);
 		return registration;
 	}
@@ -42,7 +42,7 @@ public class FilterConfiguration {
 		registration.setFilter(graphqlAuth);
 		registration.addUrlPatterns("/*");
 		registration.addInitParameter("authentication-provider", "org.camunda.bpm.extension.graphql.auth.impl.HttpBasicAuthenticationProvider");
-		registration.setName("camunda-auth");
+		registration.setName("Basic-Auth");
 		registration.setOrder(1);
 		return registration;
 	}
