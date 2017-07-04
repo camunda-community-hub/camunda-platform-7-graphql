@@ -1,0 +1,7 @@
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="org.camunda.bpm.camunda-engine" export="true"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
