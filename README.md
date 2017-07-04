@@ -10,7 +10,11 @@ Installation
 ------------
 
 1. Checkout this repository using Git<br>
-2. Build the project using `mvn clean package`<br>
+2. Build the project
+- for apache tomcat
+     `mvn clean package`
+- for jboss wildfly use the profile wildfly
+    `mvn clean package -Pwildfly`
 3. Deploy the `.war` file located in the `target/` folder to the server<br>
    Use Application Context `/graphql`.<br>
 4. Open a GraphQL client: 
