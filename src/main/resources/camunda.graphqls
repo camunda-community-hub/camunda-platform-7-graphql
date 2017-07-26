@@ -11,6 +11,11 @@ type Query {
 	task(
 		id: String!
 	): Task
+
+    taskVariables(
+        taskId: String!
+        names: [String]
+    ): [KeyValuePair]
  
     processesInstances(
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")

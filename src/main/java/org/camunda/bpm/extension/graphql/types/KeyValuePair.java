@@ -10,8 +10,16 @@ public class KeyValuePair {
     private String value = null;
     private String valueType = null;
 
+    public KeyValuePair() {
 
-  
+	}
+
+	public KeyValuePair(String key, String value, String valueType) {
+		this.key = key;
+		this.value = value;
+		this.valueType = valueType;
+	}
+
 	public String getValueType() {
 		return valueType;
 	}
