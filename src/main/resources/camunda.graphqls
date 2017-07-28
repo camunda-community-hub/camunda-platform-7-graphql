@@ -44,7 +44,7 @@ type Mutation {
         processDefintionKey: String!  @doc(d: "unique name for all versions this definition")
         variables: [KeyValuePairInput]
     )
-    : ProcessInstanceWithVariablesImpl
+    : ProcessInstance
     @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
 
     completeTask(
@@ -80,7 +80,9 @@ input KeyValuePairInput {
 
 enum ValueTypeEnum {
     Int
+    Double
     Float
+    Long
     String
     Boolean
 }

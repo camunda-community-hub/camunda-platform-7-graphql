@@ -35,15 +35,16 @@ public class Mutation implements GraphQLRootResolver {
 
     }
 
-    public ProcessInstanceWithVariables createProcessInstance(String processDefintionKey, ArrayList<LinkedHashMap> variables) {
-        ProcessInstantiationBuilder pib = runtimeService.createProcessInstanceByKey(processDefintionKey);
+    public ProcessInstance createProcessInstance(String processDefintionKey, ArrayList<LinkedHashMap> variables) {
 
         if (variables != null) {
+            ProcessInstance pi = runtimeService.startProcessInstanceByKey(processDefintionKey, getVariablesMap(variables));
 
-            pib.setVariables(getVariablesMap(variables));
-            return pib.executeWithVariablesInReturn();
+            return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
         } else {
-            return pib.executeWithVariablesInReturn();
+            ProcessInstance pi = runtimeService.startProcessInstanceByKey(processDefintionKey);
+
+            return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
         }
 
     }
@@ -86,8 +87,10 @@ public class Mutation implements GraphQLRootResolver {
         for (LinkedHashMap i : variables) {
             switch (i.get("valueType").toString()) {
                 case "String":      map.put(i.get("key").toString(), i.get("value")); break;
-                case "Int":         map.put(i.get("key").toString(), Long.parseLong(i.get("value").toString())); break;
-                case "Float":       map.put(i.get("key").toString(), Double.parseDouble(i.get("value").toString())); break;
+                case "Int":         map.put(i.get("key").toString(), Integer.parseInt(i.get("value").toString())); break;
+                case "Long":        map.put(i.get("key").toString(), Long.parseLong(i.get("value").toString())); break;
+                case "Float":       map.put(i.get("key").toString(), Float.parseFloat(i.get("value").toString())); break;
+                case "Double":      map.put(i.get("key").toString(), Double.parseDouble(i.get("value").toString())); break;
                 case "Boolean":     map.put(i.get("key").toString(), Boolean.parseBoolean(i.get("value").toString())); break;
                 default:            map.put(i.get("key").toString(), i.get("value")); break;
             }

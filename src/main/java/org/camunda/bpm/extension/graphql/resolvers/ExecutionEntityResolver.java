@@ -38,22 +38,12 @@ public class ExecutionEntityResolver implements GraphQLResolver<ExecutionEntity>
 		variables = runtimeService.getVariablesTyped(pi.getId());
 		
 		for(String name: variables.keySet()) {
-			KeyValuePair kvp = new KeyValuePair();
-			String type;
-			
-		     kvp.setKey(name);
-		     
-		     TypedValue variable = variables.getValueTyped(name);
-		     
-		     type = variable.getType().getName();
-		     if (type != null) {
-		    	 kvp.setValueType(type.substring(0, 1).toUpperCase() + type.substring(1));
-		     }
-		     
-		     kvp.setValue(variable.getValue().toString());
-		     
-		     kvps.add(kvp);
-		    }
+
+            TypedValue variable = variables.getValueTyped(name);
+            String type = variable.getType().getName();
+			KeyValuePair kvp = new KeyValuePair(name,  variable.getValue().toString(), (type.substring(0, 1).toUpperCase() + type.substring(1)));
+			kvps.add(kvp);
+        }
 		
         return kvps;
     }

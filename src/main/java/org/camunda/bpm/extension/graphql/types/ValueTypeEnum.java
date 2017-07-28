@@ -9,5 +9,7 @@ public enum ValueTypeEnum {
     Int,
     Float,
     String,
-    Boolean
+    Boolean,
+    Long,
+    Double
 }
