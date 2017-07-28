@@ -1,40 +1,30 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLRootResolver;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import org.camunda.bpm.BpmPlatform;
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.ProcessEngines;
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.TaskService;
-import org.camunda.bpm.engine.impl.persistence.entity.ProcessInstanceWithVariablesImpl;
+import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstanceWithVariables;
 import org.camunda.bpm.engine.runtime.ProcessInstantiationBuilder;
 import org.camunda.bpm.engine.task.Task;
-import org.camunda.bpm.extension.graphql.types.ValueTypeEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class Mutation implements GraphQLRootResolver {
 
-    private ProcessEngine pe;
-    private TaskService taskService;
-    private RuntimeService runtimeService;
+    @Autowired
+    ProcessEngine pe;
+
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    RuntimeService runtimeService;
+
 
     public Mutation() {
-        super();
-        pe = BpmPlatform.getDefaultProcessEngine();
-        if(pe == null) {
-            pe = ProcessEngines.getDefaultProcessEngine(false);
-        }
-        taskService = pe.getTaskService();
-        runtimeService = pe.getRuntimeService();
-
     }
 
     public Task setAssignee(String taskEntityId, String assignee) {

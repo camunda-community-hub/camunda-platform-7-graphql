@@ -1,36 +1,50 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import org.camunda.bpm.BpmPlatform;
+import org.camunda.bpm.application.ProcessApplicationContext;
+import org.camunda.bpm.application.ProcessApplicationReference;
 import org.camunda.bpm.engine.*;
-import org.camunda.bpm.engine.history.HistoricVariableInstance;
 import org.camunda.bpm.engine.identity.User;
+import org.camunda.bpm.engine.impl.application.ProcessApplicationManager;
+import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
+import org.camunda.bpm.engine.variable.VariableMap;
+import org.camunda.bpm.engine.variable.type.SerializableValueType;
+import org.camunda.bpm.extension.graphql.types.KeyValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.camunda.spin.Spin.JSON;
 
 @Component
 public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
 
-    private ProcessEngine pe;
-    private RepositoryService repositoryService;
-    private RuntimeService runtimeService;
-    private IdentityService identityService;
+    @Autowired
+    ProcessEngine pe;
+
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    RuntimeService runtimeService;
+
+    @Autowired
+    RepositoryService repositoryService;
+
+    @Autowired
+    ProcessEngineConfigurationImpl pec;
+
+    @Autowired
+    IdentityService identityService;
 
     public TaskEntityResolver() {
-        //super(TaskEntity.class);
-        pe = BpmPlatform.getDefaultProcessEngine();
-        if (pe == null) {
-            pe = ProcessEngines.getDefaultProcessEngine(false);
-        }
-        repositoryService = pe.getRepositoryService();
-        runtimeService = pe.getRuntimeService();
-        identityService = pe.getIdentityService();
     }
 
     public ProcessDefinition processDefinition(TaskEntity taskEntity) {
@@ -76,10 +90,37 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
             return null;
     }
 
-    public List<HistoricVariableInstance> variables(TaskEntity taskEntity) {
-        List<HistoricVariableInstance> variables = pe.getHistoryService().createHistoricVariableInstanceQuery().processInstanceId(taskEntity.getProcessInstanceId()).list();
+    public List<KeyValuePair> variables(TaskEntity taskEntity) {
+        ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
+
+        try {
+            String pdid = taskEntity.getProcessDefinitionId();
+            ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
+            String deploymentId = processDefinition.getDeploymentId();
+            ProcessApplicationManager processApplicationManager = pec.getProcessApplicationManager();
+            ProcessApplicationReference targetProcessApplication = processApplicationManager.getProcessApplicationForDeployment(deploymentId);
+
+            if(targetProcessApplication != null) {
+                String processApplicationName = targetProcessApplication.getName();
+                ProcessApplicationContext.setCurrentProcessApplication(processApplicationName);
+            }
+            VariableMap variableMap = taskService.getVariablesTyped(taskEntity.getId(), true);
+
+            for (VariableMap.Entry<String, Object> i: variableMap.entrySet()) {
+
+                String value = i.getValue().toString();
+                if(variableMap.getValueTyped(i.getKey()).getType() == SerializableValueType.OBJECT) {
+                    value = JSON(i.getValue()).toString();
+                }
+
+                KeyValuePair keyValuePair = new KeyValuePair(i.getKey(), value, variableMap.getValueTyped(i.getKey()).getType().toString());
+                keyValuePairs.add(keyValuePair);
+            }
+        } finally {
+            ProcessApplicationContext.clear();
+        }
 
 
-        return variables;
+        return keyValuePairs;
     }
 }

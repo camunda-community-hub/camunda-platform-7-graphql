@@ -16,6 +16,7 @@ import org.camunda.bpm.engine.task.TaskQuery;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.type.SerializableValueType;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import static org.camunda.spin.Spin.JSON;
 
@@ -27,22 +28,22 @@ import java.util.List;
 @Component
 public class Query implements GraphQLRootResolver {
 
-    private ProcessEngine pe;
+    @Autowired
+    ProcessEngine pe;
 
-    private TaskService taskService;
-    private RuntimeService runtimeService;
-    private RepositoryService repositoryService;
-    private ProcessEngineConfigurationImpl pec;
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    RuntimeService runtimeService;
+
+    @Autowired
+    RepositoryService repositoryService;
+
+    @Autowired
+    ProcessEngineConfigurationImpl pec;
 
     public Query() {
-        pe = BpmPlatform.getDefaultProcessEngine();
-        if(pe == null) {
-            pe = ProcessEngines.getDefaultProcessEngine(false);
-        }
-        taskService = pe.getTaskService();
-        runtimeService = pe.getRuntimeService();
-        repositoryService = pe.getRepositoryService();
-        pec = (ProcessEngineConfigurationImpl) pe.getProcessEngineConfiguration();
     }
 
     public List<Task> tasks(String assignee, String name, String nameLike) {
@@ -89,14 +90,14 @@ public class Query implements GraphQLRootResolver {
     public ArrayList<KeyValuePair> taskVariables(String taskId, Collection<String> names ) {
         ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
 
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-        String pdid = task.getProcessDefinitionId();
-        ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
-        String deploymentId = processDefinition.getDeploymentId();
-        ProcessApplicationManager processApplicationManager = pec.getProcessApplicationManager();
-        ProcessApplicationReference targetProcessApplication = processApplicationManager.getProcessApplicationForDeployment(deploymentId);
-
         try {
+            Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+            String pdid = task.getProcessDefinitionId();
+            ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
+            String deploymentId = processDefinition.getDeploymentId();
+            ProcessApplicationManager processApplicationManager = pec.getProcessApplicationManager();
+            ProcessApplicationReference targetProcessApplication = processApplicationManager.getProcessApplicationForDeployment(deploymentId);
+
             if(targetProcessApplication != null) {
                 String processApplicationName = targetProcessApplication.getName();
                 ProcessApplicationContext.setCurrentProcessApplication(processApplicationName);

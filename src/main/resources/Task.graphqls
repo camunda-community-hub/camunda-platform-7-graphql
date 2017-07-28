@@ -26,7 +26,7 @@ interface Task {
     tenantId: String
 
     contextPath: String
-    variables: [HistoricVariableInstance]
+    variables: [KeyValuePair]
 }
 
 type TaskEntity implements Task {
@@ -55,19 +55,5 @@ type TaskEntity implements Task {
     eventName: String
     contextPath: String
 
-    variables: [HistoricVariableInstance]
-}
-
-interface HistoricVariableInstance {
-    id: String
-    name: String
-    value: String
-    typeName: String
-}
-
-type HistoricVariableInstanceEntity implements HistoricVariableInstance {
-    id: String
-    name: String
-    value: String
-    typeName: String
+    variables: [KeyValuePair]
 }

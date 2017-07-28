@@ -8,6 +8,7 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.StartEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -19,15 +20,14 @@ import java.util.Collection;
 @Component
 public class ProcessDefinitionEntityResolver implements GraphQLResolver<ProcessDefinitionEntity> {
 
-    private ProcessEngine pe;
-    private RepositoryService repositoryService;
+    @Autowired
+    ProcessEngine pe;
+
+    @Autowired
+    RepositoryService repositoryService;
+
 
     public ProcessDefinitionEntityResolver() {
-        pe = BpmPlatform.getDefaultProcessEngine();
-        if (pe == null) {
-            pe = ProcessEngines.getDefaultProcessEngine(false);
-        }
-        repositoryService = pe.getRepositoryService();
     }
 
     public String startFormKey(ProcessDefinition processDefinition) {
