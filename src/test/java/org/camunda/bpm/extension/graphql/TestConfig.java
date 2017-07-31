@@ -99,4 +99,34 @@ public class TestConfig {
         return new CopyVariablesOnStart();
     }
 
+    @Bean
+    public RetrieveCustomerData retrieveCustomerData(CustomerDataService service) {
+        return new RetrieveCustomerData(service);
+    }
+
+    @Bean
+    public DMSService dmsService() {
+        return Mockito.mock(DMSService.class);
+    }
+
+    @Bean
+    public PublishDecision publishDecision(DMSService service) {
+        return new PublishDecision(service);
+    }
+
+    @Bean
+    public DefaultResponsible defaultResponsible() {
+        return new DefaultResponsible();
+    }
+
+    @Bean
+    public UserResponsible userResponsible() {
+        return new UserResponsible();
+    }
+
+    @Bean
+    public GetSwimlaneGroup getSwimlaneGroup() {
+        return new GetSwimlaneGroup();
+    }
+
 }

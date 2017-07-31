@@ -1,10 +1,14 @@
 package org.camunda.bpm.extension.graphql;
 
+import java.io.Serializable;
+
+import static org.camunda.spin.Spin.JSON;
+
 /**
  * @author Stefan Schulze, PENTASYS AG
  * @since 15.02.2017
  */
-public class CustomerData {
+public class CustomerData implements Serializable {
 
     private String customerId;
     private String fullName;
@@ -54,12 +58,6 @@ public class CustomerData {
     }
 
     public String toString() {
-        final StringBuilder sb = new StringBuilder("CustomerData{")
-            .append("customerId='").append(customerId).append('\'')
-            .append(", fullName='").append(fullName).append('\'')
-            .append(", personality=").append(personality)
-            .append(", rating=").append(rating)
-            .append('}');
-        return sb.toString();
+        return JSON(this).toString();
     }
 }
