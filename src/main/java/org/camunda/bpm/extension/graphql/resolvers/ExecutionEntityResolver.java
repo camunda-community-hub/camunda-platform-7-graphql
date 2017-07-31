@@ -5,7 +5,6 @@ import com.coxautodev.graphql.tools.GraphQLResolver;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.camunda.bpm.BpmPlatform;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.runtime.ProcessInstance;

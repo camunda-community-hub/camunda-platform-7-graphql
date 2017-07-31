@@ -1,7 +1,6 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLRootResolver;
-import org.camunda.bpm.BpmPlatform;
 import org.camunda.bpm.application.ProcessApplicationContext;
 import org.camunda.bpm.application.ProcessApplicationReference;
 import org.camunda.bpm.engine.*;

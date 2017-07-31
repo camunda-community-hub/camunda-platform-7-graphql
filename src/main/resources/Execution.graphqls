@@ -10,17 +10,6 @@ interface ProcessInstance @doc(d: "Represents one execution of a ProcessDefiniti
     variables: [KeyValuePair]
 }
 
-type ProcessInstanceWithVariablesImpl implements ProcessInstance {
-    id: String
-    processInstanceId: String
-    tenantId: String
-    isEnded: Boolean
-    processDefinitionId: String
-    businessKey: String
-    caseInstanceId: String
-    variables: [KeyValuePair]
-}
-
 type ExecutionEntity implements ProcessInstance {
     id: String
     processInstanceId: String

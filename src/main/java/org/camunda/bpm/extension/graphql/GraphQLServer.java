@@ -6,12 +6,6 @@ import graphql.execution.ExecutionStrategy;
 import graphql.execution.SimpleExecutionStrategy;
 import graphql.schema.GraphQLSchema;
 import graphql.servlet.SimpleGraphQLServlet;
-import org.camunda.bpm.engine.form.FormField;
-import org.camunda.bpm.engine.form.FormType;
-import org.camunda.bpm.engine.form.TaskFormData;
-import org.camunda.bpm.engine.impl.form.FormFieldImpl;
-import org.camunda.bpm.engine.impl.form.TaskFormDataImpl;
-import org.camunda.bpm.engine.impl.form.type.*;
 import org.camunda.bpm.engine.impl.persistence.entity.*;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -61,21 +55,7 @@ public class GraphQLServer extends SpringBootServletInitializer {
                         ExecutionEntity.class,
                         KeyValuePair.class,
                         UserEntity.class,
-                        HistoricVariableInstanceEntity.class,
-                        ProcessInstanceWithVariablesImpl.class,
-                        ValueTypeEnum.class,
-                        TaskFormData.class,
-                        TaskFormDataImpl.class,
-                        FormField.class,
-                        FormFieldImpl.class,
-                        FormType.class,
-                        AbstractFormFieldType.class,
-                        BooleanFormType.class,
-                        DateFormType.class,
-                        EnumFormType.class,
-                        LongFormType.class,
-                        SimpleFormFieldType.class,
-                        StringFormType.class
+                        ValueTypeEnum.class
                 )
                 .build()
                 .makeExecutableSchema();

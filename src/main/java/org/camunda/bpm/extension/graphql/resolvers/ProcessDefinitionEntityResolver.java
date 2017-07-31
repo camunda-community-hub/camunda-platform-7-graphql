@@ -1,7 +1,6 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import org.camunda.bpm.BpmPlatform;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;

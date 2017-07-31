@@ -3,8 +3,6 @@ package org.camunda.bpm.extension.graphql.resolvers;
 import com.coxautodev.graphql.tools.GraphQLRootResolver;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
-import org.camunda.bpm.engine.runtime.ProcessInstanceWithVariables;
-import org.camunda.bpm.engine.runtime.ProcessInstantiationBuilder;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
