@@ -21,10 +21,11 @@
         <java.version>1.8</java.version>
         <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
         <camunda.version>7.6.0</camunda.version>
-
+        <h2.version>1.4.193</h2.version>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
         <!-- disable javadoc linter for JDK8 to not fail on incomplete javadoc -->
         <additionalparam>-Xdoclint:none</additionalparam>
+
     </properties>
 
     <dependencyManagement>
@@ -111,6 +112,35 @@
         <dependency>
             <groupId>org.camunda.spin</groupId>
             <artifactId>camunda-spin-dataformat-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.9.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.extension</groupId>
+            <artifactId>camunda-bpm-assert</artifactId>
+            <version>1.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- use in-memory database in component/integration tests -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
