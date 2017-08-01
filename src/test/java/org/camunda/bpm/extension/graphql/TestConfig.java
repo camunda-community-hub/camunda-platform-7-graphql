@@ -7,7 +7,7 @@ import org.camunda.bpm.engine.impl.jobexecutor.DefaultJobExecutor;
 import org.camunda.bpm.engine.impl.jobexecutor.JobExecutor;
 import org.camunda.bpm.engine.spring.ProcessEngineFactoryBean;
 import org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.camunda.bpm.engine.spring.SpringProcessEnginePlugin;
+import org.camunda.spin.plugin.impl.SpinProcessEnginePlugin;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,9 +61,8 @@ public class TestConfig {
 
     @Bean
     public List<ProcessEnginePlugin> processEnginePlugins() {
-        return Collections.singletonList(
-                new SpringProcessEnginePlugin()
-        );
+        SpinProcessEnginePlugin plugin = new SpinProcessEnginePlugin();
+        return Collections.singletonList(plugin);
     }
 
     @Bean
