@@ -146,6 +146,11 @@
             <version>${h2.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
