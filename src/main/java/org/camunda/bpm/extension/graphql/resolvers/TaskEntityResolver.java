@@ -10,10 +10,13 @@ import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
-import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.variable.VariableMap;
+import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.impl.value.ObjectValueImpl;
 import org.camunda.bpm.engine.variable.type.SerializableValueType;
+import org.camunda.bpm.engine.variable.value.TypedValue;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +30,7 @@ import static org.camunda.spin.Spin.JSON;
 public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
 
     @Autowired
-    ProcessEngine pe;
+    ProcessEngine processEngine;
 
     @Autowired
     TaskService taskService;
@@ -39,7 +42,7 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
     RepositoryService repositoryService;
 
     @Autowired
-    ProcessEngineConfigurationImpl pec;
+    ProcessEngineConfigurationImpl processEngineConfiguration;
 
     @Autowired
     IdentityService identityService;
@@ -56,7 +59,7 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
             return null;
     }
 
-    public ProcessInstance processInstance (TaskEntity taskEntity) {
+    public ProcessInstance processInstance(TaskEntity taskEntity) {
         String piId = taskEntity.getProcessInstanceId();
         if (piId != null) {
             ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
@@ -73,7 +76,7 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
     public User assignee(TaskEntity taskEntity) {
         String userId = taskEntity.getAssignee();
 
-        if(userId != null) {
+        if (userId != null) {
             User user = identityService.createUserQuery().userId(userId).singleResult();
             return user;
         } else {
@@ -84,7 +87,7 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
     public String contextPath(TaskEntity taskEntity) {
         String pdid = taskEntity.getProcessDefinitionId();
         if (pdid != null) {
-            String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(pe, taskEntity.getProcessDefinitionId());
+            String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, taskEntity.getProcessDefinitionId());
             return contextPath;
         } else
             return null;
@@ -97,24 +100,41 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
             String pdid = taskEntity.getProcessDefinitionId();
             ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
             String deploymentId = processDefinition.getDeploymentId();
-            ProcessApplicationManager processApplicationManager = pec.getProcessApplicationManager();
+            ProcessApplicationManager processApplicationManager = processEngineConfiguration.getProcessApplicationManager();
             ProcessApplicationReference targetProcessApplication = processApplicationManager.getProcessApplicationForDeployment(deploymentId);
 
-            if(targetProcessApplication != null) {
+            if (targetProcessApplication != null) {
                 String processApplicationName = targetProcessApplication.getName();
                 ProcessApplicationContext.setCurrentProcessApplication(processApplicationName);
             }
             VariableMap variableMap = taskService.getVariablesTyped(taskEntity.getId(), true);
 
-            for (VariableMap.Entry<String, Object> i: variableMap.entrySet()) {
+            for (VariableMap.Entry<String, Object> i : variableMap.entrySet()) {
 
-                String value = i.getValue().toString();
-                if(variableMap.getValueTyped(i.getKey()).getType() == SerializableValueType.OBJECT) {
-                    value = JSON(i.getValue()).toString();
+                Object objValue = i.getValue();
+                String key = i.getKey();
+                TypedValue typedValue = variableMap.getValueTyped(key);
+
+                if (objValue != null) {
+                    String value;
+                    if (typedValue.getType() == SerializableValueType.OBJECT) {
+
+                        ObjectValueImpl objectValueImpl = ((ObjectValueImpl) typedValue);
+                        if (objectValueImpl.getSerializationDataFormat().equals(Variables.SerializationDataFormats.JSON.toString())) {
+                            value = JSON(key).toString();
+                        } else {
+                            value = typedValue.getValue().toString();
+                        }
+
+                    } else {
+                        value = objValue.toString();
+                    }
+
+                    KeyValuePair keyValuePair = new KeyValuePair(key, value, variableMap.getValueTyped(key).getType().toString());
+                    keyValuePairs.add(keyValuePair);
+                } else {
+                    System.out.println("objValue is null: " + key);
                 }
-
-                KeyValuePair keyValuePair = new KeyValuePair(i.getKey(), value, variableMap.getValueTyped(i.getKey()).getType().toString());
-                keyValuePairs.add(keyValuePair);
             }
         } finally {
             ProcessApplicationContext.clear();
