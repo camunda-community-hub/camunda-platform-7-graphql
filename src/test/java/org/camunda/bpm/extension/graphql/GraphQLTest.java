@@ -2,6 +2,7 @@ package org.camunda.bpm.extension.graphql;
 
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
 
+import graphql.schema.GraphQLSchema;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -40,12 +41,14 @@ public class GraphQLTest {
     }
 
     @Test
-    public void straightThroughHappyPath() throws Exception {
+    public void queryTask() throws Exception {
         CustomerData customer = new CustomerData(EXAMPLE_ID, "Dummy Corp.", Personality.JURIDICAL, SolvencyRating.A);
         when(customerDataServiceMock.findById(EXAMPLE_ID)).thenReturn(customer);
 
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, startFormEntries(10000L));
-        ProcessEngineAssertions.assertThat(processInstance).isEnded();
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, startFormEntries(450000));
+        ProcessEngineAssertions.assertThat(processInstance).isNotEnded();
+
+        // @todo: query GraphQL endpoint...
     }
 
     private Map<String, Object> startFormEntries(long amount) {
