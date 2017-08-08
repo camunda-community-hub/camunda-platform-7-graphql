@@ -13,7 +13,6 @@ import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,19 +38,15 @@ public class ExecutionEntityResolver implements GraphQLResolver<ExecutionEntity>
     }
 
     public List<KeyValuePair> variables(ProcessInstance processInstance) {
-
         List<KeyValuePair> keyValuePairs;
 
+        String pdid = processInstance.getProcessDefinitionId();
+        if (pdid == null)
+            return null;
+
         try {
-            String pdid = processInstance.getProcessDefinitionId();
-            if (pdid == null) {
-                return null;
-            }
-
             Util.switchContext(repositoryService, pdid, processEngineConfiguration);
-
             VariableMap variableMap = runtimeService.getVariablesTyped(processInstance.getId());
-
             keyValuePairs = Util.getKeyValuePairs(variableMap);
 
         } finally {

@@ -89,11 +89,11 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
     public List<KeyValuePair> variables(TaskEntity taskEntity) {
         List<KeyValuePair> keyValuePairs;
 
-        try {
-            String pdid = taskEntity.getProcessDefinitionId();
-            if (pdid == null)
-                return null;
+        String pdid = taskEntity.getProcessDefinitionId();
+        if (pdid == null)
+            return null;
 
+        try {
             Util.switchContext(repositoryService, pdid, processEngineConfiguration);
             VariableMap variableMap = taskService.getVariablesTyped(taskEntity.getId(), true);
             keyValuePairs = Util.getKeyValuePairs(variableMap);

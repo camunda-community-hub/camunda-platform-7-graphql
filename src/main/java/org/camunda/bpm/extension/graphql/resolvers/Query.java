@@ -83,13 +83,12 @@ public class Query implements GraphQLRootResolver {
     public List<KeyValuePair> taskVariables(String taskId, Collection<String> names ) {
         List<KeyValuePair> keyValuePairs;
 
-        try {
-            Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-            String pdid = task.getProcessDefinitionId();
-            if (pdid == null) {
-                return null;
-            }
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        String pdid = task.getProcessDefinitionId();
+        if (pdid == null)
+            return null;
 
+        try {
             Util.switchContext(repositoryService, pdid, processEngineConfiguration);
             VariableMap variableMap = taskService.getVariablesTyped(taskId, names, true);
             keyValuePairs = Util.getKeyValuePairs(variableMap);
@@ -97,7 +96,6 @@ public class Query implements GraphQLRootResolver {
         } finally {
             ProcessApplicationContext.clear();
         }
-
 
         return keyValuePairs;
     }
