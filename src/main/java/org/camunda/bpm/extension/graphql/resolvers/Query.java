@@ -92,6 +92,9 @@ public class Query implements GraphQLRootResolver {
         try {
             Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
             String pdid = task.getProcessDefinitionId();
+            if (pdid == null) {
+                return null;
+            }
             ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
             String deploymentId = processDefinition.getDeploymentId();
             ProcessApplicationManager processApplicationManager = pec.getProcessApplicationManager();
