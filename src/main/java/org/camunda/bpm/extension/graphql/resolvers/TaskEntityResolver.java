@@ -52,20 +52,21 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
 
     public ProcessDefinition processDefinition(TaskEntity taskEntity) {
         String pdid = taskEntity.getProcessDefinitionId();
-        if (pdid != null) {
-            ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
-            return processDefinition;
-        } else
+        if (pdid == null)
             return null;
+
+        ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
+        return processDefinition;
+
     }
 
     public ProcessInstance processInstance(TaskEntity taskEntity) {
         String piId = taskEntity.getProcessInstanceId();
-        if (piId != null) {
-            ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
-            return pi;
-        } else
+        if (piId == null)
             return null;
+
+        ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
+        return pi;
     }
 
     public ExecutionEntity executionEntity(TaskEntity taskEntity) {
@@ -76,21 +77,22 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
     public User assignee(TaskEntity taskEntity) {
         String userId = taskEntity.getAssignee();
 
-        if (userId != null) {
-            User user = identityService.createUserQuery().userId(userId).singleResult();
-            return user;
-        } else {
+        if (userId == null)
             return null;
-        }
+
+        User user = identityService.createUserQuery().userId(userId).singleResult();
+        return user;
+
     }
 
     public String contextPath(TaskEntity taskEntity) {
         String pdid = taskEntity.getProcessDefinitionId();
-        if (pdid != null) {
-            String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, taskEntity.getProcessDefinitionId());
-            return contextPath;
-        } else
+        if (pdid == null)
             return null;
+
+        String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, taskEntity.getProcessDefinitionId());
+            return contextPath;
+
     }
 
     public List<KeyValuePair> variables(TaskEntity taskEntity) {
@@ -98,6 +100,8 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
 
         try {
             String pdid = taskEntity.getProcessDefinitionId();
+            if (pdid == null)
+                return null;
             ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
             String deploymentId = processDefinition.getDeploymentId();
             ProcessApplicationManager processApplicationManager = processEngineConfiguration.getProcessApplicationManager();
