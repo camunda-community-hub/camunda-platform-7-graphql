@@ -28,7 +28,7 @@ import java.util.List;
 public class Query implements GraphQLRootResolver {
 
     @Autowired
-    ProcessEngine pe;
+    ProcessEngine processEngine;
 
     @Autowired
     TaskService taskService;
@@ -40,7 +40,7 @@ public class Query implements GraphQLRootResolver {
     RepositoryService repositoryService;
 
     @Autowired
-    ProcessEngineConfigurationImpl pec;
+    ProcessEngineConfigurationImpl processEngineConfiguration;
 
     public Query() {
     }
@@ -97,7 +97,7 @@ public class Query implements GraphQLRootResolver {
             }
             ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
             String deploymentId = processDefinition.getDeploymentId();
-            ProcessApplicationManager processApplicationManager = pec.getProcessApplicationManager();
+            ProcessApplicationManager processApplicationManager = processEngineConfiguration.getProcessApplicationManager();
             ProcessApplicationReference targetProcessApplication = processApplicationManager.getProcessApplicationForDeployment(deploymentId);
 
             if(targetProcessApplication != null) {
