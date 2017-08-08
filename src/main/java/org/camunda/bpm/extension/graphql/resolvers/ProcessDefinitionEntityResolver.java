@@ -20,7 +20,7 @@ import java.util.Collection;
 public class ProcessDefinitionEntityResolver implements GraphQLResolver<ProcessDefinitionEntity> {
 
     @Autowired
-    ProcessEngine pe;
+    ProcessEngine processEngine;
 
     @Autowired
     RepositoryService repositoryService;
@@ -40,7 +40,7 @@ public class ProcessDefinitionEntityResolver implements GraphQLResolver<ProcessD
     public String contextPath(ProcessDefinition processDefinition) {
         String pdid = processDefinition.getId();
         if (pdid != null) {
-            String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(pe, pdid);
+            String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, pdid);
             return contextPath;
         } else
             return null;

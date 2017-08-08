@@ -13,7 +13,7 @@ import java.util.*;
 public class Mutation implements GraphQLRootResolver {
 
     @Autowired
-    ProcessEngine pe;
+    ProcessEngine processEngine;
 
     @Autowired
     TaskService taskService;

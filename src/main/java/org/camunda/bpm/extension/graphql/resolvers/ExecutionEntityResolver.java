@@ -18,7 +18,7 @@ import org.camunda.bpm.engine.variable.value.TypedValue;
 public class ExecutionEntityResolver implements GraphQLResolver<ExecutionEntity> {
 
     @Autowired
-    ProcessEngine pe;
+    ProcessEngine processEngine;
 
     @Autowired
     TaskService taskService;
