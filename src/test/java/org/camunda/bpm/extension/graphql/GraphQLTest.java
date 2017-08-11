@@ -2,7 +2,6 @@ package org.camunda.bpm.extension.graphql;
 
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
 
-import graphql.schema.GraphQLSchema;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -21,11 +20,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {TestConfig.class, EngineConfig.class})
-@SpringBootTest
+@SpringBootTest(classes = {TestConfig.class, EngineConfig.class})
 public class GraphQLTest {
 
     private static final String PROCESS_KEY = "credit-application";
+    private static final String BUSINESS_KEY = "0000000072";
     private static final String EXAMPLE_ID = "01234567";
 
     @Autowired
@@ -45,10 +44,13 @@ public class GraphQLTest {
         CustomerData customer = new CustomerData(EXAMPLE_ID, "Dummy Corp.", Personality.JURIDICAL, SolvencyRating.A);
         when(customerDataServiceMock.findById(EXAMPLE_ID)).thenReturn(customer);
 
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, startFormEntries(450000));
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, BUSINESS_KEY, startFormEntries(450000));
         ProcessEngineAssertions.assertThat(processInstance).isNotEnded();
 
-        // @todo: query GraphQL endpoint...
+        // query GraphQL endpoint...
+        //GraphQL graphQL = new GraphQL(graphQLSchema,executionStrategy);
+        //ExecutionResult executionResult = graphQL.execute("{ processesInstances {    id } }");
+
     }
 
     private Map<String, Object> startFormEntries(long amount) {
