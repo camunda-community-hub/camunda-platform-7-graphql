@@ -3,6 +3,8 @@ interface User {
     email: String
     firstName: String
     lastName: String
+    tasks: [Task]
+    groups: [Group]
 }
 
 type UserEntity implements User {
@@ -10,4 +12,6 @@ type UserEntity implements User {
     email: String
     firstName: String
     lastName: String
+    tasks: [Task]
+    groups: [Group]
 }

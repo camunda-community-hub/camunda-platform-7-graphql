@@ -11,6 +11,7 @@ import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.task.TaskQuery;
 import org.camunda.bpm.engine.variable.VariableMap;
+import org.camunda.bpm.engine.identity.*;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,9 @@ public class Query implements GraphQLRootResolver {
 
     @Autowired
     RepositoryService repositoryService;
+
+    @Autowired
+    IdentityService identityService;
 
     @Autowired
     ProcessEngineConfigurationImpl processEngineConfiguration;
@@ -98,5 +102,42 @@ public class Query implements GraphQLRootResolver {
         }
 
         return keyValuePairs;
+    }
+
+    public List<Group> groups(String groupName, String groupNameLike, String groupType) {
+        GroupQuery query = identityService.createGroupQuery();
+        query = (groupName != null)      ? query.groupName(groupName)          : query;
+        query = (groupNameLike != null)  ? query.groupNameLike(groupNameLike)  : query;
+        query = (groupType != null)      ? query.groupType(groupType)          : query;
+        List<Group> groups = query.list();
+        return groups;
+    }
+
+    public Group group(String groupId) {
+        if(groupId != null) {
+            Group group = identityService.createGroupQuery().groupId(groupId).singleResult();
+            return group;
+        } else {
+            return null;
+        }
+    }
+
+    public List<User> users(String firstName, String firstNameLike, String groupId){
+        UserQuery query = identityService.createUserQuery();
+        query = (firstName != null)      ? query.userFirstName(firstName)           : query;
+        query = (firstNameLike != null)  ? query.userFirstNameLike(firstNameLike)   : query;
+        query = (groupId != null)  ? query.memberOfGroup(groupId)       : query;
+        List<User> users = query.list();
+
+        return users;
+    }
+
+    public User user(String userId) {
+        if(userId != null) {
+            User user = identityService.createUserQuery().userId(userId).singleResult();
+            return user;
+        } else {
+            return null;
+        }
     }
 }

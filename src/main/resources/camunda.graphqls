@@ -16,7 +16,7 @@ type Query {
         taskId: String!
         names: [String]
     ): [KeyValuePair]
- 
+
     processesInstances(
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")
    	): [ProcessInstance]
@@ -29,7 +29,27 @@ type Query {
         isSuspended: Boolean @doc(d: "process definition suspended state. true: get process definitions in suspended state, ommitted: get all process definitions")
         latest: Boolean @doc(d: "Only select the process definitions which are the latest deployed (ie. which have the highest version number for the given key). ")
     ): [ProcessDefinition]
-   	
+
+    groups(
+        name: String @doc(d: "Only select groups with the given name")
+        nameLike: String @doc(d: "Only select groups with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)")
+        type: String @doc(d: "Only select specific type of groups")
+    ): [Group]
+
+    group(
+        id: String! @doc(d: "Only select a group by group id")
+    ): Group
+
+    users(
+        firstName: String @doc(d: "Only select users with the given first name")
+        firstNameLike: String @doc(d: "Only select users with a first name matching the parameter. The syntax is that of SQL: for example usage: nameLike: \"%camunda%\"")
+        groupId: String @doc(d: "The group of user belongs to")
+    ): [User]
+
+    user(
+        id: String! @doc(d: "Only select a user by user id")
+    ): User
+
 }
 
 type Mutation {
@@ -48,7 +68,7 @@ type Mutation {
     @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
 
     completeTask(
-        taskId: String! 
+        taskId: String!
     	variables: [KeyValuePairInput]
     )
     : ProcessInstance
