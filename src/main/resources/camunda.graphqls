@@ -66,23 +66,3 @@ type Mutation {
     ): ProcessInstance
 }
 
-type KeyValuePair {
-    key: String!
-    value: String!
-    valueType: String
-}
-
-input KeyValuePairInput {
-    key: String!
-    value: String!
-    valueType: ValueTypeEnum
-}
-
-enum ValueTypeEnum {
-    Int
-    Double
-    Float
-    Long
-    String
-    Boolean
-}

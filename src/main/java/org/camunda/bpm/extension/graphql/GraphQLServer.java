@@ -41,6 +41,7 @@ public class GraphQLServer extends SpringBootServletInitializer {
     public GraphQLSchema graphQLSchema() {
         return SchemaParser.newParser()
                 .file("camunda.graphqls")
+                .file("KeyValue.graphqls")
                 .file("Execution.graphqls")
                 .file("Task.graphqls")
                 .file("User.graphqls")
