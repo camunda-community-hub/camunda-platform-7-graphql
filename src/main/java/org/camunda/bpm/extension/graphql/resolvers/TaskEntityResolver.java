@@ -9,6 +9,7 @@ import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
+import org.camunda.bpm.engine.runtime.Execution;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
@@ -61,8 +62,15 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
     }
 
     public ExecutionEntity executionEntity(TaskEntity taskEntity) {
-        //@todo: implement this!
-        return null;
+        String executionId = taskEntity.getExecutionId();
+        if (executionId == null)
+            return null;
+
+        Execution execution = runtimeService.createExecutionQuery()
+                .executionId(executionId)
+                .singleResult();
+
+        return (ExecutionEntity)execution;
     }
 
     public User assignee(TaskEntity taskEntity) {
