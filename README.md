@@ -6,29 +6,50 @@ Camunda GraphQL is a Community Extension for Camunda BPM that allows you to use 
 
 ![Overview](/src/main/resources/png/overview_01.png?raw=true "Overview")
 
-Installation
-------------
-
-1. Checkout this repository using Git<br>
+Build the GraphQL server
+------------------------
+1. Ckeckout or Clone this repository using Git<br>
 2. Adapt `src/main/resources/application.properties`: <br>
 For a quick test set `auth.Filter` to `NO`. (`JWT` is the default. Check the chapter Authorization)
 3. Build the project<br>
- for apache tomcat:     `mvn clean package`<br>
+ for Apache Tomcat:     `mvn clean package`<br>
  for jboss wildfly use the profile wildfly:  `mvn clean package -Pwildfly`<br>
-4. Deploy the `.war` file located in the `target/` folder to your server<br>
-   Use Application Context `/graphql`.<br>
-5. Run a quick test:    
-   Open this URL in a Browser: `http://<server-name>:<PORT>/graphql/?query={tasks{name}}` <br>
-   e.g. [http://localhost:8080/graphql/?query={tasks{name}}]()<br>
-   You should see a JSON response with a list of tasks names<br> 
-6. Open a GraphQL client: <br>
-  set the URL to `http://<server-name>:<PORT>/graphql` <br>
-  e.g. [http://localhost:8080/graphql/]()<br>
-  submit GraphQL statements :-) <br>
 
-GraphQL client
+
+Install the GraphQL server
+--------------------------
+
+**Tomcat**<br>
+- Either identify the latest Release Artifact (`.war` file) from <br>
+https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/ <br>
+- or use the `.war` file from your own build 
+- and copy it to the Tomcat `/webapps folder
+
+**Wildfly**<br>
+Build the `.war file with profile `wildfly`- see chapter 'Build' above.
+
+(Todo: One single installation procedure for all Servlet Container?)
+   
+   
+Test the Installation / submit queries and mutations
+-----------------------------------------------------
+- Open `http://<server-name>:<PORT>/graphql/?query={tasks{name}}` in your browser<br>
+  e.g. [http://localhost:8080/graphql/?query={tasks{name}}](http://localhost:8080/graphql/?query={tasks{name}})<br>
+  This will open [GraphiQL](https://github.com/graphql/graphiql), _an in-browser IDE for exploring GraphQL_,  with the query as defined in the URL<br>
+- Klick the play-button<br>
+- On the right hand side you should see the response: all current tasks with their names
+- Test other queries or mutations as defined in the GraphQL Schema
+- For examples on queries and mutations: see chapter below. 
+   
+
+GraphQL clients
 --------------- 
-You can easily explore GraphQL with one of these clients:<br>
+Beside the build-in GraphiQL you can use other GraphQL clients. <br>
+- just point your GraphQL client to the GraphQL server endpoint: `http://<server-name>:<PORT>/graphql` <br>
+  e.g. [http://localhost:8080/graphql/](http://localhost:8080/graphql/)<br>
+- depending on the GraphQL server authentication settings you need to add Authentication Header to your requests
+
+You can explore GraphQL with one of these clients:<br>
 
    * https://github.com/redound/graphql-ide <br>
    (Windows, Mac OS X - needs npm/yarn)
@@ -43,8 +64,6 @@ You can easily explore GraphQL with one of these clients:<br>
 
    * GraphiQL client: https://github.com/graphql/graphiql
 
-   <br>
-   Future releases of Camunda GraphQL will include a GraphiQL client.<br>
    <br>
    
 
