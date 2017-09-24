@@ -14,10 +14,10 @@ public class AppConfig {
     @Bean
     public ProcessEngine processEngine() {
 
-        ProcessEngine pe = BpmPlatform.getDefaultProcessEngine();
-        if (pe == null) {
-            pe = ProcessEngines.getDefaultProcessEngine(false);
+        ProcessEngine engine = BpmPlatform.getDefaultProcessEngine();
+        if (engine == null) {
+            engine = ProcessEngines.getDefaultProcessEngine(false);
         }
-        return pe;
+        return engine;
     }
 }

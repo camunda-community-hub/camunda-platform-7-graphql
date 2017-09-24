@@ -1,20 +1,19 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
-import java.util.List;
-import java.util.logging.Logger;
-
+import com.coxautodev.graphql.tools.GraphQLResolver;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.User;
-import org.camunda.bpm.engine.impl.persistence.entity.GroupEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
+import java.util.List;
+import java.util.logging.Logger;
 
 @Component
-public class GroupEntityResolver implements GraphQLResolver<GroupEntity> {
-    private final static Logger LOGGER = Logger.getLogger("GroupEntityResolver");
+public class GroupResolver implements GraphQLResolver<Group> {
+    private final static Logger LOGGER = Logger.getLogger(GroupResolver.class.getName());
 
     @Autowired
     ProcessEngine processEngine;
@@ -22,21 +21,20 @@ public class GroupEntityResolver implements GraphQLResolver<GroupEntity> {
     @Autowired
     IdentityService identityService;
 
-    public GroupEntityResolver() {
+    public GroupResolver() {
     }
 
     /**
      * TODO:: follow the rest api: https://docs.camunda.org/manual/7.5/reference/rest/group/get-query/
      *
      *
-     * @param nameLike
-     * @param type
+     * @param group
      * @return
      */
 
-    public List<User> members (GroupEntity groupEntity) {
+    public List<User> members (Group group) {
 
-        String groupId = groupEntity.getId();
+        String groupId = group.getId();
         LOGGER.info("groupId: " + groupId);
 
         if(groupId != null) {

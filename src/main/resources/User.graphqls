@@ -1,13 +1,4 @@
-interface User {
-    id: String
-    email: String
-    firstName: String
-    lastName: String
-    tasks: [Task]
-    groups: [Group]
-}
-
-type UserEntity implements User {
+type User {
     id: String
     email: String
     firstName: String

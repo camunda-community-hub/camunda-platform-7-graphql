@@ -12,14 +12,17 @@ import org.camunda.bpm.engine.variable.impl.value.ObjectValueImpl;
 import org.camunda.bpm.engine.variable.type.SerializableValueType;
 import org.camunda.bpm.engine.variable.value.TypedValue;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
-import org.springframework.context.annotation.Bean;
+import org.camunda.bpm.extension.graphql.types.ValueTypeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.camunda.spin.Spin.JSON;
 
 public class Util {
+
+    private final static Logger LOGGER = Logger.getLogger(Util.class.getName());
 
     static public void switchContext(RepositoryService repositoryService, String pdid, ProcessEngineConfigurationImpl processEngineConfiguration) {
 
@@ -59,10 +62,13 @@ public class Util {
                     value = objValue.toString();
                 }
 
-                KeyValuePair keyValuePair = new KeyValuePair(key, value, variableMap.getValueTyped(key).getType().toString());
+                KeyValuePair keyValuePair = new KeyValuePair(
+                        key,
+                        value,
+                        ValueTypeEnum.from(variableMap.getValueTyped(key).getType()));
                 keyValuePairs.add(keyValuePair);
             } else {
-                System.out.println("objValue is null: " + key);
+                LOGGER.info("objValue is null: " + key);
             }
         }
         return keyValuePairs;

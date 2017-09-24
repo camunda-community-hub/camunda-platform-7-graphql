@@ -1,6 +1,7 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
-import com.coxautodev.graphql.tools.GraphQLRootResolver;
+import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.coxautodev.graphql.tools.GraphQLResolver;
 import org.camunda.bpm.application.ProcessApplicationContext;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -17,10 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @Component
-public class Query implements GraphQLRootResolver {
+public class Query implements GraphQLQueryResolver {
+
+    private final static Logger LOGGER = Logger.getLogger(Query.class.getName());
 
     @Autowired
     ProcessEngine processEngine;
@@ -49,23 +53,20 @@ public class Query implements GraphQLRootResolver {
         taskQuery = (name != null) ? taskQuery.taskName(name):taskQuery;
         taskQuery = (nameLike != null) ? taskQuery.taskNameLike(nameLike):taskQuery;
         taskQuery.initializeFormKeys();
-        List<Task> tasks = taskQuery.list();
-        return tasks;
+        return taskQuery.list();
     }
 
     public Task task(String id) {
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery = taskQuery.taskId(id);
         taskQuery.initializeFormKeys();
-        Task task = taskQuery.singleResult();
-        return task;
+        return taskQuery.singleResult();
     }
 
     public List<ProcessInstance> processInstances(String businessKey) {
     	ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
     	processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
-        List<ProcessInstance> processInstances = processInstanceQuery.list();
-        return processInstances;
+        return processInstanceQuery.list();
     }
 
     public List<ProcessDefinition> processDefinitions(Boolean isSuspended, Boolean latest) {
@@ -73,15 +74,13 @@ public class Query implements GraphQLRootResolver {
         processDefinitionQuery = (isSuspended != null && isSuspended == true) ? processDefinitionQuery.suspended() : processDefinitionQuery;
         processDefinitionQuery = (latest != null && latest == true) ? processDefinitionQuery.latestVersion() : processDefinitionQuery;
 
-        List <ProcessDefinition> processDefinitionList = processDefinitionQuery.list();
-        return processDefinitionList;
+        return processDefinitionQuery.list();
     }
 
     public ProcessDefinition processDefinition(String id) {
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
-        ProcessDefinition processDefinition = processDefinitionQuery.processDefinitionId(id).singleResult();
 
-        return processDefinition;
+        return processDefinitionQuery.processDefinitionId(id).singleResult();
     }
 
     public List<KeyValuePair> taskVariables(String taskId, Collection<String> names ) {
@@ -109,14 +108,12 @@ public class Query implements GraphQLRootResolver {
         query = (groupName != null)      ? query.groupName(groupName)          : query;
         query = (groupNameLike != null)  ? query.groupNameLike(groupNameLike)  : query;
         query = (groupType != null)      ? query.groupType(groupType)          : query;
-        List<Group> groups = query.list();
-        return groups;
+        return query.list();
     }
 
     public Group group(String groupId) {
         if(groupId != null) {
-            Group group = identityService.createGroupQuery().groupId(groupId).singleResult();
-            return group;
+            return identityService.createGroupQuery().groupId(groupId).singleResult();
         } else {
             return null;
         }
@@ -127,15 +124,13 @@ public class Query implements GraphQLRootResolver {
         query = (firstName != null)      ? query.userFirstName(firstName)           : query;
         query = (firstNameLike != null)  ? query.userFirstNameLike(firstNameLike)   : query;
         query = (groupId != null)  ? query.memberOfGroup(groupId)       : query;
-        List<User> users = query.list();
 
-        return users;
+        return query.list();
     }
 
     public User user(String userId) {
         if(userId != null) {
-            User user = identityService.createUserQuery().userId(userId).singleResult();
-            return user;
+            return identityService.createUserQuery().userId(userId).singleResult();
         } else {
             return null;
         }

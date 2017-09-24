@@ -3,5 +3,10 @@
         <dependencies>
             <module name="org.camunda.bpm.camunda-engine" export="true"/>
         </dependencies>
+        <exclude-subsystems>
+            <subsystem name="jsf" />
+            <subsystem name="weld" />
+        </exclude-subsystems>
     </deployment>
+
 </jboss-deployment-structure>

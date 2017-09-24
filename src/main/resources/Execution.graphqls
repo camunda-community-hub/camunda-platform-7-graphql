@@ -1,5 +1,4 @@
-interface ProcessInstance @doc(d: "Represents one execution of a ProcessDefinition.")
-    {
+type ProcessInstance @doc(d: "Represents one execution of a ProcessDefinition.") {
     id: String
     processInstanceId: String
     tenantId: String
@@ -10,13 +9,10 @@ interface ProcessInstance @doc(d: "Represents one execution of a ProcessDefiniti
     variables: [KeyValuePair]
 }
 
-type ExecutionEntity implements ProcessInstance {
+type Execution {
     id: String
+    isSuspended: Boolean
+    isEnded: Boolean
     processInstanceId: String
     tenantId: String
-    isEnded: Boolean
-    processDefinitionId: String
-    businessKey: String
-    caseInstanceId: String
-    variables: [KeyValuePair]
 }

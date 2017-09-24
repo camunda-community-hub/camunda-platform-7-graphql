@@ -1,11 +1,4 @@
-interface Group {
-    id: String
-    name: String
-    type: String
-    members: [User]
-}
-
-type GroupEntity implements Group {
+type Group {
     id: String
     name: String
     type: String

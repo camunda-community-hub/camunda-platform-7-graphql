@@ -6,20 +6,24 @@ import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
-import org.camunda.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
 import org.camunda.bpm.engine.runtime.Execution;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @Component
-public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
+public class TaskResolver implements GraphQLResolver<Task> {
+
+    private final static Logger LOGGER = Logger.getLogger(TaskResolver.class.getName());
 
     @Autowired
     ProcessEngine processEngine;
@@ -39,71 +43,65 @@ public class TaskEntityResolver implements GraphQLResolver<TaskEntity> {
     @Autowired
     IdentityService identityService;
 
-    public TaskEntityResolver() {
+    public TaskResolver() {
     }
 
-    public ProcessDefinition processDefinition(TaskEntity taskEntity) {
-        String pdid = taskEntity.getProcessDefinitionId();
+    public ProcessDefinition processDefinition(Task task) {
+        String pdid = task.getProcessDefinitionId();
         if (pdid == null)
             return null;
 
-        ProcessDefinition processDefinition = repositoryService.getProcessDefinition(pdid);
-        return processDefinition;
+        return repositoryService.getProcessDefinition(pdid);
 
     }
 
-    public ProcessInstance processInstance(TaskEntity taskEntity) {
-        String piId = taskEntity.getProcessInstanceId();
+    public ProcessInstance processInstance(Task task) {
+        String piId = task.getProcessInstanceId();
         if (piId == null)
             return null;
 
-        ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
-        return pi;
+        return runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
     }
 
-    public ExecutionEntity executionEntity(TaskEntity taskEntity) {
-        String executionId = taskEntity.getExecutionId();
+    public Execution executionEntity(Task task) {
+        String executionId = task.getExecutionId();
         if (executionId == null)
             return null;
 
-        Execution execution = runtimeService.createExecutionQuery()
+        return runtimeService.createExecutionQuery()
                 .executionId(executionId)
                 .singleResult();
-
-        return (ExecutionEntity)execution;
     }
 
-    public User assignee(TaskEntity taskEntity) {
-        String userId = taskEntity.getAssignee();
+    public User assignee(Task task) {
+        String userId = task.getAssignee();
 
         if (userId == null)
             return null;
 
-        User user = identityService.createUserQuery().userId(userId).singleResult();
-        return user;
+        return identityService.createUserQuery().userId(userId).singleResult();
 
     }
 
-    public String contextPath(TaskEntity taskEntity) {
-        String pdid = taskEntity.getProcessDefinitionId();
+    public String contextPath(Task task) {
+        String pdid = task.getProcessDefinitionId();
         if (pdid == null)
             return null;
 
-        String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, taskEntity.getProcessDefinitionId());
-            return contextPath;
+        return ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, task.getProcessDefinitionId());
 
     }
 
-    public List<KeyValuePair> variables(TaskEntity taskEntity) {
+    public List<KeyValuePair> variables(Task task) {
         List<KeyValuePair> keyValuePairs;
 
-        String pdid = taskEntity.getProcessDefinitionId();
+        String pdid = task.getProcessDefinitionId();
         if (pdid == null)
             return null;
 
         try {
             Util.switchContext(repositoryService, pdid, processEngineConfiguration);
-            VariableMap variableMap = taskService.getVariablesTyped(taskEntity.getId(), true);
+            VariableMap variableMap = taskService.getVariablesTyped(task.getId(), true);
             keyValuePairs = Util.getKeyValuePairs(variableMap);
 
         } finally {

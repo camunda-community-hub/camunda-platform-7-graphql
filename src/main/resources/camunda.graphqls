@@ -57,7 +57,7 @@ type Mutation {
         taskEntityId: String!
         assignee: String!
     )
-    : TaskEntity
+    : Task
     @doc(d: "sets the assignee of a Task")
 
     createProcessInstance(

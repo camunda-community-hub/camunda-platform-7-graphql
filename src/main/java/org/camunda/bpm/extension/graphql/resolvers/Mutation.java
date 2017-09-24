@@ -1,16 +1,24 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
-import com.coxautodev.graphql.tools.GraphQLRootResolver;
-import org.camunda.bpm.engine.*;
+import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.logging.Logger;
 
 @Component
-public class Mutation implements GraphQLRootResolver {
+public class Mutation implements GraphQLMutationResolver {
+
+    private static final Logger LOGGER = Logger.getLogger(Mutation.class.getName());
 
     @Autowired
     ProcessEngine processEngine;
@@ -67,8 +75,7 @@ public class Mutation implements GraphQLRootResolver {
 
 
         if (piId != null) {
-            ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
-            return pi;
+            return runtimeService.createProcessInstanceQuery().processInstanceId(piId).singleResult();
         } else {
             return null;
         }

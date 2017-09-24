@@ -1,17 +1,16 @@
 package org.camunda.bpm.extension.graphql;
 
-import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
-
 import graphql.ExecutionResult;
 import graphql.GraphQL;
-import graphql.execution.ExecutionStrategy;
 import graphql.schema.GraphQLSchema;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.processDefinition;
 import static org.camunda.spin.Spin.JSON;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {GraphQLServer.class, TestConfig.class, EngineConfig.class})
@@ -45,9 +44,6 @@ public class GraphQLTest {
     @Autowired
     private GraphQLSchema graphQLSchema;
 
-    @Autowired
-    private ExecutionStrategy executionStrategy;
-
     @Before
     public void setUp() {
         CustomerData customer = new CustomerData(EXAMPLE_ID, "Dummy Corp.", Personality.JURIDICAL, SolvencyRating.A);
@@ -56,7 +52,7 @@ public class GraphQLTest {
         processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, BUSINESS_KEY, startFormEntries(450000));
         ProcessEngineAssertions.assertThat(processInstance).isNotEnded();
 
-        graphQL = new GraphQL(graphQLSchema,executionStrategy);
+        graphQL = new GraphQL(graphQLSchema);
     }
 
     @After
@@ -107,7 +103,7 @@ public class GraphQLTest {
     @Test
     public void queryTasksVariables() throws Exception {
         final String query = "{ tasks { variables {key value valueType} } }";
-        final String expectedResult = "{\"tasks\":[{\"variables\":[{\"key\":\"LOAN_PERIOD\",\"value\":\"24\",\"valueType\":\"PrimitiveValueType[long]\"},{\"key\":\"DECISION\",\"value\":\"ESCALATE\",\"valueType\":\"PrimitiveValueType[string]\"},{\"key\":\"CUSTOMER_ID\",\"value\":\"01234567\",\"valueType\":\"PrimitiveValueType[string]\"},{\"key\":\"INTEREST_RATE\",\"value\":\"1.5\",\"valueType\":\"PrimitiveValueType[string]\"},{\"key\":\"amountInEuro\",\"value\":\"450000\",\"valueType\":\"PrimitiveValueType[long]\"},{\"key\":\"CREDIT_APPLICATION\",\"value\":\"{\\\"customerId\\\":\\\"01234567\\\",\\\"amountInEuro\\\":450000,\\\"interestRate\\\":1.5,\\\"loanPeriodInMonth\\\":24}\",\"valueType\":\"object\"},{\"key\":\"AMOUNT_IN_EURO\",\"value\":\"450000\",\"valueType\":\"PrimitiveValueType[long]\"},{\"key\":\"CUSTOMER_DATA\",\"value\":\"{\\\"customerId\\\":\\\"01234567\\\",\\\"fullName\\\":\\\"Dummy Corp.\\\",\\\"personality\\\":\\\"JURIDICAL\\\",\\\"rating\\\":\\\"A\\\"}\",\"valueType\":\"object\"}]}]}";
+        final String expectedResult = "{\"tasks\":[{\"variables\":[{\"key\":\"LOAN_PERIOD\",\"value\":\"24\",\"valueType\":\"LONG\"},{\"key\":\"DECISION\",\"value\":\"ESCALATE\",\"valueType\":\"STRING\"},{\"key\":\"CUSTOMER_ID\",\"value\":\"01234567\",\"valueType\":\"STRING\"},{\"key\":\"INTEREST_RATE\",\"value\":\"1.5\",\"valueType\":\"STRING\"},{\"key\":\"amountInEuro\",\"value\":\"450000\",\"valueType\":\"LONG\"},{\"key\":\"CREDIT_APPLICATION\",\"value\":\"{\\\"customerId\\\":\\\"01234567\\\",\\\"amountInEuro\\\":450000,\\\"interestRate\\\":1.5,\\\"loanPeriodInMonth\\\":24}\",\"valueType\":\"OBJECT\"},{\"key\":\"AMOUNT_IN_EURO\",\"value\":\"450000\",\"valueType\":\"LONG\"},{\"key\":\"CUSTOMER_DATA\",\"value\":\"{\\\"customerId\\\":\\\"01234567\\\",\\\"fullName\\\":\\\"Dummy Corp.\\\",\\\"personality\\\":\\\"JURIDICAL\\\",\\\"rating\\\":\\\"A\\\"}\",\"valueType\":\"OBJECT\"}]}]}";
 
         ExecutionResult executionResult = graphQL.execute(query);
         HashMap<String,Object> map = (HashMap<String,Object>)(executionResult.getData());

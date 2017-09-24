@@ -6,7 +6,6 @@ import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.GroupQuery;
 import org.camunda.bpm.engine.identity.User;
-import org.camunda.bpm.engine.impl.persistence.entity.UserEntity;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Component
-public class UserEntityResolver implements GraphQLResolver<UserEntity> {
-    private final static Logger LOGGER = Logger.getLogger("UserEntityResolver");
+public class UserResolver implements GraphQLResolver<User> {
+
+    private final static Logger LOGGER = Logger.getLogger(UserResolver.class.getName());
 
     @Autowired
     TaskService taskService;
@@ -25,7 +25,7 @@ public class UserEntityResolver implements GraphQLResolver<UserEntity> {
     @Autowired
     IdentityService identityService;
 
-    public UserEntityResolver() {
+    public UserResolver() {
 
     }
 
@@ -33,15 +33,13 @@ public class UserEntityResolver implements GraphQLResolver<UserEntity> {
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.taskAssignee(user.getId());
         taskQuery.initializeFormKeys();
-        List<Task> tasks = taskQuery.list();
-        return tasks;
+        return taskQuery.list();
     }
 
     public List<Group> groups(User user) {
         GroupQuery groupQuery = identityService.createGroupQuery();
         groupQuery.groupMember(user.getId());
-        List<Group> groups = groupQuery.list();
-        return groups;
+        return groupQuery.list();
     }
 
 }

@@ -1,8 +1,8 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import org.camunda.bpm.engine.*;
-import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.rest.util.ApplicationContextPathUtil;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
@@ -17,7 +17,7 @@ import java.util.Collection;
  */
 
 @Component
-public class ProcessDefinitionEntityResolver implements GraphQLResolver<ProcessDefinitionEntity> {
+public class ProcessDefinitionResolver implements GraphQLResolver<ProcessDefinition> {
 
     @Autowired
     ProcessEngine processEngine;
@@ -26,22 +26,32 @@ public class ProcessDefinitionEntityResolver implements GraphQLResolver<ProcessD
     RepositoryService repositoryService;
 
 
-    public ProcessDefinitionEntityResolver() {
+    public ProcessDefinitionResolver() {
+    }
+
+    public String getId(ProcessDefinition processDefinition) {
+        return processDefinition.getId();
+    }
+
+    public String getName(ProcessDefinition processDefinition) {
+        return processDefinition.getName();
+    }
+
+    public String getKey(ProcessDefinition processDefinition) {
+        return processDefinition.getKey();
     }
 
     public String startFormKey(ProcessDefinition processDefinition) {
         BpmnModelInstance bpmnModelInstance = repositoryService.getBpmnModelInstance(processDefinition.getId());
         Collection<StartEvent> startEvents = bpmnModelInstance.getModelElementsByType(StartEvent.class);
         StartEvent startEvent = startEvents.iterator().next();
-        String formKey = startEvent.getCamundaFormKey();
-        return formKey;
+        return startEvent.getCamundaFormKey();
     }
 
     public String contextPath(ProcessDefinition processDefinition) {
         String pdid = processDefinition.getId();
         if (pdid != null) {
-            String contextPath = ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, pdid);
-            return contextPath;
+            return ApplicationContextPathUtil.getApplicationPathByProcessDefinitionId(processEngine, pdid);
         } else
             return null;
     }

@@ -1,7 +1,7 @@
 type KeyValuePair {
     key: String!
     value: String!
-    valueType: String
+    valueType: ValueTypeEnum
 }
 
 input KeyValuePairInput {
@@ -11,10 +11,11 @@ input KeyValuePairInput {
 }
 
 enum ValueTypeEnum {
-    Int
-    Double
-    Float
-    Long
-    String
-    Boolean
+    OBJECT
+    INT
+    DOUBLE
+    FLOAT
+    LONG
+    STRING
+    BOOLEAN
 }

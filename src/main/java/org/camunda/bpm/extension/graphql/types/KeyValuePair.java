@@ -8,23 +8,23 @@ public class KeyValuePair {
 
     private String key = null;
     private String value = null;
-    private String valueType = null;
+    private ValueTypeEnum valueType = null;
 
     public KeyValuePair() {
 
 	}
 
-	public KeyValuePair(String key, String value, String valueType) {
+	public KeyValuePair(String key, String value, ValueTypeEnum valueType) {
 		this.key = key;
 		this.value = value;
 		this.valueType = valueType;
 	}
 
-	public String getValueType() {
+	public ValueTypeEnum getValueType() {
 		return valueType;
 	}
 
-	public void setValueType(String valueType) {
+	public void setValueType(ValueTypeEnum valueType) {
 		this.valueType = valueType;
 	}
 
