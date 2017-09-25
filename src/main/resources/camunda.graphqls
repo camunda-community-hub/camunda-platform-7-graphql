@@ -84,5 +84,11 @@ type Mutation {
     startProcessInstanceByKey(
         key: String!
     ): ProcessInstance
+
+    startProcessInstanceByMessage(
+        message: String!
+        businesskey: String
+        variables: [KeyValuePairInput]
+    ): ProcessInstance
 }
 

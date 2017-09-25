@@ -4,6 +4,7 @@ import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,10 @@ public class Mutation implements GraphQLMutationResolver {
         ProcessInstance pi = runtimeService.startProcessInstanceByKey(key);
 
         return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
+    }
+
+    public ProcessInstance startProcessInstanceByMessage(String message, String businesskey, ArrayList<LinkedHashMap> variables) {
+        return runtimeService.startProcessInstanceByMessage(message, businesskey, getVariablesMap(variables));
     }
 
     private Map<String, Object> getVariablesMap (ArrayList<LinkedHashMap> variables) {
