@@ -91,12 +91,12 @@ public class Mutation implements GraphQLMutationResolver {
         Map<String, Object> map = new HashMap<>();
         for (LinkedHashMap i : variables) {
             switch (i.get("valueType").toString()) {
-                case "String":      map.put(i.get("key").toString(), i.get("value")); break;
-                case "Int":         map.put(i.get("key").toString(), Integer.parseInt(i.get("value").toString())); break;
-                case "Long":        map.put(i.get("key").toString(), Long.parseLong(i.get("value").toString())); break;
-                case "Float":       map.put(i.get("key").toString(), Float.parseFloat(i.get("value").toString())); break;
-                case "Double":      map.put(i.get("key").toString(), Double.parseDouble(i.get("value").toString())); break;
-                case "Boolean":     map.put(i.get("key").toString(), Boolean.parseBoolean(i.get("value").toString())); break;
+                case "STRING":      map.put(i.get("key").toString(), i.get("value")); break;
+                case "INT":         map.put(i.get("key").toString(), Integer.parseInt(i.get("value").toString())); break;
+                case "LONG":        map.put(i.get("key").toString(), Long.parseLong(i.get("value").toString())); break;
+                case "FLOAT":       map.put(i.get("key").toString(), Float.parseFloat(i.get("value").toString())); break;
+                case "DOUBLE":      map.put(i.get("key").toString(), Double.parseDouble(i.get("value").toString())); break;
+                case "BOOLEAN":     map.put(i.get("key").toString(), Boolean.parseBoolean(i.get("value").toString())); break;
                 default:            map.put(i.get("key").toString(), i.get("value")); break;
             }
         }
