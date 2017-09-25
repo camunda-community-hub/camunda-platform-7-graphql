@@ -42,17 +42,7 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     public ProcessInstance createProcessInstance(String processDefintionKey, ArrayList<LinkedHashMap> variables) {
-
-        if (variables != null) {
-            ProcessInstance pi = runtimeService.startProcessInstanceByKey(processDefintionKey, getVariablesMap(variables));
-
-            return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
-        } else {
-            ProcessInstance pi = runtimeService.startProcessInstanceByKey(processDefintionKey);
-
-            return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
-        }
-
+        return runtimeService.startProcessInstanceByKey(processDefintionKey, getVariablesMap(variables));
     }
 
     public Task claimTask(String taskId, String userId) {
@@ -104,3 +94,4 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
 }
+
