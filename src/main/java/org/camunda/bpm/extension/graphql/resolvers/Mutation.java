@@ -4,7 +4,6 @@ import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
-import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ public class Mutation implements GraphQLMutationResolver {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         taskService.claim(taskId, userId);
 
-        return task;
+        return taskService.createTaskQuery().initializeFormKeys().taskId(taskId).singleResult();
     }
 
     //@todo issue: ArrayList<LinkedHashMap> should be ArrayList<KeyValuePair>
