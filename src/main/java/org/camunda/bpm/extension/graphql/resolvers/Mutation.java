@@ -42,24 +42,14 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     public ProcessInstance createProcessInstance(String processDefintionKey, ArrayList<LinkedHashMap> variables) {
-
-        if (variables != null) {
-            ProcessInstance pi = runtimeService.startProcessInstanceByKey(processDefintionKey, getVariablesMap(variables));
-
-            return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
-        } else {
-            ProcessInstance pi = runtimeService.startProcessInstanceByKey(processDefintionKey);
-
-            return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
-        }
-
+        return runtimeService.startProcessInstanceByKey(processDefintionKey, getVariablesMap(variables));
     }
 
     public Task claimTask(String taskId, String userId) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         taskService.claim(taskId, userId);
 
-        return task;
+        return taskService.createTaskQuery().initializeFormKeys().taskId(taskId).singleResult();
     }
 
     //@todo issue: ArrayList<LinkedHashMap> should be ArrayList<KeyValuePair>
@@ -87,6 +77,10 @@ public class Mutation implements GraphQLMutationResolver {
         return runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult();
     }
 
+    public ProcessInstance startProcessInstanceByMessage(String message, String businesskey, ArrayList<LinkedHashMap> variables) {
+        return runtimeService.startProcessInstanceByMessage(message, businesskey, getVariablesMap(variables));
+    }
+
     private Map<String, Object> getVariablesMap (ArrayList<LinkedHashMap> variables) {
         Map<String, Object> map = new HashMap<>();
         for (LinkedHashMap i : variables) {
@@ -104,3 +98,4 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
 }
+
