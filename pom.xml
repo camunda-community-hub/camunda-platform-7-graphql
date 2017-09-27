@@ -238,7 +238,7 @@
                         <configuration>
                             <url>http://localhost:8080/manager/text</url>
                             <server>LocalTomcatServer</server>
-                            <path>/graphql</path>
+                            <path>/</path>
                         </configuration>
                     </plugin>
                 </plugins>
