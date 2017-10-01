@@ -10,7 +10,6 @@ Build the GraphQL server
 ------------------------
 1. Ckeckout or Clone this repository using Git<br>
 2. Adapt `src/main/resources/application.properties`: <br>
-For a quick test set `auth.Filter` to `NO`. (`JWT` is the default. Check the chapter Authorization)
 3. Build the project<br>
  for Apache Tomcat:     `mvn clean package`<br>
  for jboss wildfly use the profile wildfly:  `mvn clean package -Pwildfly`<br>
@@ -31,29 +30,38 @@ Build the `.war file with profile `wildfly`- see chapter 'Build' above.
 (Todo: One single installation procedure for all Servlet Container?)
    
    
-Test the Installation / submit queries and mutations
------------------------------------------------------
-- Open `http://<server-name>:<PORT>/graphql/?query={tasks{name}}` in your browser<br>
-  e.g. [http://localhost:8080/graphql/?query={tasks{name}}](http://localhost:8080/graphql/?query={tasks{name}})<br>
-  This will open [GraphiQL](https://github.com/graphql/graphiql), _an in-browser IDE for exploring GraphQL_,  with the query as defined in the URL<br>
+Test the Installation
+---------------------
+**Using the "naked" GraphQL endpoint with a Browser:**<br>
+- Open `http://<server-name>:<PORT>/camunda-graphql/graphql/?query={tasks{name}}` <br>
+  e.g. [http://localhost:8080/camunda-graphql/graphql/?query={tasks{name}}](http://localhost:8080/camunda-graphql/graphql/?query={tasks{name}})<br>
+  This will a JSON object with the names of the current tasks.<br>
+
+**Using GraphiQL** _an in-browser IDE for exploring GraphQL_<br>
+- Open `http://<server-name>:<PORT>/camunda-graphql/graphqil/` <br>
+  e.g. [http://localhost:8080/camunda-graphql/graphiql/](http://localhost:8080/camunda-graphql/graphiql/)<br>
+- Type a query on the left side, e.g. `{ tasks {id name}}`      
 - Klick the play-button<br>
-- On the right hand side you should see the response: all current tasks with their names
+- On the right hand side you should see the response of your query
 - Test other queries or mutations as defined in the GraphQL Schema
 - For examples on queries and mutations: see chapter below. 
    
 
-GraphQL clients
---------------- 
+Other GraphQL clients
+--------------------- 
 Beside the build-in GraphiQL you can use other GraphQL clients. <br>
 - just point your GraphQL client to the GraphQL server endpoint: `http://<server-name>:<PORT>/graphql` <br>
-  e.g. [http://localhost:8080/graphql/](http://localhost:8080/graphql/)<br>
+  e.g. [http://localhost:8080/camunda-graphql/graphql/](http://localhost:8080/camunda-graphql/graphql/)<br>
 - depending on the GraphQL server authentication settings you need to add Authentication Header to your requests
 
-You can explore GraphQL with one of these clients:<br>
+Examples of GraphQL clients:<br>
 
-   * https://github.com/redound/graphql-ide <br>
-   (Windows, Mac OS X - needs npm/yarn)
-   * https://github.com/skevy/graphiql-app <br>
+   * GraphQL IDE - An extensive IDE for exploring GraphQL API's<br>
+   Link: https://github.com/redound/graphql-ide<br>
+   (Windows, Mac OS X - needs npm/yarn)<br>
+   
+   * Light, Electron-based Wrapper around GraphiQL<br>
+   Link: https://github.com/skevy/graphiql-app <br>
    Mac User just type: `brew cask install graphiql`<br>
    Windows/Linux User:
      - `npm install -g electron` <br>
@@ -61,9 +69,6 @@ You can explore GraphQL with one of these clients:<br>
      - unzip
      - type in: `electron` _app-folder_ <br>
      with _app-folder_ = `GraphiQL.app/Contents/Resources/app` (unzipped from above)
-
-   * GraphiQL client: https://github.com/graphql/graphiql
-
    <br>
    
 
@@ -71,33 +76,38 @@ GraphQL Queries and Mutations
 -----------------------------
 
 
-**Tasks:**<br>
+**Query Tasks:**<br>
 
 ![query tasks](/src/main/resources/png/query_tasks.png?raw=true "GraphQL query for Tasks")
 
 
-**Tasks with a Filter:**<br>
+**Query Tasks using a Filter:**<br>
 
 ![query tasks with filter](/src/main/resources/png/query_tasks_w_filter_nameLike.png?raw=true "GraphQL query for Tasks with filter")
 
 
-**Process Instances:**<br>
+**Query Process Instances:**<br>
 
 ![query proceses](/src/main/resources/png/query_process_instances.png?raw=true "GraphQL query for Process Instances")
 
-**Process Instance Variables:**<br>
+**Query Process Instance Variables:**<br>
 
 ![query proceses with vars](/src/main/resources/png/query_process_instances_w_vars.png?raw=true "GraphQL query for Process Instances with Variables")
 
-**Task Variables:**<br>
+**Query Task Variables:**<br>
 
 ![query tasks with vars](/src/main/resources/png/query_tasks_w_vars.png?raw=true "GraphQL query for Process Instances with Variables")
 
 
-**Assign a task (it's called a "mutation")** <br>
+**Mutation**<br>
+**Assign a user to a task** <br>
 
-![setAssigne mutation](/src/main/resources/png/mutation_01.png?raw=true "simple GraphQL mutation")
+![setAssignee mutation](/src/main/resources/png/mutation_01.png?raw=true "simple GraphQL mutation")
 
+
+**Mutation**<br>
+**Start a Process Instance with start variables** <br>
+![startProcessInstance](/src/main/resources/png/mutation_startProcessInstance.png?raw=true "startProcessInstance")
 
 GraphQL Schemas and Types
 -------------------------
@@ -120,7 +130,7 @@ Defining / Extending the Camunda GraphQL Schema
 
 We decided to use the Schema Definition Language (a GraphQL DSL) to define the Camunda GraphQL schema instead of coding it in Java. <br>
 The Schema Definition Language is very easy to understand.<bR>
-For example this is the Type Definition of the Camunda Task Entity (as defined in summer 2017): <br><br>    
+For example this is the Type Definition of the Camunda Task: <br><br>    
 ![graphqls TaskEntity](/src/main/resources/png/schema_TaskEntity_graphqls.png?raw=true "graphqls TaskEntity")<br><br>
   
 To get an understanding of Schemas please visit: <bR>
@@ -243,7 +253,7 @@ query IntrospectionQuery {
   }
 ```
 <br><br>
-The **response** to the above Introspection Query can be pasted into tools like [GraphQL Voyager](https://apis.guru/graphql-voyager/) and within seconds you get a graphical representation of your Schema: <br><br>
+The **response** of the above Introspection Query can be pasted into tools like [GraphQL Voyager](https://apis.guru/graphql-voyager/) and within seconds you get a graphical representation of your Schema: <br><br>
 
 ![graphical GraphQL Schema](/src/main/resources/png/graphql_voyager.png?raw=true "graphical GraphQL Schema")<br>
 
