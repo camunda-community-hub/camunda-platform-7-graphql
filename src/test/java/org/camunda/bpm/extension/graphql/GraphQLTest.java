@@ -52,7 +52,7 @@ public class GraphQLTest {
         processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, BUSINESS_KEY, startFormEntries(450000));
         ProcessEngineAssertions.assertThat(processInstance).isNotEnded();
 
-        graphQL = new GraphQL(graphQLSchema);
+        graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
 
     @After
