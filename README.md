@@ -6,55 +6,66 @@ Camunda GraphQL is a Community Extension for Camunda BPM that allows you to use 
 
 ![Overview](/src/main/resources/png/overview_01.png?raw=true "Overview")
 
+Release 0.3.0
+-------------
+- update to Spring Boot 1.5.7
+- update to GraphQL Java Tools 4.1.2
+- add GraphQL Spring Boot Starter
+- add GraphiQL Spring Boot Starter
+- GraphiQL endpoint default set to /camunda-graphql/graphiql
+- GraphQL endpoint default set to /camunda-graphql/graphql
+- Simplification of GraphQL Schema (remove Interfaces like TaskEntity)
+- cleanup of a Mutation 
+- add Mutation startProcessInstanceByMessage
+- claimTask returns updated Task
+- refactor Test setup
+- update Documentation
+
+
 Build the GraphQL server
 ------------------------
 1. Ckeckout or Clone this repository using Git<br>
 2. Adapt `src/main/resources/application.properties`: <br>
 3. Build the project<br>
  for Apache Tomcat:     `mvn clean package`<br>
- for jboss wildfly use the profile wildfly:  `mvn clean package -Pwildfly`<br>
+ for JBoss WildFly use the profile wildfly:  `mvn clean package -Pwildfly`<br>
 
 
 Install the GraphQL server
 --------------------------
 
-**Tomcat**<br>
-- Either identify the latest Release Artifact (`.war` file) from <br>
-https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/ <br>
-- or use the `.war` file from your own build 
-- and copy it to the Tomcat `/webapps folder
+### Tomcat installation
+- Get the latest Release (`.war` file) from the 
+[Camunda Repo](https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/) <br>
+- deploy it to your Tomcat server e.g. copy it to the Tomcat /webapps` folder
 
-**Wildfly**<br>
-Build the `.war file with profile `wildfly`- see chapter 'Build' above.
-
-(Todo: One single installation procedure for all Servlet Container?)
+### Wildfly installation
+For WildFly you have to clone the project and build the `.war` file. <bR>
+See chapter [Build the GraphQL server](#build-the-graphql-server).
    
    
 Test the Installation
 ---------------------
-**Using the "naked" GraphQL endpoint with a Browser:**<br>
-- Open `http://<server-name>:<PORT>/camunda-graphql/graphql/?query={tasks{name}}` <br>
+### Access the GraphQL endpoint with a browser
+- URL:  `http://<server-name>:<PORT>/camunda-graphql/graphql/?query=`{_here is your query_} <br>
   e.g. [http://localhost:8080/camunda-graphql/graphql/?query={tasks{name}}](http://localhost:8080/camunda-graphql/graphql/?query={tasks{name}})<br>
-  This will a JSON object with the names of the current tasks.<br>
+  This will return a JSON object with the names of the current tasks (rendered by your browser).<br>
 
-**Using GraphiQL** _an in-browser IDE for exploring GraphQL_<br>
-- Open `http://<server-name>:<PORT>/camunda-graphql/graphqil/` <br>
+### Access the GraphQL endpoint with GraphiQL _an in-browser IDE for exploring GraphQL_
+- GraphiQL is available at `http://<server-name>:<PORT>/camunda-graphql/graphiql/` <br>
   e.g. [http://localhost:8080/camunda-graphql/graphiql/](http://localhost:8080/camunda-graphql/graphiql/)<br>
-- Type a query on the left side, e.g. `{ tasks {id name}}`      
-- Klick the play-button<br>
-- On the right hand side you should see the response of your query
-- Test other queries or mutations as defined in the GraphQL Schema
-- For examples on queries and mutations: see chapter below. 
+- checkout chapter [GraphQL Queries and Mutations](#graphql-queries-and-mutations)
    
 
 Other GraphQL clients
 --------------------- 
 Beside the build-in GraphiQL you can use other GraphQL clients. <br>
-- just point your GraphQL client to the GraphQL server endpoint: `http://<server-name>:<PORT>/graphql` <br>
-  e.g. [http://localhost:8080/camunda-graphql/graphql/](http://localhost:8080/camunda-graphql/graphql/)<br>
+Basically...
+- ...point your GraphQL client to the GraphQL server endpoint: <br>
+`http://<server-name>:<PORT>/camunda-graphql/graphql` <br>
 - depending on the GraphQL server authentication settings you need to add Authentication Header to your requests
 
-Examples of GraphQL clients:<br>
+Examples of other GraphQL clients:<br>
 
    * GraphQL IDE - An extensive IDE for exploring GraphQL API's<br>
    Link: https://github.com/redound/graphql-ide<br>
@@ -119,11 +130,14 @@ A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all av
 
 ![Docs Root Types](/src/main/resources/png/docs_root_types.png?raw=true "docs root types")<br><br>
 
+### Currently defined queries: 
+
 ![Docs Queries](/src/main/resources/png/docs_queries.png?raw=true "docs queries")<br><br>
+
+### Currently defined mutations:
 
 ![Docs Mutations](/src/main/resources/png/docs_mutations.png?raw=true "docs mutations")<br><br>
 
-![type TaskEntity](/src/main/resources/png/docs_TaskEntity.png?raw=true "type TaskEntity")<br><br>
 
 Defining / Extending the Camunda GraphQL Schema
 -----------------------------------------------
@@ -137,16 +151,15 @@ To get an understanding of Schemas please visit: <bR>
  - http://graphql.org/learn/schema/ <br>
  - http://graphql-java.readthedocs.io/en/stable/schema.html <br>
 
-The whole Camunda GraphQL Schema is divided into several schema files located at `src/main/resource/*.graphqls` - an attempt to group GraphQL Type Definitions by topics<br>
+The Camunda GraphQL Schema is comprised of several schema files located at `src/main/resource/*.graphqls`. <br>
+This is an attempt to group GraphQL Type Definitions by topics<br>
 
 ![schema files overview](/src/main/resources/png/schema_files.png?raw=true "schema files")<br><br>
 
 
-Every GraphQL Schema defines so called _Root Types_ which gives you the entry points for Queries, Mutations, Subscriptions etc. <br>
+The so called _Root Types_ serve as entry points for Queries and Mutations (in the future: Subscriptions etc.) <br>
 
-We have defined a single Root Types schema file `src/main/resources/camunda.graphqls` - you will recognize some of the queries:<br>
-
-![schema file root types](/src/main/resources/png/schema_root_types_file.png?raw=true "schema file root types")<br><br>
+The Root Types schema file is `src/main/resources/camunda.graphqls`<br>
 
 
 
@@ -154,9 +167,10 @@ Introspection
 -------------
 
 
-For interactive GraphQL code completion, build-time validation or other fancy things to represent and interact with a Schema a client (i.e. a GraphQL tools builder) can use a GraphQL Introspection Query to retrieve the Servers GraphQL Schema.<br>
+For interactive GraphQL code completion, build-time validation, GraphQL Schema stiching or other fancy things  
+any GraphQL client can use GraphQLs Introspection to retrieve the whole or parts of the Servers GraphQL Schema.<br>
 
-This is a possible and probably quite complete Introspection Query (from [GraphQL Voyager](https://apis.guru/graphql-voyager/)): 
+This is a possible and probably quite complete _Introspection Query_ (from [GraphQL Voyager](https://apis.guru/graphql-voyager/)): 
     
 
 ```
@@ -253,7 +267,8 @@ query IntrospectionQuery {
   }
 ```
 <br><br>
-The **response** of the above Introspection Query can be pasted into tools like [GraphQL Voyager](https://apis.guru/graphql-voyager/) and within seconds you get a graphical representation of your Schema: <br><br>
+The **response** of the above Introspection Query can be pasted into tools like [GraphQL Voyager](https://apis.guru/graphql-voyager/) as a _Custom Schema_ 
+and within seconds you get a graphical representation of your Schema, like so: <br><br>
 
 ![graphical GraphQL Schema](/src/main/resources/png/graphql_voyager.png?raw=true "graphical GraphQL Schema")<br>
 
@@ -277,7 +292,7 @@ These properties can be set as<br>
  * JNDI attributes from `java:comp/env`
  * Java System properties
  * OS environment variables
- * properties in the file `application.properties` <br>
+ * properties in [application.properties](https://github.com/camunda/camunda-bpm-graphql/blob/master/src/main/resources/application.properties) <br>
 
 E.g. if you are using Tomcat you can add them to catalina.properties.<br>
 
@@ -347,9 +362,12 @@ or delete this property, e.g. in catalina.properties put it in a comment:<br>
 
 Goals
 ---------
-- Camunda Java API exposed to GraphQL, completely
-- GraphQL subscriptions for realtime GUIs
-- build Web and mobile GUIs for Camunda BPM based on GraphQL using modern GUI-libs and JavaScript/TypeScript-frameworks 
+- expose the complete Camunda Java API in GraphQL
+- build modern web and mobile clients for Camunda BPM (freedom to choose your GUI library)
+- build GraphQL-based, customizable versions of **Tasklist, Cockpit, Admin**
+- Camunda BPM as part of a micro-services architecture. Service accessible through a GraphQL endpoint <br>
+(using GraphQL Schema Stiching to combine many GraphQL endpoints to one GraphQL API gateway)
+- Realtime GUIs (add GraphQL subscriptions to Camunda GraphQL)
 
 
 Camunda Forum Thread (initial)
