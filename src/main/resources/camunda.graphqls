@@ -50,6 +50,10 @@ type Query {
         id: String! @doc(d: "Only select a user by user id")
     ): User
 
+    eventSubscriptions(
+        type: String
+    ): [EventSubscription]
+
 }
 
 type Mutation {

@@ -7,6 +7,8 @@ import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.repository.ProcessDefinitionQuery;
+import org.camunda.bpm.engine.runtime.EventSubscription;
+import org.camunda.bpm.engine.runtime.EventSubscriptionQuery;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
 import org.camunda.bpm.engine.task.Task;
@@ -134,5 +136,12 @@ public class Query implements GraphQLQueryResolver {
         } else {
             return null;
         }
+    }
+
+    public List<EventSubscription> eventSubscriptions(String type) {
+        EventSubscriptionQuery eventSubscriptionQuery = runtimeService.createEventSubscriptionQuery();
+        eventSubscriptionQuery = (type != null) ? eventSubscriptionQuery.eventType(type) : eventSubscriptionQuery;
+        List<EventSubscription> eventSubscriptions = eventSubscriptionQuery.list();
+        return eventSubscriptions;
     }
 }

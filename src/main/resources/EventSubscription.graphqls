@@ -1,0 +1,8 @@
+type EventSubscription {
+    id: String
+    activityId: String
+    eventName: String
+    eventType: String
+    executionId: String
+    processInstanceId: String
+}
