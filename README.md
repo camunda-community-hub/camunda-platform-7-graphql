@@ -4,7 +4,16 @@ Camunda GraphQL
 Camunda GraphQL is a Community Extension for Camunda BPM that allows you to use [GraphQL](http://graphql.org/) to query and mutate [Process Engine data](https://docs.camunda.org/manual/latest/user-guide/process-engine/process-engine-api/) in a simple way. <br>
 
 
-![Overview](/src/main/resources/png/overview_01.png?raw=true "Overview")
+![Overview](/doc/png/overview_01.png?raw=true "Overview")
+
+Release 0.4.0
+-------------
+- split project in core and runtime environments
+- upgrade to Spring Boot 1.5.10
+- have an own Spring Boot Runner which bundles camunda spring boot
+
+Todo: 
+- currently only spring boot starter is working
 
 Release 0.3.0
 -------------
@@ -89,36 +98,36 @@ GraphQL Queries and Mutations
 
 **Query Tasks:**<br>
 
-![query tasks](/src/main/resources/png/query_tasks.png?raw=true "GraphQL query for Tasks")
+![query tasks](/doc/png/query_tasks.png?raw=true "GraphQL query for Tasks")
 
 
 **Query Tasks using a Filter:**<br>
 
-![query tasks with filter](/src/main/resources/png/query_tasks_w_filter_nameLike.png?raw=true "GraphQL query for Tasks with filter")
+![query tasks with filter](/doc/png/query_tasks_w_filter_nameLike.png?raw=true "GraphQL query for Tasks with filter")
 
 
 **Query Process Instances:**<br>
 
-![query proceses](/src/main/resources/png/query_process_instances.png?raw=true "GraphQL query for Process Instances")
+![query proceses](/doc/png/query_process_instances.png?raw=true "GraphQL query for Process Instances")
 
 **Query Process Instance Variables:**<br>
 
-![query proceses with vars](/src/main/resources/png/query_process_instances_w_vars.png?raw=true "GraphQL query for Process Instances with Variables")
+![query proceses with vars](/doc/png/query_process_instances_w_vars.png?raw=true "GraphQL query for Process Instances with Variables")
 
 **Query Task Variables:**<br>
 
-![query tasks with vars](/src/main/resources/png/query_tasks_w_vars.png?raw=true "GraphQL query for Process Instances with Variables")
+![query tasks with vars](/doc/png/query_tasks_w_vars.png?raw=true "GraphQL query for Process Instances with Variables")
 
 
 **Mutation**<br>
 **Assign a user to a task** <br>
 
-![setAssignee mutation](/src/main/resources/png/mutation_01.png?raw=true "simple GraphQL mutation")
+![setAssignee mutation](/doc/png/mutation_01.png?raw=true "simple GraphQL mutation")
 
 
 **Mutation**<br>
 **Start a Process Instance with start variables** <br>
-![startProcessInstance](/src/main/resources/png/mutation_startProcessInstance.png?raw=true "startProcessInstance")
+![startProcessInstance](/doc/png/mutation_startProcessInstance.png?raw=true "startProcessInstance")
 
 GraphQL Schemas and Types
 -------------------------
@@ -126,17 +135,17 @@ GraphQL Schemas and Types
 A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.
 
 
-![Docs Schema](/src/main/resources/png/docs_open.png?raw=true "docs open") <br><br>
+![Docs Schema](/doc/png/docs_open.png?raw=true "docs open") <br><br>
 
-![Docs Root Types](/src/main/resources/png/docs_root_types.png?raw=true "docs root types")<br><br>
+![Docs Root Types](/doc/png/docs_root_types.png?raw=true "docs root types")<br><br>
 
 ### Currently defined queries: 
 
-![Docs Queries](/src/main/resources/png/docs_queries.png?raw=true "docs queries")<br><br>
+![Docs Queries](/doc/png/docs_queries.png?raw=true "docs queries")<br><br>
 
 ### Currently defined mutations:
 
-![Docs Mutations](/src/main/resources/png/docs_mutations.png?raw=true "docs mutations")<br><br>
+![Docs Mutations](/doc/png/docs_mutations.png?raw=true "docs mutations")<br><br>
 
 
 Defining / Extending the Camunda GraphQL Schema
@@ -145,7 +154,7 @@ Defining / Extending the Camunda GraphQL Schema
 We decided to use the Schema Definition Language (a GraphQL DSL) to define the Camunda GraphQL schema instead of coding it in Java. <br>
 The Schema Definition Language is very easy to understand.<bR>
 For example this is the Type Definition of the Camunda Task: <br><br>    
-![graphqls TaskEntity](/src/main/resources/png/schema_TaskEntity_graphqls.png?raw=true "graphqls TaskEntity")<br><br>
+![graphqls TaskEntity](/doc/png/schema_TaskEntity_graphqls.png?raw=true "graphqls TaskEntity")<br><br>
   
 To get an understanding of Schemas please visit: <bR>
  - http://graphql.org/learn/schema/ <br>
@@ -154,7 +163,7 @@ To get an understanding of Schemas please visit: <bR>
 The Camunda GraphQL Schema is comprised of several schema files located at `src/main/resource/*.graphqls`. <br>
 This is an attempt to group GraphQL Type Definitions by topics<br>
 
-![schema files overview](/src/main/resources/png/schema_files.png?raw=true "schema files")<br><br>
+![schema files overview](/doc/png/schema_files.png?raw=true "schema files")<br><br>
 
 
 The so called _Root Types_ serve as entry points for Queries and Mutations (in the future: Subscriptions etc.) <br>
@@ -270,7 +279,7 @@ query IntrospectionQuery {
 The **response** of the above Introspection Query can be pasted into tools like [GraphQL Voyager](https://apis.guru/graphql-voyager/) as a _Custom Schema_ 
 and within seconds you get a graphical representation of your Schema, like so: <br><br>
 
-![graphical GraphQL Schema](/src/main/resources/png/graphql_voyager.png?raw=true "graphical GraphQL Schema")<br>
+![graphical GraphQL Schema](/doc/png/graphql_voyager.png?raw=true "graphical GraphQL Schema")<br>
 
 Awesome!<br><br>
 
@@ -299,9 +308,9 @@ E.g. if you are using Tomcat you can add them to catalina.properties.<br>
 If authentication is switched on (Basic or JWT) the Camunda GraphQL Server expects an Authorization-Header in the client request.<br>
 GraphQL clients let you define these request headers, e.g. the [graphiql-app](https://github.com/skevy/graphiql-app) has a link _Edit HTTP headers<br>
 
-![http headers 01](/src/main/resources/png/http_headers_01.png?raw=true "http headers")<br><br>
+![http headers 01](/doc/png/http_headers_01.png?raw=true "http headers")<br><br>
 
-![http headers 02](/src/main/resources/png/http_headers_02.png?raw=true "http headers details")<br><br>
+![http headers 02](/doc/png/http_headers_02.png?raw=true "http headers details")<br><br>
 
 
 Basic Authentication
