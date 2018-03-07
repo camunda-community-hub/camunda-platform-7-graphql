@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.camunda.bpm.spring.boot.starter.CamundaBpmAutoConfiguration,\
+com.oembedler.moon.graphql.boot.GraphQLWebAutoConfiguration,\
+com.oembedler.moon.graphql.boot.GraphQLJavaToolsAutoConfiguration
+
+# Application Listeners
+org.springframework.context.ApplicationListener=org.camunda.bpm.spring.boot.starter.runlistener.PropertiesListener

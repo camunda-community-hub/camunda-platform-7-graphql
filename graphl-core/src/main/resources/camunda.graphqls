@@ -1,0 +1,104 @@
+type Query {
+
+    tasks(
+        assignee: String @doc(d: "Only select tasks which are assigned to the given user.")
+        name: String @doc(d: "Only select tasks with the given name")
+        nameLike: String @doc(d: "Only select tasks with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%activiti%)")
+    )
+    : [Task]
+    @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
+
+	task(
+		id: String!
+	): Task
+
+    taskVariables(
+        taskId: String!
+        names: [String]
+    ): [KeyValuePair]
+
+    processInstances(
+    	businessKey: String @doc(d: "Only select process instances with a certain business key.")
+   	): [ProcessInstance]
+
+    processDefinition(
+        id: String!
+    ): ProcessDefinition
+
+    processDefinitions(
+        isSuspended: Boolean @doc(d: "process definition suspended state. true: get process definitions in suspended state, ommitted: get all process definitions")
+        latest: Boolean @doc(d: "Only select the process definitions which are the latest deployed (ie. which have the highest version number for the given key). ")
+    ): [ProcessDefinition]
+
+    groups(
+        name: String @doc(d: "Only select groups with the given name")
+        nameLike: String @doc(d: "Only select groups with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)")
+        type: String @doc(d: "Only select specific type of groups")
+    ): [Group]
+
+    group(
+        id: String! @doc(d: "Only select a group by group id")
+    ): Group
+
+    users(
+        firstName: String @doc(d: "Only select users with the given first name")
+        firstNameLike: String @doc(d: "Only select users with a first name matching the parameter. The syntax is that of SQL: for example usage: nameLike: \"%camunda%\"")
+        groupId: String @doc(d: "The group of user belongs to")
+    ): [User]
+
+    user(
+        id: String! @doc(d: "Only select a user by user id")
+    ): User
+
+    eventSubscriptions(
+        type: String
+    ): [EventSubscription]
+
+}
+
+type Mutation {
+    setAssignee(
+        taskEntityId: String!
+        assignee: String!
+    )
+    : Task
+    @doc(d: "sets the assignee of a Task")
+
+    setOwner(
+        taskEntiyId: String!
+        owner: String!
+    ): Task
+    @doc(d: "sets the owner of a Task")
+
+    createProcessInstance(
+        processDefintionKey: String!  @doc(d: "unique name for all versions this definition")
+        variables: [KeyValuePairInput]
+    )
+    : ProcessInstance
+    @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
+
+    completeTask(
+        taskId: String!
+    	variables: [KeyValuePairInput]
+    )
+    : ProcessInstance
+    @doc(d: "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided.")
+
+    claimTask(
+        taskId: String! @doc(d: "task to claim, cannot be null.")
+        userId: String @doc(d: "user that claims the task. When userId is null the task is unclaimed, assigned to no one.")
+    )
+    : Task
+    @doc(d: "Claim responsibility for a task: the given user is made assignee for the task. The difference with setAssignee(String, String) is that here a check is done if the task already has a user assigned to it. No check is done whether the user is known by the identity component.")
+
+    startProcessInstanceByKey(
+        key: String!
+    ): ProcessInstance
+
+    startProcessInstanceByMessage(
+        message: String!
+        businesskey: String
+        variables: [KeyValuePairInput]
+    ): ProcessInstance
+}
+
