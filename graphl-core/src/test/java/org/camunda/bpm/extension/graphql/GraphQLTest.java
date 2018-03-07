@@ -68,12 +68,18 @@ public class GraphQLTest {
     }
 
     @Test
+    public void testSetOwner() {
+        final String mutation = "";
+    }
+
+
+    @Test
     public void queryProcessInstance() throws Exception {
         final String query = "{ processInstances { id } }";
         //expectedResult = "{\"processInstances\":[{\"id\":\"___an_Integer_____\"}]}";
 
         ExecutionResult executionResult = graphQL.execute(query);
-        HashMap<String,Object> map = (HashMap<String,Object>)(executionResult.getData());
+        HashMap<String,Object> map = executionResult.getData();
 
         assertThat(executionResult.getErrors().size()).as("Number of errors").isEqualTo(0);
         assertThat(map.size()).as("number of process instances").isEqualTo(1);
@@ -92,7 +98,7 @@ public class GraphQLTest {
         final String expectedResult = "{\"tasks\":[{\"name\":\"Find decision\"}]}";
 
         ExecutionResult executionResult = graphQL.execute(query);
-        HashMap<String,Object> map = (HashMap<String,Object>)(executionResult.getData());
+        HashMap<String,Object> map = executionResult.getData();
         String actualResult = JSON(map).toString();
 
         assertThat(executionResult.getErrors().size()).as("Number of errors").isEqualTo(0);
@@ -106,7 +112,7 @@ public class GraphQLTest {
         final String expectedResult = "{\"tasks\":[{\"variables\":[{\"key\":\"LOAN_PERIOD\",\"value\":\"24\",\"valueType\":\"LONG\"},{\"key\":\"DECISION\",\"value\":\"ESCALATE\",\"valueType\":\"STRING\"},{\"key\":\"CUSTOMER_ID\",\"value\":\"01234567\",\"valueType\":\"STRING\"},{\"key\":\"INTEREST_RATE\",\"value\":\"1.5\",\"valueType\":\"STRING\"},{\"key\":\"amountInEuro\",\"value\":\"450000\",\"valueType\":\"LONG\"},{\"key\":\"CREDIT_APPLICATION\",\"value\":\"{\\\"customerId\\\":\\\"01234567\\\",\\\"amountInEuro\\\":450000,\\\"interestRate\\\":1.5,\\\"loanPeriodInMonth\\\":24}\",\"valueType\":\"OBJECT\"},{\"key\":\"AMOUNT_IN_EURO\",\"value\":\"450000\",\"valueType\":\"LONG\"},{\"key\":\"CUSTOMER_DATA\",\"value\":\"{\\\"customerId\\\":\\\"01234567\\\",\\\"fullName\\\":\\\"Dummy Corp.\\\",\\\"personality\\\":\\\"JURIDICAL\\\",\\\"rating\\\":\\\"A\\\"}\",\"valueType\":\"OBJECT\"}]}]}";
 
         ExecutionResult executionResult = graphQL.execute(query);
-        HashMap<String,Object> map = (HashMap<String,Object>)(executionResult.getData());
+        HashMap<String,Object> map = executionResult.getData();
         String actualResult = JSON(map).toString();
 
         assertThat(executionResult.getErrors().size()).as("Number of errors").isEqualTo(0);
@@ -119,7 +125,7 @@ public class GraphQLTest {
         final String queryId = "{ tasks { id }}";
 
         ExecutionResult executionResult = graphQL.execute(queryId);
-        HashMap<String,Object> map = (HashMap<String,Object>)(executionResult.getData());
+        HashMap<String,Object> map = executionResult.getData();
         String actualResult = JSON(map).toString();
 
         JSONObject obj = new JSONObject(actualResult);
@@ -134,14 +140,12 @@ public class GraphQLTest {
 
         final String expectedResult = "{\"claimTask\":{\"id\":\""+id+"\",\"name\":\"Find decision\"}}";
         executionResult = graphQL.execute(query);
-        map = (HashMap<String,Object>)(executionResult.getData());
+        map = executionResult.getData();
         actualResult = JSON(map).toString();
 
         assertThat(executionResult.getErrors().size()).as("Number of errors").isEqualTo(0);
         assertThat(actualResult).as("JSON result").isEqualTo(expectedResult);
     }
-
-
 
     private Map<String, Object> startFormEntries(long amount) {
         Map<String, Object> variables = new HashMap<>();

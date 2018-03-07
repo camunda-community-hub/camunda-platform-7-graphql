@@ -3,12 +3,18 @@ package org.camunda.bpm.extension.graphql;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({AppConfig.class})
+@ConditionalOnProperty(
+        name = {"camunda.graphql.engine.resolver"},
+        havingValue = "enabled",
+        matchIfMissing = false
+)
 public class EngineConfig {
 
     @Bean

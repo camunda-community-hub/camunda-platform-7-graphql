@@ -38,7 +38,11 @@ public class Mutation implements GraphQLMutationResolver {
         task.setAssignee(assignee);
         taskService.saveTask(task);
         return task;
+    }
 
+    public Task setOwner(String taskEntityId, String owner) {
+        taskService.setOwner(taskEntityId, owner);
+        return taskService.createTaskQuery().taskId(taskEntityId).singleResult();
     }
 
     public ProcessInstance createProcessInstance(String processDefintionKey, ArrayList<LinkedHashMap> variables) {

@@ -8,11 +8,10 @@
     </parent>
 
     <artifactId>camunda-bpm-graphql-spring-boot-starter</artifactId>
-
     <packaging>jar</packaging>
 
     <properties>
-        <camunda.spring-boot.version>2.2.0</camunda.spring-boot.version>
+        <camunda.spring-boot.version>2.3.0</camunda.spring-boot.version>
         <start-class>org.camunda.bpm.extension.graphql.GraphQLSpringBootServerStarter</start-class>
     </properties>
 
@@ -29,7 +28,6 @@
                         </goals>
                         <configuration>
                             <layout>ZIP</layout>
-                            <addResources>true</addResources>
                         </configuration>
                     </execution>
                 </executions>
@@ -43,27 +41,26 @@
         </resources>
     </build>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.camunda.bpm.extension.springboot</groupId>
-                <artifactId>camunda-bpm-spring-boot-starter-bom</artifactId>
-                <version>${camunda.spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
-            <groupId>org.camunda.spin</groupId>
-            <artifactId>camunda-spin-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.camunda.bpm.extension.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+            <version>${camunda.spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+            <version>${camunda.spring-boot.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.camunda.bpm.extension.graphql.project</groupId>
             <artifactId>camunda-bpm-graphql-core</artifactId>
@@ -77,10 +74,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
         <!-- use in-memory database in component/integration tests -->

@@ -50,6 +50,10 @@ type Query {
         id: String! @doc(d: "Only select a user by user id")
     ): User
 
+    eventSubscriptions(
+        type: String
+    ): [EventSubscription]
+
 }
 
 type Mutation {
@@ -59,6 +63,12 @@ type Mutation {
     )
     : Task
     @doc(d: "sets the assignee of a Task")
+
+    setOwner(
+        taskEntiyId: String!
+        owner: String!
+    ): Task
+    @doc(d: "sets the owner of a Task")
 
     createProcessInstance(
         processDefintionKey: String!  @doc(d: "unique name for all versions this definition")

@@ -2,11 +2,15 @@ package org.camunda.bpm.extension.graphql.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.coxautodev.graphql.tools.GraphQLResolver;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.application.ProcessApplicationContext;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.repository.ProcessDefinitionQuery;
+import org.camunda.bpm.engine.runtime.EventSubscription;
+import org.camunda.bpm.engine.runtime.EventSubscriptionQuery;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
 import org.camunda.bpm.engine.task.Task;
@@ -16,7 +20,10 @@ import org.camunda.bpm.engine.identity.*;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -57,6 +64,7 @@ public class Query implements GraphQLQueryResolver {
     }
 
     public Task task(String id) {
+        if (StringUtils.isEmpty(id)) return null;
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery = taskQuery.taskId(id);
         taskQuery.initializeFormKeys();
@@ -65,21 +73,22 @@ public class Query implements GraphQLQueryResolver {
 
     public List<ProcessInstance> processInstances(String businessKey) {
     	ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-    	processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
+        if (StringUtils.isNotEmpty(businessKey)) {
+            processInstanceQuery.processInstanceBusinessKey(businessKey);
+        }
         return processInstanceQuery.list();
     }
 
     public List<ProcessDefinition> processDefinitions(Boolean isSuspended, Boolean latest) {
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
-        processDefinitionQuery = (isSuspended != null && isSuspended == true) ? processDefinitionQuery.suspended() : processDefinitionQuery;
-        processDefinitionQuery = (latest != null && latest == true) ? processDefinitionQuery.latestVersion() : processDefinitionQuery;
-
+        processDefinitionQuery = (BooleanUtils.isTrue(isSuspended)) ? processDefinitionQuery.suspended() : processDefinitionQuery;
+        processDefinitionQuery = (BooleanUtils.isTrue(latest)) ? processDefinitionQuery.latestVersion() : processDefinitionQuery;
         return processDefinitionQuery.list();
     }
 
     public ProcessDefinition processDefinition(String id) {
+        if (StringUtils.isEmpty(id)) return null;
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
-
         return processDefinitionQuery.processDefinitionId(id).singleResult();
     }
 
@@ -87,15 +96,15 @@ public class Query implements GraphQLQueryResolver {
         List<KeyValuePair> keyValuePairs;
 
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-        String pdid = task.getProcessDefinitionId();
-        if (pdid == null)
+        String processDefinitionId = task.getProcessDefinitionId();
+        if (processDefinitionId == null) {
             return null;
+        }
 
         try {
-            Util.switchContext(repositoryService, pdid, processEngineConfiguration);
+            Util.switchContext(repositoryService, processDefinitionId, processEngineConfiguration);
             VariableMap variableMap = taskService.getVariablesTyped(taskId, names, true);
             keyValuePairs = Util.getKeyValuePairs(variableMap);
-
         } finally {
             ProcessApplicationContext.clear();
         }
@@ -105,34 +114,47 @@ public class Query implements GraphQLQueryResolver {
 
     public List<Group> groups(String groupName, String groupNameLike, String groupType) {
         GroupQuery query = identityService.createGroupQuery();
-        query = (groupName != null)      ? query.groupName(groupName)          : query;
-        query = (groupNameLike != null)  ? query.groupNameLike(groupNameLike)  : query;
-        query = (groupType != null)      ? query.groupType(groupType)          : query;
+        if (StringUtils.isNotEmpty(groupName)) {
+            query.groupName(groupName);
+        }
+        if (StringUtils.isNotEmpty(groupNameLike)) {
+            query.groupNameLike(groupNameLike);
+        }
+        if (StringUtils.isNotEmpty(groupType)) {
+            query.groupType(groupType);
+        }
         return query.list();
     }
 
     public Group group(String groupId) {
-        if(groupId != null) {
-            return identityService.createGroupQuery().groupId(groupId).singleResult();
-        } else {
-            return null;
-        }
+        if (StringUtils.isEmpty(groupId)) return null;
+        return identityService.createGroupQuery().groupId(groupId).singleResult();
     }
 
     public List<User> users(String firstName, String firstNameLike, String groupId){
         UserQuery query = identityService.createUserQuery();
-        query = (firstName != null)      ? query.userFirstName(firstName)           : query;
-        query = (firstNameLike != null)  ? query.userFirstNameLike(firstNameLike)   : query;
-        query = (groupId != null)  ? query.memberOfGroup(groupId)       : query;
-
+        if (StringUtils.isNotEmpty(firstName)) {
+            query.userFirstName(firstName);
+        }
+        if (StringUtils.isNotEmpty(firstNameLike)) {
+            query.userFirstNameLike(firstNameLike);
+        }
+        if (StringUtils.isNotEmpty(groupId)) {
+            query.memberOfGroup(groupId);
+        }
         return query.list();
     }
 
     public User user(String userId) {
-        if(userId != null) {
-            return identityService.createUserQuery().userId(userId).singleResult();
-        } else {
-            return null;
+        if (StringUtils.isEmpty(userId)) return null;
+        return identityService.createUserQuery().userId(userId).singleResult();
+    }
+
+    public List<EventSubscription> eventSubscriptions(String type) {
+        EventSubscriptionQuery eventSubscriptionQuery = runtimeService.createEventSubscriptionQuery();
+        if (StringUtils.isNotEmpty(type)) {
+            eventSubscriptionQuery.eventType(type);
         }
+        return eventSubscriptionQuery.list();
     }
 }
