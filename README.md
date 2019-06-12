@@ -50,7 +50,8 @@ See chapter [Build the GraphQL server](#build-the-graphql-server).
 
 ##### Mount the .war file during [container creation](https://github.com/camunda/docker-camunda-bpm-platform) assuming war file is `camunda-bpm-graphql-0.3.0.war`
 
-`docker run -d --name camunda -p 8080:8080 --link postgresql:db \
+```
+docker run -d --name camunda -p 8080:8080 --link postgresql:db \
             -e DB_DRIVER=org.postgresql.Driver \
             -e DB_URL=jdbc:postgresql://db:5432/process-engine \
             -e DB_USERNAME=camunda \
@@ -58,7 +59,8 @@ See chapter [Build the GraphQL server](#build-the-graphql-server).
             -e WAIT_FOR=db:5432 \
             -e WAIT_FOR_TIMEOUT=60 \
             -v $PWD/webapps/camunda-bpm-graphql-0.3.0.war:/camunda/webapps/camunda-bpm-graphql-0.3.0.war \
-            camunda/camunda-bpm-platform:latest`
+            camunda/camunda-bpm-platform:latest
+```
 
 Note: In the above docker command .war file is extracted/deployed as `/camunda/webapps/camunda-bpm-graphql-0.3.0` into docker, so the GraphQL endpoint url will change respectively and will be available at `http://<server-name>:<PORT>/camunda-bpm-graphql-0.3.0/graphql`
    
