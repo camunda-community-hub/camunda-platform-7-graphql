@@ -37,12 +37,22 @@ Install the GraphQL server
 ### Tomcat installation
 - Get the latest Release (`.war` file) from the 
 [Camunda Repo](https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/) <br>
-- deploy it to your Tomcat server e.g. copy it to the Tomcat /webapps` folder
+- deploy it to your Tomcat server e.g. copy it to the Tomcat `/webapps/` folder
 
 ### Wildfly installation
 For WildFly you have to clone the project and build the `.war` file. <bR>
 See chapter [Build the GraphQL server](#build-the-graphql-server).
-   
+
+### Docker installation
+- Get the latest Release (`.war` file) from the 
+[Camunda Repo](https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/) and place the file in /webapps directory <br>
+- Extend your Docker by mounting the .war file from `/webapps` to `/camunda/webapps` directory in container. 
+
+##### Mount the .war file during [container creation](https://github.com/camunda/docker-camunda-bpm-platform) assuming war file is `camunda-bpm-graphql-0.3.0.war`
+
+`docker run -d --name camunda -p 8080:8080 --link postgresql:db -e DB_DRIVER=org.postgresql.Driver -e DB_URL=jdbc:postgresql://db:5432/process-engine -e DB_USERNAME=camunda -e DB_PASSWORD=camunda -e WAIT_FOR=db:5432 -e WAIT_FOR_TIMEOUT=60 -v $PWD/webapps/camunda-bpm-graphql-0.3.0.war:/camunda/webapps/camunda-bpm-graphql-0.3.0.war registry.camunda.cloud/camunda-bpm-platform-ee:7.11.0`
+
+Note: In the above docker command .war file is extracted/deployed as `/camunda/webapps/camunda-bpm-graphql-0.3.0` into docker, so the GraphQL endpoint url will change respectively and will be available at `http://<server-name>:<PORT>/camunda-bpm-graphql-0.3.0/graphql`
    
 Test the Installation
 ---------------------
