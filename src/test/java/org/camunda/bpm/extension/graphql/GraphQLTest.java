@@ -4,10 +4,8 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.impl.util.json.JSONObject;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
-import org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.processDefinition;
 import static org.camunda.spin.Spin.JSON;
 import static org.mockito.Mockito.when;
@@ -50,7 +53,7 @@ public class GraphQLTest {
         when(customerDataServiceMock.findById(EXAMPLE_ID)).thenReturn(customer);
 
         processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, BUSINESS_KEY, startFormEntries(450000));
-        ProcessEngineAssertions.assertThat(processInstance).isNotEnded();
+        assertThat(processInstance).isNotEnded();
 
         graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
@@ -80,8 +83,8 @@ public class GraphQLTest {
         assertThat(map.keySet().toArray()[0]).as("name of first key").isEqualTo("processInstances");
 
         String actualResult = JSON(map).toString();
-        JSONObject obj = new JSONObject(actualResult);
-        String idString = obj.getJSONArray("processInstances").getJSONObject(0).getString("id");
+        JsonObject obj = new JsonParser().parse(actualResult).getAsJsonObject();
+        String idString = obj.get("processInstances").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsString();
         Integer id = Integer.parseInt(idString);
         assertThat(id).as("processInstanceId").isGreaterThan(0);
     }
@@ -122,8 +125,8 @@ public class GraphQLTest {
         HashMap<String,Object> map = (HashMap<String,Object>)(executionResult.getData());
         String actualResult = JSON(map).toString();
 
-        JSONObject obj = new JSONObject(actualResult);
-        String id = obj.getJSONArray("tasks").getJSONObject(0).getString("id");
+        JsonObject obj = new JsonParser().parse(actualResult).getAsJsonObject();
+        String id = obj.get("tasks").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsString();
 
         final String query = "mutation {\n" +
                 "  claimTask(taskId: \"" + id + "\", userId:\"demo\") {\n" +
