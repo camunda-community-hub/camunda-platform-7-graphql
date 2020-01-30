@@ -1,346 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.camunda</groupId>
-        <artifactId>camunda-release-parent</artifactId>
-        <version>3.7</version>
-        <!-- DO NOT REMOVE EMPTY TAG https://issues.apache.org/jira/browse/MNG-4687 -->
-        <relativePath />
-    </parent>
+  <!-- Attention: to properly separate dependencies of extension and examples, do not define any dependencies/management here! -->
 
-    <groupId>org.camunda.bpm.extension.graphql</groupId>
-    <artifactId>camunda-bpm-graphql</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+  <parent>
+    <groupId>org.camunda</groupId>
+    <artifactId>camunda-release-parent</artifactId>
+    <version>3.7</version>
+    <relativePath />
+  </parent>
 
-    <packaging>war</packaging>
+  <groupId>org.camunda.bpm.extension</groupId>
+  <artifactId>camunda-bpm-graphql-root</artifactId>
+  <version>0.4.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
-        <camunda.version>7.12.0</camunda.version>
-        <h2.version>1.4.200</h2.version>
-        <spin.version>1.8.0</spin.version>
+  <properties>
+    <version.java>1.8</version.java>
+    <encoding>UTF-8</encoding>
+    <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+    <project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>
 
-        <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
-        <!-- disable javadoc linter for JDK8 to not fail on incomplete javadoc -->
-        <additionalparam>-Xdoclint:none</additionalparam>
+    <!-- versions -->
+  	<version.camunda>7.12.0</version.camunda>
+  	<version.camundaSpringBoot>3.4.0</version.camundaSpringBoot>
+  	<version.springBoot>2.2.1.RELEASE</version.springBoot>
+    <version.spin>1.8.0</version.spin>
 
-    </properties>
+    <!-- disable javadoc linter for JDK8 to not fail on incomplete javadoc -->
+    <additionalparam>-Xdoclint:none</additionalparam>
+  </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from camunda -->
-                <groupId>org.camunda.bpm</groupId>
-                <artifactId>camunda-bom</artifactId>
-                <version>${camunda.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
 
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
+  <scm>
+    <connection>scm:git:git@github.com:camunda/camunda-bpm-identity-keycloak.git</connection>
+    <url>scm:git:git@github.com:camunda/camunda-bpm-identity-keycloak.git</url>
+    <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-identity-keycloak.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
-            <dependency>
-                <groupId>org.camunda.spin</groupId>
-                <artifactId>camunda-spin-bom</artifactId>
-                <scope>import</scope>
-                <type>pom</type>
-                <version>${spin.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  <!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
+  <distributionManagement>
+    <repository>
+      <id>camunda-nexus</id>
+      <name>camunda bpm community extensions</name>
+      <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions</url>
+    </repository>
+    <snapshotRepository>
+      <id>camunda-nexus</id>
+      <name>camunda bpm community extensions snapshots</name>
+      <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions-snapshots</url>
+      <!-- for maven 2 compatibility -->
+      <uniqueVersion>true</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
 
+  <modules>
+    <module>example</module>
+    <module>extension</module>
+    <module>extension-webapp</module>
+  </modules>
 
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <scope>test</scope>
-        </dependency>
-       <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphql-java-tools</artifactId>
-            <version>5.7.1</version>
-        </dependency>
-        <!-- GraphQL spring-boot -->
-        <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>6.0.1</version>
-        </dependency>
-        <!-- to embed GraphiQL tool -->
-        <!--
-        <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphiql-spring-boot-starter</artifactId>
-            <version>6.0.1</version>
-        </dependency>
-        -->
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.camunda.bpm</groupId>
-            <artifactId>camunda-engine</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.6</version>
-        </dependency>
-  	    <dependency>
-  	          <groupId>javax.ws.rs</groupId>
-  	          <artifactId>javax.ws.rs-api</artifactId>
-  	          <version>2.1.1</version>
-  	    </dependency>
-        <dependency>
-          <groupId>org.camunda.bpm</groupId>
-          <artifactId>camunda-engine-rest</artifactId>
-          <classifier>classes</classifier>
-        </dependency>
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.9.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.spin</groupId>
-            <artifactId>camunda-spin-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.spin</groupId>
-            <artifactId>camunda-spin-dataformat-all</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>5.2.3.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.bpm</groupId>
-            <artifactId>camunda-engine-spring</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.bpm.assert</groupId>
-            <artifactId>camunda-bpm-assert</artifactId>
-            <version>5.0.0</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- use in-memory database in component/integration tests -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.bpm</groupId>
-            <artifactId>camunda-engine-plugin-spin</artifactId>
-            <scope>provided</scope>
-        </dependency>
+      <dependency>
+        <groupId>org.camunda.bpm</groupId>
+        <artifactId>camunda-bom</artifactId>
+        <version>${version.camunda}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.camunda.spin</groupId>
+        <artifactId>camunda-spin-bom</artifactId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${version.spin}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${version.springBoot}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- modules -->
+      <dependency>
+        <groupId>org.camunda.bpm.extension</groupId>
+        <artifactId>camunda-bpm-graphql</artifactId>
+        <version>${project.version}</version>
+        <scope>provided</scope>
+      </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4.1</version>
-                <configuration>
-                    <rules>
-                        <requireJavaVersion>
-                            <version>[${java.version},)</version>
-                        </requireJavaVersion>
-                    </rules>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-surefire-plugin</artifactId>
-              <version>2.22.1</version>
-              <dependencies>
-                <dependency>
-                  <groupId>org.apache.maven.surefire</groupId>
-                  <artifactId>surefire-junit47</artifactId>
-                  <version>2.22.1</version>
-                </dependency>
-              </dependencies>
-              <configuration>
-                <includes>
-                  <include>**/*Tests.java</include>
-                  <include>**/*Test.java</include>
-                </includes>
-                <excludes>
-                  <exclude>**/Abstract*.java</exclude>
-                </excludes>
-              </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-    <profiles>
-        <profile>
-            <id>tomcat</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.tomcat.maven</groupId>
-                        <artifactId>tomcat7-maven-plugin</artifactId>
-                        <version>2.2</version>
-                        <configuration>
-                            <url>http://localhost:8080/manager/text</url>
-                            <server>LocalTomcatServer</server>
-                            <path>/camunda-graphql</path>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>wildfly</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-starter-tomcat</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-undertow</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                    <version>2.5</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</connection>
-        <url>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</url>
-        <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
-    <distributionManagement>
-        <repository>
-            <id>camunda-nexus</id>
-            <name>camunda bpm community extensions</name>
-            <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions</url>
-        </repository>
-        <snapshotRepository>
-            <id>camunda-nexus</id>
-            <name>camunda bpm community extensions snapshots</name>
-            <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions-snapshots</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>camunda.com.public</id>
-            <name>Camunda Repository</name>
-            <url>https://app.camunda.com/nexus/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </pluginRepository>
-    </pluginRepositories>
+  </dependencyManagement>
 </project>
