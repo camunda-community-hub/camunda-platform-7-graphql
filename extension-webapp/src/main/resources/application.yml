@@ -1,0 +1,4 @@
+graphiql:
+    endpoint:
+        graphql: /camunda-graphql/graphql
+        subscriptions: /camunda-graphql/subscriptions
