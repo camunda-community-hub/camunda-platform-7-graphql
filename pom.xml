@@ -23,9 +23,9 @@
     <project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>
 
     <!-- versions -->
-  	<version.camunda>7.12.0</version.camunda>
-  	<version.camundaSpringBoot>3.4.0</version.camundaSpringBoot>
-  	<version.springBoot>2.2.1.RELEASE</version.springBoot>
+    <version.camunda>7.12.0</version.camunda>
+    <version.camundaSpringBoot>3.4.0</version.camundaSpringBoot>
+    <version.springBoot>2.2.1.RELEASE</version.springBoot>
     <version.spin>1.8.0</version.spin>
 
     <!-- disable javadoc linter for JDK8 to not fail on incomplete javadoc -->
