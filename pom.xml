@@ -40,9 +40,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git@github.com:camunda/camunda-bpm-identity-keycloak.git</connection>
-    <url>scm:git:git@github.com:camunda/camunda-bpm-identity-keycloak.git</url>
-    <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-identity-keycloak.git</developerConnection>
+    <connection>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</connection>
+    <url>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</url>
+    <developerConnection>scm:git:git@github.com:camunda/camunda-bpm-graphql.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
