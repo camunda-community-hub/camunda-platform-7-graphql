@@ -72,11 +72,11 @@ jobs:
       run: mvn -B clean install
     - name: Publish package (${{ steps.release-detection.outputs.type }})
       run: |-
-        mvn -B deploy -DskipTests -Dgpg.passphrase="${GPG_PASSPHRASE}"
+        mvn -B deploy -DskipTests -Dgpg.passphrase="${GPG_PASSPHRASE}" --projects extension,extension-webapp
 
         sed -i 's@:camunda-nexus:.*$@:central:https://oss.sonatype.org/content/repositories/snapshots/@g' target/nexus-staging/deferred/.index
         cat target/nexus-staging/deferred/.index
-        mvn -s $GITHUB_WORKSPACE/settings.xml -B org.sonatype.plugins:nexus-staging-maven-plugin:deploy-staged -DskipTests=true -Dgpg.passphrase="${GPG_PASSPHRASE}"
+        mvn -s $GITHUB_WORKSPACE/settings.xml -B org.sonatype.plugins:nexus-staging-maven-plugin:deploy-staged -DskipTests -Dgpg.passphrase="${GPG_PASSPHRASE}" --projects extension,extension-webapp
     - name: Archive artifacts
       run: |-
         ZIPFILE=${{github.event.repository.name}}-${{github.event.release.tag_name}}.zip
