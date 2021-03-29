@@ -1,19 +1,19 @@
 name: Build project with Maven
 on:
-  pull_request:
+  pull_request: 
   push:
-    branches-ignore: [master]
+    branches-ignore: [ master ]
   schedule:
-  - cron: '2 2 * * 1-5' # run nightly master builds on weekdays
+  - cron: "2 2 * * 1-5" # run nightly master builds on weekdays
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@e9512a931da86017e9d4d564a24616d8444d2193 # pin@v2
+      uses: actions/checkout@f1d3225b5376a0791fdee5a0e8eac5289355e43a # pin@v2
     - name: Java setup
-      uses: actions/setup-java@32b40ff017548e5bb9853df55204c675fa287265 # pin@v1
+      uses: actions/setup-java@e54a62b3df9364d4b4c1c29c7225e57fe605d7dd # pin@v1
       with:
         java-version: 1.8
     - name: Cache
