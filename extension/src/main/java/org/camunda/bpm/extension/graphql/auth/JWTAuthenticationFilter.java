@@ -53,8 +53,7 @@ public class JWTAuthenticationFilter implements Filter {
                 JWTVerifier verifier = JWT.require(algorithm)
                         .withIssuer(issuer)
                         .build();
-                DecodedJWT jwt = verifier.verify(token);
-                System.out.print(jwt);
+                verifier.verify(token);
 
                 chain.doFilter(request, response);
             } catch (JWTVerificationException exception){
