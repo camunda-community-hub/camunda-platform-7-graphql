@@ -5,3 +5,17 @@ camunda.bpm:
     firstName: Kermit
   filter:
     create: All tasks
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: none
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    websocket:
+      enabled: false
+graphiql:
+  base-path: /
+  mapping: graphiql
