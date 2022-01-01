@@ -24,12 +24,13 @@
     <dependency>
       <groupId>com.graphql-java-kickstart</groupId>
       <artifactId>graphql-java-tools</artifactId>
-      <version>5.7.1</version>
+      <version>11.0.1</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.graphql-java-kickstart</groupId>
       <artifactId>graphql-spring-boot-starter</artifactId>
-      <version>6.0.1</version>
+      <version>11.1.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

@@ -1,6 +1,6 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
+import graphql.kickstart.tools.GraphQLResolver;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.identity.Group;

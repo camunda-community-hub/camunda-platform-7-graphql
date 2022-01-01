@@ -1,6 +1,6 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
+import graphql.kickstart.tools.GraphQLResolver;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 
 import java.util.logging.Logger;
