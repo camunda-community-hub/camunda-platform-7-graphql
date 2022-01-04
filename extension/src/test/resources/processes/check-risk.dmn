@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_07wf9l3" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="checkRisk" name="Check risk">
+    <extensionElements>
+      <biodi:bounds x="200" y="200" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable">
+      <input id="input1" label="Credit amount" camunda:inputVariable="amount">
+        <inputExpression id="inputExpression1" typeRef="integer">        <text>${CREDIT_APPLICATION.amountInEuro}</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_1o26hye" label="Rating" camunda:inputVariable="rating">
+        <inputExpression id="LiteralExpression_091xxdl" typeRef="integer">        <text>${CUSTOMER_DATA.rating.classification}</text>
+</inputExpression>
+      </input>
+      <output id="output1" label="Decision" name="DECISION" typeRef="string">
+        <outputValues id="UnaryTests_11yxwwz">        <text><![CDATA["ACCEPT","ESCALATE","REJECT"]]></text>
+</outputValues>
+      </output>
+      <rule id="row-726150073-1">
+        <description>Solvent mini credit</description>
+        <inputEntry id="UnaryTests_16t7kku">        <text><![CDATA[<= 10000]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0oqdjhw">        <text><![CDATA[< 5]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0jql3vu">        <text><![CDATA["ACCEPT"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-726150073-2">
+        <description>Questionable mini credit</description>
+        <inputEntry id="UnaryTests_1x4lvjf">        <text><![CDATA[<= 10000]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1921d7a">        <text>[5..8[</text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0vuby1k">        <text><![CDATA["ESCALATE"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-726150073-3">
+        <description>Insolvent mini credit</description>
+        <inputEntry id="UnaryTests_1l88z8z">        <text><![CDATA[<= 10000]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1xug7hj">        <text><![CDATA[>= 8]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_14qfooi">        <text><![CDATA["REJECT"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-726150073-4">
+        <description>Solvent medium credit</description>
+        <inputEntry id="UnaryTests_171x4c5">        <text>]10000..100000]</text>
+</inputEntry>
+        <inputEntry id="UnaryTests_095oi00">        <text><![CDATA[< 3]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1gou2r0">        <text><![CDATA["ACCEPT"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-726150073-5">
+        <description>Questionable medium credit</description>
+        <inputEntry id="UnaryTests_0e1re1b">        <text>]10000..100000]</text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1qydf4r">        <text>[3..6[</text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0k04m2v">        <text><![CDATA["ESCALATE"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-726150073-6">
+        <description>Insolvent medium credit</description>
+        <inputEntry id="UnaryTests_0yc0wc6">        <text>]10000..100000]</text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1kyrmxk">        <text><![CDATA[>= 6]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0kvp0qg">        <text><![CDATA["REJECT"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-726150073-7">
+        <description>Maxi credit, always escalate</description>
+        <inputEntry id="UnaryTests_04hub4g">        <text><![CDATA[> 100000]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0ivk292">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_05omj3m">        <text><![CDATA["ESCALATE"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
