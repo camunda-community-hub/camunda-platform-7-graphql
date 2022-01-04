@@ -10,6 +10,8 @@ import org.camunda.bpm.engine.identity.UserQuery;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.repository.ProcessDefinitionQuery;
+import org.camunda.bpm.engine.runtime.Incident;
+import org.camunda.bpm.engine.runtime.IncidentQuery;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
 import org.camunda.bpm.engine.task.Task;
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 
 @Component
@@ -49,6 +53,8 @@ public class Query implements GraphQLQueryResolver {
 
     public Query() {
     }
+
+
 
     public List<Task> tasks(String assignee, String name, String nameLike) {
         TaskQuery taskQuery = taskService.createTaskQuery();

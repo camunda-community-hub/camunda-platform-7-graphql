@@ -1,0 +1,17 @@
+scalar Date
+type Incident {
+    id: String
+    incidentTimestamp: Date
+    incidentType: String
+    incidentMessage: String
+    executionId: String
+    activityId: String
+    processInstanceId: String
+    processDefinitionId: String
+    causeIncidentId: String
+    rootCauseIncidentId: String
+    configuration: String
+    tenantId: String
+    jobDefinitionId: String
+    historyConfiguration: String
+}

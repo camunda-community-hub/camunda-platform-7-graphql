@@ -17,6 +17,20 @@ type Query {
         names: [String]
     ): [KeyValuePair]
 
+    incidents(
+           processId: String! @doc(d: "Only select Incidents with processId.")
+    ):[Incident]
+
+    historicActivityInstances(
+        processId: String @doc(d: "Only select historic activity instances with processId.")
+    ):[HistoricActivityInstance]
+
+    historicProcessInstances(
+    	processId: String @doc(d: "Only select historic process instances with processId.")
+    	businessKey: String @doc(d: "Only select historic process instances with businessKey.")
+   	): [HistoricProcessInstance]
+
+
     processInstances(
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")
    	): [ProcessInstance]
