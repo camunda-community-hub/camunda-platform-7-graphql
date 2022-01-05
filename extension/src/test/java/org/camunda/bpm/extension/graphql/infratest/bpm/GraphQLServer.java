@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
-@SpringBootApplication(scanBasePackages = "org.camunda.bpm")
+@SpringBootApplication(scanBasePackages = {"org.camunda.bpm"})
 public class GraphQLServer extends SpringBootServletInitializer {
 
     @Override

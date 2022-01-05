@@ -13,6 +13,7 @@ public final class InstanceVariables {
 
     public static final String CREDIT_APPLICATION = "CREDIT_APPLICATION";
     public static final String CUSTOMER_DATA = "CUSTOMER_DATA";
+    public static final String TEMPERATURE = "TEMPERATURE";
 
     public static final String DECISION = "DECISION";
     public static final String RESPONSIBLE = "RESPONSIBLE";

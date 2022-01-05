@@ -1,0 +1,9 @@
+[
+  {
+    "scenario": "query to find process instance by businessKey",
+    "json": {
+      "query": "{ historicProcessInstances(businessKey:\"552365\" ) { id } }"
+    }
+  }
+
+]

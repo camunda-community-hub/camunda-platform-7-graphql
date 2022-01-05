@@ -3,13 +3,9 @@ package org.camunda.bpm.extension.graphql;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import graphql.ExecutionResult;
-import graphql.GraphQL;
-import graphql.schema.GraphQLSchema;
-import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
-import org.camunda.bpm.extension.graphql.infratest.bpm.GraphQLServer;
-import org.camunda.bpm.extension.graphql.infratest.bpm.TestConfig;
+import org.camunda.bpm.extension.graphql.infratest.bpm.BaseTest;
 import org.camunda.bpm.extension.graphql.infratest.bpm.dtos.CustomerData;
 import org.camunda.bpm.extension.graphql.infratest.bpm.dtos.InstanceVariables;
 import org.camunda.bpm.extension.graphql.infratest.bpm.dtos.Personality;
@@ -18,11 +14,9 @@ import org.camunda.bpm.extension.graphql.infratest.bpm.services.CustomerDataServ
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,36 +26,25 @@ import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.processD
 import static org.camunda.spin.Spin.JSON;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {GraphQLServer.class, TestConfig.class})
-public class GraphQLTest {
+
+public class GraphQLTest extends BaseTest {
 
     private static final String PROCESS_KEY = "credit-application";
     private static final String BUSINESS_KEY = "0000000072";
     private static final String EXAMPLE_ID = "01234567";
     private ProcessInstance processInstance;
 
-    private GraphQL graphQL;
-
-    @Autowired
-    private RuntimeService runtimeService;
-
     @Autowired
     private CustomerDataService customerDataServiceMock;
 
-    @Autowired
-    private GraphQLSchema graphQLSchema;
-
     @Before
-    public void setUp() {
-        
+    public void setUp() throws IOException {
+        super.setUp();
         CustomerData customer = new CustomerData(EXAMPLE_ID, "Dummy Corp.", Personality.JURIDICAL, SolvencyRating.A);
         when(customerDataServiceMock.findById(EXAMPLE_ID)).thenReturn(customer);
 
         processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, BUSINESS_KEY, startFormEntries(450000));
         assertThat(processInstance).isNotEnded();
-
-        graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
 
     @After

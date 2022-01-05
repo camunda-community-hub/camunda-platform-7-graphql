@@ -15,6 +15,7 @@ import org.camunda.bpm.extension.graphql.infratest.bpm.listeners.GetSwimlaneGrou
 import org.camunda.bpm.extension.graphql.infratest.bpm.listeners.UserResponsible;
 import org.camunda.bpm.extension.graphql.infratest.bpm.services.CustomerDataService;
 import org.camunda.bpm.extension.graphql.infratest.bpm.services.DMSService;
+import org.camunda.bpm.extension.graphql.infratest.bpm.services.WeatherCheckService;
 import org.camunda.spin.plugin.impl.SpinProcessEnginePlugin;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
@@ -77,7 +78,8 @@ public class TestConfig {
     public Resource[] deploymentResources() {
         return new Resource[]{
                 new ClassPathResource("processes/check-risk.dmn"),
-                new ClassPathResource("processes/credit-application.bpmn")};
+                new ClassPathResource("processes/credit-application.bpmn"),
+                new ClassPathResource("processes/weather.bpmn")};
     }
 
     @Bean
@@ -99,6 +101,11 @@ public class TestConfig {
     @Bean
     public CustomerDataService customerDataService() {
         return Mockito.mock(CustomerDataService.class);
+    }
+
+    @Bean
+    public WeatherCheckService weatherCheckService() {
+        return Mockito.mock(WeatherCheckService.class);
     }
 
     @Bean
