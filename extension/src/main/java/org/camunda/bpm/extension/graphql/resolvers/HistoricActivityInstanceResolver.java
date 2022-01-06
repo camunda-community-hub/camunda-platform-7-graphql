@@ -19,9 +19,6 @@ class HistoricActivityInstanceResolver implements GraphQLQueryResolver {
     @Autowired
     HistoryService historyService;
 
-    public HistoricActivityInstanceResolver() {
-    }
-
     public List<HistoricActivityInstance> getHistoricActivityInstances(String processId) {
         HistoricActivityInstanceQuery query = historyService.createHistoricActivityInstanceQuery();
         query = !isBlank(processId) ? query.processInstanceId(processId) : query;

@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +37,7 @@ public class GraphQLTest extends BaseTest {
     private CustomerDataService customerDataServiceMock;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         super.setUp();
         CustomerData customer = new CustomerData(EXAMPLE_ID, "Dummy Corp.", Personality.JURIDICAL, SolvencyRating.A);
         when(customerDataServiceMock.findById(EXAMPLE_ID)).thenReturn(customer);

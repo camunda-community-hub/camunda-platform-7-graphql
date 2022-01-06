@@ -1,5 +1,6 @@
 package org.camunda.bpm.extension.graphql.infratest.bpm;
 
+import com.jayway.jsonpath.JsonPath;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import org.camunda.bpm.engine.RuntimeService;
@@ -26,8 +27,12 @@ public class BaseTest {
     protected ScenarioLoaderHelper scenario = new ScenarioLoaderHelper();
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         graphQL = GraphQL.newGraphQL(graphQLSchema).build();
+    }
+
+    protected String query(String scenarioName) {
+        return JsonPath.read(this.scenario.getScenario(scenarioName).getJson(), "$.query");
     }
 
     protected String s(String scenarioName) {

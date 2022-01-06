@@ -1,0 +1,32 @@
+[
+  {
+    "scenario": "query to find a incident by process id",
+    "json": {
+      "query": "{ incidents(processId:\"idIncidentProcess\" ) { id incidentTimestamp incidentType incidentMessage executionId activityId processInstanceId processDefinitionId causeIncidentId rootCauseIncidentId configuration tenantId jobDefinitionId historyConfiguration} }"
+    }
+  },
+  {
+    "scenario": "should return one incident",
+    "json": {
+      "incidents": [
+        {
+          "id": "24",
+          "incidentTimestamp": "2022-01-06T12:42:47.384-0300",
+          "incidentType": "failedJob",
+          "incidentMessage": "couldn't execute activity <serviceTask id=\"Activity_0djxwoj\" ...>: Exception to generate a incident",
+          "executionId": "10",
+          "activityId": "Activity_0djxwoj",
+          "processInstanceId": "10",
+          "processDefinitionId": "weather-process:1:5",
+          "causeIncidentId": "24",
+          "rootCauseIncidentId": "24",
+          "configuration": "12",
+          "tenantId": null,
+          "jobDefinitionId": "6",
+          "historyConfiguration": null
+        }
+      ]
+    }
+  }
+
+]
