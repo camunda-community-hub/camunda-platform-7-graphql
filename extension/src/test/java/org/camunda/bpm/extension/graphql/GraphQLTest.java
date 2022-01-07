@@ -14,6 +14,8 @@ import org.camunda.bpm.extension.graphql.infratest.bpm.services.CustomerDataServ
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
@@ -24,6 +26,8 @@ import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.assertTh
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.processDefinition;
 import static org.camunda.spin.Spin.JSON;
 import static org.mockito.Mockito.when;
+import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
+import static org.skyscreamer.jsonassert.JSONCompareMode.LENIENT;
 
 
 public class GraphQLTest extends BaseTest {
@@ -102,7 +106,7 @@ public class GraphQLTest extends BaseTest {
 
         assertThat(executionResult.getErrors().size()).as("Number of errors").isEqualTo(0);
         assertThat(map.size()).as("number of variables").isEqualTo(1);
-        assertThat(actualResult).as("JSON result").isEqualTo(expectedResult);
+        assertEquals(actualResult, expectedResult, LENIENT);
     }
 
     @Test

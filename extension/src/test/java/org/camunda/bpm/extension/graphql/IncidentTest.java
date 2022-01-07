@@ -33,7 +33,9 @@ public class IncidentTest extends BaseTest {
             isNumeric("incidents[0].executionId"),
             isNumeric("incidents[0].causeIncidentId"),
             isNumeric("incidents[0].rootCauseIncidentId"),
-            isNumeric("incidents[0].jobDefinitionId")
+            isNumeric("incidents[0].jobDefinitionId"),
+            isNumeric("incidents[0].processInstanceId"),
+            isNumeric("incidents[0].configuration")
     );
 
     @Override

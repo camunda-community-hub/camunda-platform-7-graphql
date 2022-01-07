@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static java.lang.Thread.sleep;
 import static org.camunda.bpm.extension.graphql.infratest.comparators.Comparators.comparators;
 import static org.camunda.bpm.extension.graphql.infratest.comparators.DateExpressionMatcher.isDate;
 import static org.camunda.bpm.extension.graphql.infratest.comparators.IsANumberExpressionMatcher.isNumeric;
@@ -42,7 +43,7 @@ public class HistoricProcessInstanceTest extends BaseTest {
         scenario.load("historic-process-instance-scenarios.json");
         when(service.checkWeather()).thenReturn(30);
         processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY, BUSINESS_KEY);
-
+        sleep(2000);
     }
 
     @Test

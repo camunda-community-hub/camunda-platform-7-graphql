@@ -1,4 +1,4 @@
-package org.camunda.bpm.extension.graphql.infratest.bpm;
+package org.camunda.bpm.extension.graphql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
-@SpringBootApplication(scanBasePackages = {"org.camunda.bpm"})
+@SpringBootApplication
 public class GraphQLServer extends SpringBootServletInitializer {
 
     @Override

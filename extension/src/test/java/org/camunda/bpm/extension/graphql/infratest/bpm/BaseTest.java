@@ -4,6 +4,7 @@ import com.jayway.jsonpath.JsonPath;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.extension.graphql.GraphQLServer;
 import org.camunda.bpm.extension.graphql.infratest.scenarios.ScenarioLoaderHelper;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -11,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {GraphQLServer.class, TestConfig.class})
-public class BaseTest {
+public abstract class BaseTest {
 
     protected GraphQL graphQL;
 
