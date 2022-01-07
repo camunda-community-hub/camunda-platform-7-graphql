@@ -28,7 +28,7 @@ Release 0.3.0
 
 Build the GraphQL server
 ------------------------
-1. Ckeckout or Clone this repository using Git<br>
+1. Checkout or Clone this repository using Git<br>
 2. Adapt `extension/src/main/resources/application.properties`: <br>
 3. Build the project<br>
  for Apache Tomcat:     `mvn clean package`<br>
