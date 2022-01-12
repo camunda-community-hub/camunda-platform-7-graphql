@@ -1,11 +1,10 @@
 [![Community Extension Badge](https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700)](https://github.com/camunda-community-hub/community)
-[![Lifecycle: Abandoned Badge](https://img.shields.io/badge/Lifecycle-Abandoned-lightgrey)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#abandoned-)
-[![Lifecycle: Needs Maintainer Badge](https://img.shields.io/badge/Lifecycle-Needs%20Maintainer%20-ff69b4)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#abandoned-)
+[![Lifecycle: Incubating](https://img.shields.io/badge/Lifecycle-Incubating-blue)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#incubating-)
 
-Camunda GraphQL
+Camunda Platform GraphQL
 ===============
 
-Camunda GraphQL is a Community Extension for Camunda BPM that allows you to use [GraphQL](http://graphql.org/) to query and mutate [Process Engine data](https://docs.camunda.org/manual/latest/user-guide/process-engine/process-engine-api/) in a simple way. <br>
+Camunda Platform GraphQL is a Community Extension for Camunda Platform that allows you to use [GraphQL](http://graphql.org/) to query and mutate [Process Engine data](https://docs.camunda.org/manual/latest/user-guide/process-engine/process-engine-api/) in a simple way. <br>
 
 
 ![Overview](extension/src/main/resources/png/overview_01.png?raw=true "Overview")
@@ -367,7 +366,7 @@ or delete this property, e.g. in catalina.properties put it in a comment:<br>
 Goals
 ---------
 - expose the complete Camunda Java API in GraphQL
-- build modern web and mobile clients for Camunda BPM (freedom to choose your GUI library)
+- build modern web and mobile clients for Camunda Platform (freedom to choose your GUI library)
 - build GraphQL-based, customizable versions of **Tasklist, Cockpit, Admin**
 - Camunda BPM as part of a micro-services architecture. Service accessible through a GraphQL endpoint <br>
 (using GraphQL Schema Stiching to combine many GraphQL endpoints to one GraphQL API gateway)
