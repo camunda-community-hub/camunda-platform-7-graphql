@@ -1,13 +1,13 @@
 package org.camunda.bpm.extension.graphql.resolvers;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
+
+import graphql.kickstart.tools.GraphQLResolver;
 import org.camunda.bpm.application.ProcessApplicationContext;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;

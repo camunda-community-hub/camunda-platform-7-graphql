@@ -1,0 +1,46 @@
+ scalar Date
+ type HistoricProcessInstance {
+      id: String
+      businessKey: String
+      processDefinitionKey: String
+      processDefinitionId: String
+      processDefinitionName: String
+      processDefinitionVersion: Int
+      startTime: Date
+      endTime: Date
+      removalTime: Date
+      durationInMillis: Int
+      startUserId: String
+      startActivityId: String
+      superProcessInstanceId: String
+      rootProcessInstanceId: String
+      superCaseInstanceId: String
+      caseInstanceId: String
+      tenantId: String
+      state: String
+ }
+
+ type HistoricActivityInstance {
+     id: String
+     parentActivityInstanceId: String
+     activityId: String
+     activityName: String
+     activityType: String
+     processDefinitionKey: String
+     processDefinitionId: String
+     rootProcessInstanceId: String
+     processInstanceId: String
+     executionId: String
+     taskId: String
+     calledProcessInstanceId: String
+     calledCaseInstanceId: String
+     assignee: String
+     startTime: Date
+     endTime: Date
+     durationInMillis: Int
+     isCompleteScope: Boolean
+     isCanceled: Boolean
+     tenantId: String
+     removalTime: Date
+ }
+

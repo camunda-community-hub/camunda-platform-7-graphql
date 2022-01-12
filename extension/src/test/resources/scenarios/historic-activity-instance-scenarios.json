@@ -1,0 +1,108 @@
+[
+  {
+    "scenario": "query to find activity instances by processId",
+    "json": {
+      "query": "{ historicActivityInstances(processId:\"idActivityProcess\" ) { id parentActivityInstanceId activityId activityName activityType processDefinitionKey processDefinitionId rootProcessInstanceId processInstanceId executionId taskId calledProcessInstanceId calledCaseInstanceId assignee startTime endTime durationInMillis isCompleteScope isCanceled tenantId removalTime} }"
+    }
+  },
+  {
+    "scenario": "result of historic activity instances",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:11",
+          "parentActivityInstanceId": "9",
+          "activityId": "Activity_0djxwoj",
+          "activityName": "Check weather",
+          "activityType": "serviceTask",
+          "processDefinitionKey": "weather-process",
+          "processDefinitionId": "weather-process:1:5",
+          "rootProcessInstanceId": "9",
+          "processInstanceId": "9",
+          "executionId": "9",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-01-05T17:34:58.692-0300",
+          "endTime": "2022-01-05T17:34:58.724-0300",
+          "durationInMillis": 32,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null
+        },
+        {
+          "id": "Event_15knwgi:15",
+          "parentActivityInstanceId": "9",
+          "activityId": "Event_15knwgi",
+          "activityName": "Back to the bed",
+          "activityType": "noneEndEvent",
+          "processDefinitionKey": "weather-process",
+          "processDefinitionId": "weather-process:1:5",
+          "rootProcessInstanceId": "9",
+          "processInstanceId": "9",
+          "executionId": "9",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-01-05T17:34:58.731-0300",
+          "endTime": "2022-01-05T17:34:58.731-0300",
+          "durationInMillis": 0,
+          "isCompleteScope": true,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null
+        },
+        {
+          "id": "Gateway_0h20ym7:14",
+          "parentActivityInstanceId": "9",
+          "activityId": "Gateway_0h20ym7",
+          "activityName": null,
+          "activityType": "exclusiveGateway",
+          "processDefinitionKey": "weather-process",
+          "processDefinitionId": "weather-process:1:5",
+          "rootProcessInstanceId": "9",
+          "processInstanceId": "9",
+          "executionId": "9",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-01-05T17:34:58.725-0300",
+          "endTime": "2022-01-05T17:34:58.730-0300",
+          "durationInMillis": 5,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null
+        },
+        {
+          "id": "StartEvent_1:10",
+          "parentActivityInstanceId": "9",
+          "activityId": "StartEvent_1",
+          "activityName": null,
+          "activityType": "startEvent",
+          "processDefinitionKey": "weather-process",
+          "processDefinitionId": "weather-process:1:5",
+          "rootProcessInstanceId": "9",
+          "processInstanceId": "9",
+          "executionId": "9",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-01-05T17:34:58.682-0300",
+          "endTime": "2022-01-05T17:34:58.688-0300",
+          "durationInMillis": 6,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null
+        }
+      ]
+    }
+  }
+
+]
