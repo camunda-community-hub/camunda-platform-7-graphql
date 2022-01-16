@@ -23,6 +23,8 @@ type Query {
 
     historicActivityInstances(
         processId: String @doc(d: "Only select historic activity instances with processId.")
+        activityType: String @doc(d: "Only select historic activity instances with activityType.")
+        taskAssignee: String @doc(d: "Only select historic activity instances with taskAssignee.")
     ):[HistoricActivityInstance]
 
     historicProcessInstances(

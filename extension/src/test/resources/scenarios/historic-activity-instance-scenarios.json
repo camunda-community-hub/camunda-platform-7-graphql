@@ -103,6 +103,39 @@
         }
       ]
     }
+  },
+  {
+    "scenario": "query to find activity instances by activityType",
+    "json": {
+      "query": "{ historicActivityInstances(activityType:\"userTask\" ) { id activityType } }"
+    }
+  },
+  {
+    "scenario": "should return one historic activity by activityType",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:11",
+          "activityType": "userTask"
+        }
+      ]
+    }
+  },
+  {
+    "scenario": "query to find activity instances by task assignee",
+    "json": {
+      "query": "{ historicActivityInstances(taskAssignee:\"spiderman\" ) { id assignee } }"
+    }
+  },
+  {
+    "scenario": "should return one historic activity by task assignee",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:11",
+          "assignee": "spiderman"
+        }
+      ]
+    }
   }
-
 ]
