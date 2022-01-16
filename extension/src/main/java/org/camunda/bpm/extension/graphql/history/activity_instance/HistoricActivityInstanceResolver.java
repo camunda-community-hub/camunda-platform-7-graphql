@@ -1,4 +1,4 @@
-package org.camunda.bpm.extension.graphql.resolvers;
+package org.camunda.bpm.extension.graphql.history.activity_instance;
 
 
 import graphql.kickstart.tools.GraphQLQueryResolver;

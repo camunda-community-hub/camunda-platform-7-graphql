@@ -29,7 +29,12 @@ public class HistoricProcessInstanceTest extends BaseTest {
     private WeatherCheckService service;
     private ProcessInstance processInstance;
 
-    private final CustomComparator comparators = comparators(STRICT,
+    private final CustomComparator comparatorsWithActivities = comparators(STRICT,
+            isNumeric( "historicProcessInstances[0].id"),
+            isNumeric( "historicProcessInstances[0].historicActivityInstances[0..4].parentActivityInstanceId")
+    );
+
+    private final CustomComparator comparators  = comparators(STRICT,
             isNumeric( "historicProcessInstances[0].id"),
             isNumeric( "historicProcessInstances[0].durationInMillis"),
             isNumeric("historicProcessInstances[0].rootProcessInstanceId"),
@@ -55,5 +60,16 @@ public class HistoricProcessInstanceTest extends BaseTest {
             String result = new ObjectMapper().writeValueAsString(executionResult.getData());
         Then("the result should be");
             assertEquals(s("result of historic process instances"), result, comparators);
+    }
+
+    @Test
+    public void shouldReturnTheHistoricProcessInstanceWithHistoricActivityInstance() throws JSONException, JsonProcessingException {
+        Given("a query to search a historic process instance by businessKey");
+            String graphqlQuery = "query to find process instance with activity instances associated";
+        When("graphql is called");
+            ExecutionResult executionResult = graphQL.execute(query(graphqlQuery));
+            String result = new ObjectMapper().writeValueAsString(executionResult.getData());
+        Then("the result should be");
+            assertEquals(s("result should be 1 process instance with 4 activity instances"), result, comparatorsWithActivities);
     }
 }

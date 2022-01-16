@@ -18,6 +18,7 @@
       caseInstanceId: String
       tenantId: String
       state: String
+      historicActivityInstances: [HistoricActivityInstance]
  }
 
  type HistoricActivityInstance {
