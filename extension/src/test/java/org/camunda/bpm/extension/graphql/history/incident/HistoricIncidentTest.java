@@ -34,11 +34,13 @@ public class HistoricIncidentTest extends BaseTest {
             isDate("historicIncidents[0].createTime"),
             isNumeric("historicIncidents[0].rootProcessInstanceId"),
             isNumeric("historicIncidents[0].processInstanceId"),
+            isPresent("historicIncidents[0].processDefinitionId"),
             isNumeric("historicIncidents[0].causeIncidentId"),
             isNumeric("historicIncidents[0].rootCauseIncidentId"),
             isNumeric("historicIncidents[0].configuration"),
             isNumeric("historicIncidents[0].historyConfiguration"),
-            isNumeric("historicIncidents[0].jobDefinitionId")
+            isNumeric("historicIncidents[0].jobDefinitionId"),
+            isNumeric("historicIncidents[0].executionId")
     );
 
     @Override

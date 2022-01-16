@@ -48,6 +48,7 @@ public class HistoricProcessInstanceTest extends BaseTest {
             isNumeric("historicProcessInstances[0].id"),
             isNumeric("historicProcessInstances[0].durationInMillis"),
             isNumeric("historicProcessInstances[0].rootProcessInstanceId"),
+            isPresent("historicProcessInstances[0].processDefinitionId"),
             isDate("historicProcessInstances[0].startTime"),
             isDate("historicProcessInstances[0].endTime")
     );

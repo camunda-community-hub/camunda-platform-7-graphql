@@ -53,6 +53,7 @@ public class GraphQLTest extends BaseTest {
     @After
     public void tearDown() throws Exception {
         runtimeService.deleteProcessInstance(processInstance.getId(), "JUnit test");
+        historyService.deleteHistoricProcessInstance(processInstance.getId());
     }
 
 

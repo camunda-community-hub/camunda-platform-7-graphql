@@ -11,13 +11,13 @@
       <bpmn:outgoing>Flow_14z63cn</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1cfym88" sourceRef="Activity_0djxwoj" targetRef="Gateway_0h20ym7" />
-    <bpmn:sequenceFlow id="Flow_1twnltq" name="Above 25 degrees Celsius" sourceRef="Gateway_0h20ym7" targetRef="Activity_0seq4lt">
+    <bpmn:sequenceFlow id="Flow_1twnltq" name="Above 25 degrees Celsius" sourceRef="Gateway_0h20ym7" targetRef="confirmGoToTheBeach">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${TEMPERATURE &gt; 25}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="Event_0w94agp">
       <bpmn:incoming>Flow_1flqvg9</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1flqvg9" sourceRef="Activity_0seq4lt" targetRef="Event_0w94agp" />
+    <bpmn:sequenceFlow id="Flow_1flqvg9" sourceRef="confirmGoToTheBeach" targetRef="Event_0w94agp" />
     <bpmn:endEvent id="Event_15knwgi" name="Back to the bed">
       <bpmn:incoming>Flow_14z63cn</bpmn:incoming>
     </bpmn:endEvent>
@@ -28,7 +28,7 @@
       <bpmn:incoming>Flow_1ybrpsa</bpmn:incoming>
       <bpmn:outgoing>Flow_1cfym88</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_0seq4lt" name="Go to the beach" camunda:assignee="spiderman">
+    <bpmn:userTask id="confirmGoToTheBeach" name="Go to the beach" camunda:assignee="spiderman">
       <bpmn:incoming>Flow_1twnltq</bpmn:incoming>
       <bpmn:outgoing>Flow_1flqvg9</bpmn:outgoing>
     </bpmn:userTask>
@@ -79,7 +79,7 @@
       <bpmndi:BPMNShape id="Activity_19girm6_di" bpmnElement="Activity_0djxwoj">
         <dc:Bounds x="270" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0l2qbbd_di" bpmnElement="Activity_0seq4lt">
+      <bpmndi:BPMNShape id="Activity_0l2qbbd_di" bpmnElement="confirmGoToTheBeach">
         <dc:Bounds x="600" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
