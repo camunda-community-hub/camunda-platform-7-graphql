@@ -35,7 +35,7 @@
   {
     "scenario": "query to find process instance with activity instances associated",
     "json": {
-      "query": "{ historicProcessInstances(businessKey:\"552365\" ) { id historicActivityInstances { id parentActivityInstanceId activityId activityName }} }"
+      "query": "{ historicProcessInstances(businessKey:\"552365_activities\" ) { id historicActivityInstances { id parentActivityInstanceId activityId activityName }} }"
     }
   },
   {
@@ -74,6 +74,28 @@
               "parentActivityInstanceId":"10",
               "activityId":"StartEvent_1",
               "activityName":null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "scenario": "query to find process instance with incidents associated",
+    "json": {
+      "query": "{ historicProcessInstances(businessKey:\"552365_incident\" ) { id historicIncidents{ id processInstanceId } } }"
+    }
+  },
+  {
+    "scenario": "result should be 1 process instance with 1 historic incident",
+    "json": {
+      "historicProcessInstances":[
+        {
+          "id":"21",
+          "historicIncidents":[
+            {
+              "id":"35",
+              "processInstanceId":"21"
             }
           ]
         }
