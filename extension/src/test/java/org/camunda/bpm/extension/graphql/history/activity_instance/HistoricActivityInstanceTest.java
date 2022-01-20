@@ -71,34 +71,34 @@ public class HistoricActivityInstanceTest extends BaseTest {
     @Test
     public void shouldReturnTheHistoricActivityInstanceByProcessId() throws Exception {
         Given("a query to search a historic activity instance by processId");
-        String graphqlQuery = "query to find activity instances by processId";
+            String graphqlQuery = "query to find activity instances by processId";
         When("graphql is called");
-        String queryWithProcessId = query(graphqlQuery).replace("idActivityProcess", processInstance.getId());
+            String queryWithProcessId = query(graphqlQuery).replace("idActivityProcess", processInstance.getId());
         ExecutionResult executionResult = graphQL.execute(queryWithProcessId);
-        String result = new ObjectMapper().writeValueAsString(executionResult.getData());
+            String result = new ObjectMapper().writeValueAsString(executionResult.getData());
         Then("the result should be");
-        assertEquals(s("result of historic activity instances"), result, comparators);
+            assertEquals(s("result of historic activity instances"), result, comparators);
     }
 
     @Test
     public void shouldReturnTheHistoricActivityInstanceByActivityType() throws Exception {
         Given("a query to search a historic activity instance by activityType");
-        String graphqlQuery = "query to find activity instances by activityType";
+            String graphqlQuery = "query to find activity instances by activityType";
         When("graphql is called");
-        ExecutionResult executionResult = graphQL.execute(query(graphqlQuery));
-        String result = new ObjectMapper().writeValueAsString(executionResult.getData());
+            ExecutionResult executionResult = graphQL.execute(query(graphqlQuery));
+            String result = new ObjectMapper().writeValueAsString(executionResult.getData());
         Then("the result should be");
-        assertEquals(s("should return one historic activity by activityType"), result, byFilterComparators);
+            assertEquals(s("should return one historic activity by activityType"), result, byFilterComparators);
     }
 
     @Test
     public void shouldReturnTheHistoricActivityInstanceByTaskAssignee() throws Exception {
         Given("a query to search a historic activity instance by task assignee");
-        String graphqlQuery = "query to find activity instances by task assignee";
+            String graphqlQuery = "query to find activity instances by task assignee";
         When("graphql is called");
-        ExecutionResult executionResult = graphQL.execute(query(graphqlQuery));
-        String result = new ObjectMapper().writeValueAsString(executionResult.getData());
+            ExecutionResult executionResult = graphQL.execute(query(graphqlQuery));
+            String result = new ObjectMapper().writeValueAsString(executionResult.getData());
         Then("the result should be");
-        assertEquals(s("should return one historic activity by task assignee"), result, byFilterComparators);
+            assertEquals(s("should return one historic activity by task assignee"), result, byFilterComparators);
     }
 }
