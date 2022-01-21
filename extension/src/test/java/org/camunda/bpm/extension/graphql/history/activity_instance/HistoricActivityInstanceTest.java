@@ -55,12 +55,12 @@ public class HistoricActivityInstanceTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         scenario.load("historic-activity-instance-scenarios.json");
+        reset(service);
         when(service.checkWeather()).thenReturn(26);
         processInstance = runtimeService.startProcessInstanceByKey(PROCESS_KEY2, BUSINESS_KEY);
         sleep(2000);
         assertThat(processInstance).isWaitingAt("confirmGoToTheBeach");
         complete(task());
-        reset(service);
     }
 
     @After
