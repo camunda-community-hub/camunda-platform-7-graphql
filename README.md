@@ -11,15 +11,15 @@ Camunda Platform GraphQL is a Community Extension for Camunda Platform that allo
 
 Release 0.4.0
 -------------
-- update the resolvers to support the GraphQL Kickstart
+- updated the resolvers to support the GraphQL Kickstart
 - GraphiQL endpoint default set to /graphiql
 - GraphQL endpoint default set to /graphql
-- Add historic queries
-- Add relationship between historic types
-- refactor test setup and move test from webapp to extension
-- Change the app to execute on Spring Boot
-- Update example
-- update documentation
+- Added historic queries
+- Added relationship between historic types
+- refactored the test setup and move test from webapp to extension
+- changed the app to execute on Spring Boot
+- Updated example
+- updated documentation
 
 
 Spring Boot Camunda GraphQL Server Embbedded

@@ -37,6 +37,7 @@ type Query {
     ): [HistoricIncident]
 
     processInstances(
+        processId: String @doc(d: "Only select process instances with processId.")
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")
    	): [ProcessInstance]
 
