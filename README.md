@@ -9,21 +9,78 @@ Camunda Platform GraphQL is a Community Extension for Camunda Platform that allo
 
 ![Overview](extension/src/main/resources/png/overview_01.png?raw=true "Overview")
 
-Release 0.3.0
+Release 0.4.0
 -------------
-- update to Spring Boot 1.5.7
-- update to GraphQL Java Tools 4.1.2
-- add GraphQL Spring Boot Starter
-- add GraphiQL Spring Boot Starter
-- GraphiQL endpoint default set to /camunda-graphql/graphiql
-- GraphQL endpoint default set to /camunda-graphql/graphql
-- Simplification of GraphQL Schema (remove Interfaces like TaskEntity)
-- cleanup of a Mutation 
-- add Mutation startProcessInstanceByMessage
-- claimTask returns updated Task
-- refactor Test setup
-- update Documentation
+- update the resolvers to support the GraphQL Kickstart
+- GraphiQL endpoint default set to /graphiql
+- GraphQL endpoint default set to /graphql
+- Add historic queries
+- Add relationship between historic types
+- refactor test setup and move test from webapp to extension
+- Change the app to execute on Spring Boot
+- Update example
+- update documentation
 
+
+Spring Boot Camunda GraphQL Server Embbedded
+--------------------------
+
+### Spring Boot (only supported on version 0.4.0 or higher)
+In your Camunda Spring Boot project add the following dependencies
+
+**Gradle**
+
+Camunda Extension GraphQL
+```groovy
+    implementation group: 'org.camunda.bpm.extension.graphql', name: 'camunda-bpm-graphql', version: '0.4.0'
+```
+
+Spring Boot GraphQL Kickstart (the version 11.1.0 or higher)
+```groovy
+    implementation group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter', version: '11.1.0'
+    implementation group: 'com.graphql-java-kickstart', name: 'graphiql-spring-boot-starter', version: '11.1.0'
+    implementation group: 'com.graphql-java-kickstart', name: 'graphql-java-tools', version: '11.0.1'
+```
+
+**Maven**
+
+Camunda Extension GraphQL
+```xml
+    <dependency>
+        <groupId>org.camunda.bpm.extension.graphql</groupId>
+        <artifactId>camunda-bpm-graphql</artifactId>
+        <version>0.4.0</version>
+    </dependency>
+```
+Spring Boot GraphQL Kickstart (the version 11.1.0 or higher)
+```xml
+    <dependency>
+        <groupId>com.graphql-java-kickstart</groupId>
+        <artifactId>graphql-spring-boot-starter</artifactId>
+        <version>11.1.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.graphql-java-kickstart</groupId>
+        <artifactId>graphiql-spring-boot-starter</artifactId>
+        <version>11.1.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.graphql-java-kickstart</groupId>
+        <artifactId>graphql-java-tools</artifactId>
+        <version>11.0.1</version>
+    </dependency>
+```
+
+Use the [example](https://github.com/camunda-community-hub/camunda-platform-graphql/tree/main/example) if necessary. 
+
+By default the GraphQL and GraphiQL are available at the uri /graphql and /graphiql respectively, this configuration
+and others can be change by properties. The available settings can be consulted directly in the project of
+[Spring Boot GraphQL Kick Start](https://github.com/graphql-java-kickstart/graphql-spring-boot)
+
+Install the Camunda GraphQL Server on Tomcat or Wildfly
+--------------------------
 
 Build the GraphQL server
 ------------------------
@@ -32,10 +89,6 @@ Build the GraphQL server
 3. Build the project<br>
  for Apache Tomcat:     `mvn clean package`<br>
  for JBoss WildFly use the profile wildfly:  `mvn clean package -Pwildfly`<br>
-
-
-Install the GraphQL server
---------------------------
 
 ### Tomcat installation
 - Get the latest Release (`.war` file) from the 
