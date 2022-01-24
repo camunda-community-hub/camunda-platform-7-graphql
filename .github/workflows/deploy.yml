@@ -7,7 +7,7 @@
 name: Deploy artifacts with Maven
 on:
   push:
-    branches: [master]
+    branches: [main]
   release:
     types: [published]
 jobs:

@@ -3,12 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!-- Attention: to properly separate dependencies of extension and examples, do not define any dependencies/management here! -->
-
   <parent>
-    <groupId>org.camunda</groupId>
-    <artifactId>camunda-release-parent</artifactId>
-    <version>3.7</version>
-    <relativePath />
+    <groupId>org.camunda.community</groupId>
+    <artifactId>community-hub-release-parent</artifactId>
+    <version>1.2.2</version>
   </parent>
 
   <groupId>org.camunda.bpm.extension</groupId>
