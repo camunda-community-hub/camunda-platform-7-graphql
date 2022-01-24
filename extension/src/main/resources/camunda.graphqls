@@ -23,6 +23,8 @@ type Query {
 
     historicActivityInstances(
         processId: String @doc(d: "Only select historic activity instances with processId.")
+        activityType: String @doc(d: "Only select historic activity instances with activityType.")
+        taskAssignee: String @doc(d: "Only select historic activity instances with taskAssignee.")
     ):[HistoricActivityInstance]
 
     historicProcessInstances(
@@ -30,8 +32,12 @@ type Query {
     	businessKey: String @doc(d: "Only select historic process instances with businessKey.")
    	): [HistoricProcessInstance]
 
+    historicIncidents(
+        processId: String @doc(d: "Only select historic incidents with processId.")
+    ): [HistoricIncident]
 
     processInstances(
+        processId: String @doc(d: "Only select process instances with processId.")
     	businessKey: String @doc(d: "Only select process instances with a certain business key.")
    	): [ProcessInstance]
 

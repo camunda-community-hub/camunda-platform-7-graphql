@@ -72,10 +72,12 @@ public class Query implements GraphQLQueryResolver {
         return taskQuery.singleResult();
     }
 
-    public List<ProcessInstance> processInstances(String businessKey) {
-    	ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
-    	processInstanceQuery = (businessKey != null) ? processInstanceQuery.processInstanceBusinessKey(businessKey):processInstanceQuery;
-        return processInstanceQuery.list();
+    public List<ProcessInstance> processInstances(String businessKey, String processId) {
+    	ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery();
+    	query = !isBlank(businessKey) ? query.processInstanceBusinessKey(businessKey): query;
+        query = !isBlank(processId) ? query.processInstanceId(processId): query;
+
+        return query.list();
     }
 
     public List<ProcessDefinition> processDefinitions(Boolean isSuspended, Boolean latest) {

@@ -79,7 +79,8 @@ public class TestConfig {
         return new Resource[]{
                 new ClassPathResource("processes/check-risk.dmn"),
                 new ClassPathResource("processes/credit-application.bpmn"),
-                new ClassPathResource("processes/weather.bpmn")};
+                new ClassPathResource("processes/weather.bpmn"),
+                new ClassPathResource("processes/weather2.bpmn")};
     }
 
     @Bean

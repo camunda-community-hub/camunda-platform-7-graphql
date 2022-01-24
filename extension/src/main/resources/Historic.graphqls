@@ -18,6 +18,8 @@
       caseInstanceId: String
       tenantId: String
       state: String
+      historicActivityInstances: [HistoricActivityInstance]
+      historicIncidents:[HistoricIncident]
  }
 
  type HistoricActivityInstance {
@@ -42,5 +44,29 @@
      isCanceled: Boolean
      tenantId: String
      removalTime: Date
+ }
+
+ type HistoricIncident {
+     id: String
+     createTime: Date
+     endTime: Date
+     incidentType: String
+     incidentMessage: String
+     executionId: String
+     activityId: String
+     rootProcessInstanceId: String
+     processInstanceId: String
+     processDefinitionId: String
+     processDefinitionKey: String
+     causeIncidentId: String
+     rootCauseIncidentId: String
+     configuration: String
+     historyConfiguration: String
+     isOpen: Boolean
+     isDeleted: Boolean
+     isResolved: Boolean
+     tenantId: String
+     jobDefinitionId: String
+     removalTime: String
  }
 

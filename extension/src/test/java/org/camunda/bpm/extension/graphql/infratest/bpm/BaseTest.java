@@ -3,6 +3,7 @@ package org.camunda.bpm.extension.graphql.infratest.bpm;
 import com.jayway.jsonpath.JsonPath;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
+import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.extension.graphql.GraphQLServer;
 import org.camunda.bpm.extension.graphql.infratest.scenarios.ScenarioLoaderHelper;
@@ -20,6 +21,11 @@ public abstract class BaseTest {
 
     @Autowired
     protected RuntimeService runtimeService;
+
+    @Autowired
+    protected HistoryService historyService;
+
+
     @Autowired
     protected GraphQLSchema graphQLSchema;
 

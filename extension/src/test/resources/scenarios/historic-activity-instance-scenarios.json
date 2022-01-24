@@ -10,92 +10,115 @@
     "json": {
       "historicActivityInstances": [
         {
-          "id": "Activity_0djxwoj:11",
-          "parentActivityInstanceId": "9",
+          "id": "Activity_0djxwoj:17",
+          "parentActivityInstanceId": "13",
           "activityId": "Activity_0djxwoj",
           "activityName": "Check weather",
           "activityType": "serviceTask",
-          "processDefinitionKey": "weather-process",
-          "processDefinitionId": "weather-process:1:5",
-          "rootProcessInstanceId": "9",
-          "processInstanceId": "9",
-          "executionId": "9",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
           "taskId": null,
           "calledProcessInstanceId": null,
           "calledCaseInstanceId": null,
           "assignee": null,
-          "startTime": "2022-01-05T17:34:58.692-0300",
-          "endTime": "2022-01-05T17:34:58.724-0300",
-          "durationInMillis": 32,
+          "startTime": "2022-01-16T17:44:15.737-0300",
+          "endTime": "2022-01-16T17:44:15.792-0300",
+          "durationInMillis": 55,
           "isCompleteScope": false,
           "isCanceled": false,
           "tenantId": null,
           "removalTime": null
         },
         {
-          "id": "Event_15knwgi:15",
-          "parentActivityInstanceId": "9",
-          "activityId": "Event_15knwgi",
-          "activityName": "Back to the bed",
+          "id": "Event_0w94agp:25",
+          "parentActivityInstanceId": "13",
+          "activityId": "Event_0w94agp",
+          "activityName": null,
           "activityType": "noneEndEvent",
-          "processDefinitionKey": "weather-process",
-          "processDefinitionId": "weather-process:1:5",
-          "rootProcessInstanceId": "9",
-          "processInstanceId": "9",
-          "executionId": "9",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
           "taskId": null,
           "calledProcessInstanceId": null,
           "calledCaseInstanceId": null,
           "assignee": null,
-          "startTime": "2022-01-05T17:34:58.731-0300",
-          "endTime": "2022-01-05T17:34:58.731-0300",
-          "durationInMillis": 0,
+          "startTime": "2022-01-16T17:44:18.505-0300",
+          "endTime": "2022-01-16T17:44:18.507-0300",
+          "durationInMillis": 2,
           "isCompleteScope": true,
           "isCanceled": false,
           "tenantId": null,
           "removalTime": null
         },
         {
-          "id": "Gateway_0h20ym7:14",
-          "parentActivityInstanceId": "9",
+          "id": "Gateway_0h20ym7:20",
+          "parentActivityInstanceId": "13",
           "activityId": "Gateway_0h20ym7",
           "activityName": null,
           "activityType": "exclusiveGateway",
-          "processDefinitionKey": "weather-process",
-          "processDefinitionId": "weather-process:1:5",
-          "rootProcessInstanceId": "9",
-          "processInstanceId": "9",
-          "executionId": "9",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
           "taskId": null,
           "calledProcessInstanceId": null,
           "calledCaseInstanceId": null,
           "assignee": null,
-          "startTime": "2022-01-05T17:34:58.725-0300",
-          "endTime": "2022-01-05T17:34:58.730-0300",
-          "durationInMillis": 5,
+          "startTime": "2022-01-16T17:44:15.793-0300",
+          "endTime": "2022-01-16T17:44:15.799-0300",
+          "durationInMillis": 6,
           "isCompleteScope": false,
           "isCanceled": false,
           "tenantId": null,
           "removalTime": null
         },
         {
-          "id": "StartEvent_1:10",
-          "parentActivityInstanceId": "9",
+          "id": "StartEvent_1:14",
+          "parentActivityInstanceId": "13",
           "activityId": "StartEvent_1",
           "activityName": null,
           "activityType": "startEvent",
-          "processDefinitionKey": "weather-process",
-          "processDefinitionId": "weather-process:1:5",
-          "rootProcessInstanceId": "9",
-          "processInstanceId": "9",
-          "executionId": "9",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
           "taskId": null,
           "calledProcessInstanceId": null,
           "calledCaseInstanceId": null,
           "assignee": null,
-          "startTime": "2022-01-05T17:34:58.682-0300",
-          "endTime": "2022-01-05T17:34:58.688-0300",
-          "durationInMillis": 6,
+          "startTime": "2022-01-16T17:44:15.597-0300",
+          "endTime": "2022-01-16T17:44:15.607-0300",
+          "durationInMillis": 10,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null
+        },
+        {
+          "id": "confirmGoToTheBeach:21",
+          "parentActivityInstanceId": "13",
+          "activityId": "confirmGoToTheBeach",
+          "activityName": "Go to the beach",
+          "activityType": "userTask",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
+          "taskId": "22",
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": "spiderman",
+          "startTime": "2022-01-16T17:44:15.800-0300",
+          "endTime": "2022-01-16T17:44:18.501-0300",
+          "durationInMillis": 2701,
           "isCompleteScope": false,
           "isCanceled": false,
           "tenantId": null,
@@ -103,6 +126,39 @@
         }
       ]
     }
+  },
+  {
+    "scenario": "query to find activity instances by activityType",
+    "json": {
+      "query": "{ historicActivityInstances(activityType:\"userTask\" ) { id activityType } }"
+    }
+  },
+  {
+    "scenario": "should return one historic activity by activityType",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:11",
+          "activityType": "userTask"
+        }
+      ]
+    }
+  },
+  {
+    "scenario": "query to find activity instances by task assignee",
+    "json": {
+      "query": "{ historicActivityInstances(taskAssignee:\"spiderman\" ) { id assignee } }"
+    }
+  },
+  {
+    "scenario": "should return one historic activity by task assignee",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:11",
+          "assignee": "spiderman"
+        }
+      ]
+    }
   }
-
 ]

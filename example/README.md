@@ -16,4 +16,4 @@ git clone https://github.com/camunda/camunda-get-started-spring-boot.git
 git checkout -f Start
 ```
 
-License: The source files in this repository are made available under the [Apache License Version 2.0](./LICENSE).
+License: The source files in this repository are made available under the [Apache License Version 2.0](../LICENSE).

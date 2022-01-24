@@ -9,7 +9,7 @@ camunda.bpm:
 spring:
   main:
     allow-bean-definition-overriding: true
-    web-application-type: none
+    web-application-type: servlet
 graphql:
   servlet:
     mapping: /graphql
