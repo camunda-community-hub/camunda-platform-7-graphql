@@ -63,7 +63,6 @@
   <modules>
     <module>extension</module>
     <module>extension-webapp</module>
-    <module>example</module>
   </modules>
 
   <dependencyManagement>
