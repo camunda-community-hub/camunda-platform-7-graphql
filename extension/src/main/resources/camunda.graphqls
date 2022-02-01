@@ -1,12 +1,15 @@
 type Query {
 
+    "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery"
     tasks(
-        assignee: String @doc(d: "Only select tasks which are assigned to the given user.")
-        name: String @doc(d: "Only select tasks with the given name")
-        nameLike: String @doc(d: "Only select tasks with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%activiti%)")
+        "Only select tasks which are assigned to the given user."
+        assignee: String
+        "Only select tasks with the given name"
+        name: String
+        "Only select tasks with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%activiti%)"
+        nameLike: String
     )
     : [Task]
-    @doc(d: "Allows programmatic querying of Tasks based on the public Interface org.camunda.bpm.engine.task.TaskQuery")
 
 	task(
 		id: String!
@@ -18,27 +21,36 @@ type Query {
     ): [KeyValuePair]
 
     incidents(
-           processId: String! @doc(d: "Only select Incidents with processId.")
+           "Only select Incidents with processId."
+           processId: String!
     ):[Incident]
 
     historicActivityInstances(
-        processId: String @doc(d: "Only select historic activity instances with processId.")
-        activityType: String @doc(d: "Only select historic activity instances with activityType.")
-        taskAssignee: String @doc(d: "Only select historic activity instances with taskAssignee.")
+        "Only select historic activity instances with processId."
+        processId: String
+        "Only select historic activity instances with activityType."
+        activityType: String
+        "Only select historic activity instances with taskAssignee."
+        taskAssignee: String
     ):[HistoricActivityInstance]
 
     historicProcessInstances(
-    	processId: String @doc(d: "Only select historic process instances with processId.")
-    	businessKey: String @doc(d: "Only select historic process instances with businessKey.")
+        "Only select historic process instances with processId."
+    	processId: String
+    	"Only select historic process instances with businessKey."
+    	businessKey: String
    	): [HistoricProcessInstance]
 
     historicIncidents(
-        processId: String @doc(d: "Only select historic incidents with processId.")
+        "Only select historic incidents with processId."
+        processId: String
     ): [HistoricIncident]
 
     processInstances(
-        processId: String @doc(d: "Only select process instances with processId.")
-    	businessKey: String @doc(d: "Only select process instances with a certain business key.")
+        "Only select process instances with processId."
+        processId: String
+        "Only select process instances with a certain business key."
+    	businessKey: String
    	): [ProcessInstance]
 
     processDefinition(
@@ -46,60 +58,73 @@ type Query {
     ): ProcessDefinition
 
     processDefinitions(
-        isSuspended: Boolean @doc(d: "process definition suspended state. true: get process definitions in suspended state, ommitted: get all process definitions")
-        latest: Boolean @doc(d: "Only select the process definitions which are the latest deployed (ie. which have the highest version number for the given key). ")
+        "process definition suspended state. true: get process definitions in suspended state, ommitted: get all process definitions"
+        isSuspended: Boolean
+        "Only select the process definitions which are the latest deployed (ie. which have the highest version number for the given key). "
+        latest: Boolean
     ): [ProcessDefinition]
 
     groups(
-        name: String @doc(d: "Only select groups with the given name")
-        nameLike: String @doc(d: "Only select groups with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)")
-        type: String @doc(d: "Only select specific type of groups")
+        "Only select groups with the given name"
+        name: String
+        "Only select groups with a name matching the parameter. The syntax is that of SQL: for example usage: nameLike(%camunda%)"
+        nameLike: String
+        "Only select specific type of groups"
+        type: String
     ): [Group]
 
     group(
-        id: String! @doc(d: "Only select a group by group id")
+        "Only select a group by group id"
+        id: String!
     ): Group
 
     users(
-        firstName: String @doc(d: "Only select users with the given first name")
-        firstNameLike: String @doc(d: "Only select users with a first name matching the parameter. The syntax is that of SQL: for example usage: nameLike: \"%camunda%\"")
-        groupId: String @doc(d: "The group of user belongs to")
+        "Only select users with the given first name"
+        firstName: String
+        "Only select users with a first name matching the parameter. The syntax is that of SQL: for example usage: nameLike: \"%camunda%\""
+        firstNameLike: String
+        "The group of user belongs to"
+        groupId: String
     ): [User]
 
     user(
-        id: String! @doc(d: "Only select a user by user id")
+        "Only select a user by user id"
+        id: String!
     ): User
 
 }
 
 type Mutation {
+    "sets the assignee of a Task"
     setAssignee(
         taskEntityId: String!
         assignee: String!
     )
     : Task
-    @doc(d: "sets the assignee of a Task")
 
+    "Starts a new process instance in the latest version of the process definition with the given key."
     createProcessInstance(
-        processDefintionKey: String!  @doc(d: "unique name for all versions this definition")
+        "unique name for all versions this definition"
+        processDefintionKey: String!
         variables: [KeyValuePairInput]
     )
     : ProcessInstance
-    @doc(d: "Starts a new process instance in the latest version of the process definition with the given key.")
 
+    "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided."
     completeTask(
         taskId: String!
     	variables: [KeyValuePairInput]
     )
     : ProcessInstance
-    @doc(d: "Marks a task as done and continues process execution. This method is typically called by a task list user interface after a task form has been submitted by the assignee and the required task parameters have been provided.")
 
+   "Claim responsibility for a task: the given user is made assignee for the task. The difference with setAssignee(String, String) is that here a check is done if the task already has a user assigned to it. No check is done whether the user is known by the identity component."
     claimTask(
-        taskId: String! @doc(d: "task to claim, cannot be null.")
-        userId: String @doc(d: "user that claims the task. When userId is null the task is unclaimed, assigned to no one.")
+        "task to claim, cannot be null."
+        taskId: String!
+        "user that claims the task. When userId is null the task is unclaimed, assigned to no one."
+        userId: String
     )
     : Task
-    @doc(d: "Claim responsibility for a task: the given user is made assignee for the task. The difference with setAssignee(String, String) is that here a check is done if the task already has a user assigned to it. No check is done whether the user is known by the identity component.")
 
     startProcessInstanceByKey(
         key: String!

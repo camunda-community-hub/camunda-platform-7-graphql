@@ -1,4 +1,5 @@
-type ProcessInstance @doc(d: "Represents one execution of a ProcessDefinition.") {
+"Represents one execution of a ProcessDefinition."
+type ProcessInstance {
     id: String
     processInstanceId: String
     tenantId: String
