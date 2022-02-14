@@ -1,20 +1,21 @@
 package org.camunda.bpm.extension.graphql.history.activity_instance;
 
 
-import graphql.kickstart.tools.GraphQLQueryResolver;
+import graphql.kickstart.tools.GraphQLResolver;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.history.HistoricActivityInstance;
-import org.camunda.bpm.engine.history.HistoricActivityInstanceQuery;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.camunda.bpm.engine.history.HistoricVariableInstanceQuery;
+import org.camunda.bpm.engine.variable.VariableMap;
+import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
+import org.camunda.bpm.extension.graphql.resolvers.Util;
+import org.camunda.bpm.extension.graphql.types.KeyValuePair;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 
 @Component
-class HistoricActivityInstanceResolver implements GraphQLQueryResolver {
+class HistoricActivityInstanceResolver implements GraphQLResolver<HistoricActivityInstance> {
 
     private HistoryService historyService;
 
@@ -22,12 +23,14 @@ class HistoricActivityInstanceResolver implements GraphQLQueryResolver {
         this.historyService = historyService;
     }
 
-    public List<HistoricActivityInstance> getHistoricActivityInstances(String processId, String activityType, String taskAssignee) {
-        HistoricActivityInstanceQuery query = historyService.createHistoricActivityInstanceQuery();
-        query = !isBlank(processId) ? query.processInstanceId(processId) : query;
-        query = !isBlank(activityType) ? query.activityType(activityType) : query;
-        query = !isBlank(taskAssignee) ? query.taskAssignee(taskAssignee) : query;
-        return query.list();
+
+    public List<KeyValuePair> getVariables(HistoricActivityInstance instance) {
+        HistoricVariableInstanceQuery query = historyService.createHistoricVariableInstanceQuery()
+                .processInstanceId(instance.getProcessInstanceId());
+        VariableMap variableMap = new VariableMapImpl();
+        query.list().forEach(item -> variableMap.putValueTyped(item.getName(), item.getTypedValue()));
+
+        return Util.getKeyValuePairs(variableMap);
     }
 
 }

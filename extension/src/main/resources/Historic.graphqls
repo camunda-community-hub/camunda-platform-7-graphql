@@ -44,6 +44,7 @@
      isCanceled: Boolean
      tenantId: String
      removalTime: Date
+     variables: [KeyValuePair]
  }
 
  type HistoricIncident {
