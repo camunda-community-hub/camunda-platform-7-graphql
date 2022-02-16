@@ -37,6 +37,7 @@ jobs:
           nexus-psw: ${{ secrets.NEXUS_PSW }}
           maven-usr: ${{ secrets.MAVEN_CENTRAL_DEPLOYMENT_USR }}
           maven-psw: ${{ secrets.MAVEN_CENTRAL_DEPLOYMENT_PSW }}
+          maven-url: oss.sonatype.org
           maven-gpg-passphrase: ${{ secrets.MAVEN_CENTRAL_GPG_SIGNING_KEY_PASSPHRASE }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
         id: release
