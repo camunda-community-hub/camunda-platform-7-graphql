@@ -7,6 +7,7 @@
     <groupId>org.camunda.bpm.extension</groupId>
     <artifactId>camunda-bpm-graphql-root</artifactId>
     <version>0.4.0</version>
+    <relativePath/>
   </parent>
 
   <artifactId>camunda-bpm-graphql-webapp</artifactId>
@@ -62,6 +63,7 @@
       <groupId>org.camunda.bpm.extension</groupId>
       <artifactId>camunda-bpm-graphql</artifactId>
       <version>0.4.0</version>
+      <type>ep-eventflow-fragment</type>
     </dependency>
     <dependency>
       <groupId>org.camunda.bpm.springboot</groupId>

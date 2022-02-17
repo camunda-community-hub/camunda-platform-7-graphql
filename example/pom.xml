@@ -1,8 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.camunda.bpm.getstarted</groupId>
   <artifactId>loan-approval-spring-boot</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.4.0-SNAPSHOT</version>
+
+  <packaging>pom</packaging>
 
   <properties>
     <camunda.spring-boot.version>7.13.0</camunda.spring-boot.version>
@@ -10,6 +13,27 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
+   <!-- repositories used for distribution of releases and snapshots, DO NOT CHANGE -->
+   <distributionManagement>
+    <repository>
+      <id>camunda-nexus</id>
+      <name>camunda bpm community extensions</name>
+      <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions</url>
+    </repository>
+    <snapshotRepository>
+      <id>camunda-nexus</id>
+      <name>camunda bpm community extensions snapshots</name>
+      <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions-snapshots</url>
+      <!-- for maven 2 compatibility -->
+      <uniqueVersion>true</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <modules>
+    <module>extension</module>
+    <module>extension-webapp</module>
+  </modules>
 
   <dependencyManagement>
     <dependencies>
@@ -47,7 +71,7 @@
     <dependency>
       <groupId>org.camunda.bpm.extension</groupId>
       <artifactId>camunda-bpm-graphql</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
+      <version>0.4.0</version>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
