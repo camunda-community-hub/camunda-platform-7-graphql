@@ -2,7 +2,7 @@
   {
     "scenario": "query to find activity instances by processId",
     "json": {
-      "query": "{ historicActivityInstances(processId:\"idActivityProcess\" ) { id parentActivityInstanceId activityId activityName activityType processDefinitionKey processDefinitionId rootProcessInstanceId processInstanceId executionId taskId calledProcessInstanceId calledCaseInstanceId assignee startTime endTime durationInMillis isCompleteScope isCanceled tenantId removalTime variables {key value}} }"
+      "query": "{ historicActivityInstances(processId:\"idActivityProcess\" ) { id parentActivityInstanceId activityId activityName activityType processDefinitionKey processDefinitionId rootProcessInstanceId processInstanceId executionId taskId calledProcessInstanceId calledCaseInstanceId assignee startTime endTime durationInMillis isCompleteScope isCanceled tenantId removalTime variables(filterByName:[\"teste\"]) {key value}} }"
     }
   },
   {
