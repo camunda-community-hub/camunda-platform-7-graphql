@@ -81,6 +81,18 @@ public class HistoricActivityInstanceTest extends BaseTest {
     }
 
     @Test
+    public void shouldReturnTheHistoricActivityInstanceVariablesUsingFilter() throws Exception {
+        Given("a query to search a historic activity instance filter temperature variable");
+            String graphqlQuery = "query to find activity instances with variables filtered";
+        When("graphql is called");
+            String queryWithProcessId = query(graphqlQuery).replace("idActivityProcess", processInstance.getId());
+            ExecutionResult executionResult = graphQL.execute(queryWithProcessId);
+            String result = new ObjectMapper().writeValueAsString(executionResult.getData());
+        Then("the result should be");
+            assertEquals(s("result of historic activity instances variables filtered"), result, comparators);
+    }
+
+    @Test
     public void shouldReturnTheHistoricActivityInstanceByActivityType() throws Exception {
         Given("a query to search a historic activity instance by activityType");
             String graphqlQuery = "query to find activity instances by activityType";

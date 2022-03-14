@@ -2,11 +2,223 @@
   {
     "scenario": "query to find activity instances by processId",
     "json": {
-      "query": "{ historicActivityInstances(processId:\"idActivityProcess\" ) { id parentActivityInstanceId activityId activityName activityType processDefinitionKey processDefinitionId rootProcessInstanceId processInstanceId executionId taskId calledProcessInstanceId calledCaseInstanceId assignee startTime endTime durationInMillis isCompleteScope isCanceled tenantId removalTime variables(filterByName:[\"teste\"]) {key value}} }"
+      "query": "{ historicActivityInstances(processId:\"idActivityProcess\" ) { id parentActivityInstanceId activityId activityName activityType processDefinitionKey processDefinitionId rootProcessInstanceId processInstanceId executionId taskId calledProcessInstanceId calledCaseInstanceId assignee startTime endTime durationInMillis isCompleteScope isCanceled tenantId removalTime variables {key value}} }"
     }
   },
   {
     "scenario": "result of historic activity instances",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:18",
+          "parentActivityInstanceId": "13",
+          "activityId": "Activity_0djxwoj",
+          "activityName": "Check weather",
+          "activityType": "serviceTask",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "17",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-03-14T09:34:27.278-0300",
+          "endTime": "2022-03-14T09:34:27.296-0300",
+          "durationInMillis": 18,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null,
+          "variables": [
+            {
+              "key": "TEMPERATURE",
+              "value": "26"
+            },
+            {
+              "key": "STEP_ONE",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "id": "Event_0w94agp:28",
+          "parentActivityInstanceId": "13",
+          "activityId": "Event_0w94agp",
+          "activityName": null,
+          "activityType": "noneEndEvent",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-03-14T09:34:29.752-0300",
+          "endTime": "2022-03-14T09:34:29.752-0300",
+          "durationInMillis": 0,
+          "isCompleteScope": true,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null,
+          "variables": [
+            {
+              "key": "TEMPERATURE",
+              "value": "26"
+            },
+            {
+              "key": "STEP_ONE",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "id": "Gateway_0h20ym7:23",
+          "parentActivityInstanceId": "13",
+          "activityId": "Gateway_0h20ym7",
+          "activityName": null,
+          "activityType": "exclusiveGateway",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-03-14T09:34:27.303-0300",
+          "endTime": "2022-03-14T09:34:27.305-0300",
+          "durationInMillis": 2,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null,
+          "variables": [
+            {
+              "key": "TEMPERATURE",
+              "value": "26"
+            },
+            {
+              "key": "STEP_ONE",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "id": "StartEvent_1:14",
+          "parentActivityInstanceId": "13",
+          "activityId": "StartEvent_1",
+          "activityName": null,
+          "activityType": "startEvent",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
+          "taskId": null,
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": null,
+          "startTime": "2022-03-14T09:34:27.203-0300",
+          "endTime": "2022-03-14T09:34:27.211-0300",
+          "durationInMillis": 8,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null,
+          "variables": [
+            {
+              "key": "TEMPERATURE",
+              "value": "26"
+            },
+            {
+              "key": "STEP_ONE",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "id": "confirmGoToTheBeach:24",
+          "parentActivityInstanceId": "13",
+          "activityId": "confirmGoToTheBeach",
+          "activityName": "Go to the beach",
+          "activityType": "userTask",
+          "processDefinitionKey": "weather-process2",
+          "processDefinitionId": "weather-process2:1:6",
+          "rootProcessInstanceId": "13",
+          "processInstanceId": "13",
+          "executionId": "13",
+          "taskId": "25",
+          "calledProcessInstanceId": null,
+          "calledCaseInstanceId": null,
+          "assignee": "spiderman",
+          "startTime": "2022-03-14T09:34:27.305-0300",
+          "endTime": "2022-03-14T09:34:29.751-0300",
+          "durationInMillis": 2446,
+          "isCompleteScope": false,
+          "isCanceled": false,
+          "tenantId": null,
+          "removalTime": null,
+          "variables": [
+            {
+              "key": "TEMPERATURE",
+              "value": "26"
+            },
+            {
+              "key": "STEP_ONE",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "scenario": "query to find activity instances by activityType",
+    "json": {
+      "query": "{ historicActivityInstances(activityType:\"userTask\" ) { id activityType } }"
+    }
+  },
+  {
+    "scenario": "should return one historic activity by activityType",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:11",
+          "activityType": "userTask"
+        }
+      ]
+    }
+  },
+  {
+    "scenario": "query to find activity instances by task assignee",
+    "json": {
+      "query": "{ historicActivityInstances(taskAssignee:\"spiderman\" ) { id assignee } }"
+    }
+  },
+  {
+    "scenario": "should return one historic activity by task assignee",
+    "json": {
+      "historicActivityInstances": [
+        {
+          "id": "Activity_0djxwoj:11",
+          "assignee": "spiderman"
+        }
+      ]
+    }
+  },
+  {
+    "scenario": "query to find activity instances with variables filtered",
+    "json": {
+      "query": "{ historicActivityInstances(processId:\"idActivityProcess\" ) { id parentActivityInstanceId activityId activityName activityType processDefinitionKey processDefinitionId rootProcessInstanceId processInstanceId executionId taskId calledProcessInstanceId calledCaseInstanceId assignee startTime endTime durationInMillis isCompleteScope isCanceled tenantId removalTime variables(filter:{ key: { in: [\"TEMPERATURE\"]} }) {key value}} }"
+    }
+  },
+  {
+    "scenario": "result of historic activity instances variables filtered",
     "json": {
       "historicActivityInstances":[
         {
@@ -153,40 +365,6 @@
               "value":"26"
             }
           ]
-        }
-      ]
-    }
-  },
-  {
-    "scenario": "query to find activity instances by activityType",
-    "json": {
-      "query": "{ historicActivityInstances(activityType:\"userTask\" ) { id activityType } }"
-    }
-  },
-  {
-    "scenario": "should return one historic activity by activityType",
-    "json": {
-      "historicActivityInstances": [
-        {
-          "id": "Activity_0djxwoj:11",
-          "activityType": "userTask"
-        }
-      ]
-    }
-  },
-  {
-    "scenario": "query to find activity instances by task assignee",
-    "json": {
-      "query": "{ historicActivityInstances(taskAssignee:\"spiderman\" ) { id assignee } }"
-    }
-  },
-  {
-    "scenario": "should return one historic activity by task assignee",
-    "json": {
-      "historicActivityInstances": [
-        {
-          "id": "Activity_0djxwoj:11",
-          "assignee": "spiderman"
         }
       ]
     }

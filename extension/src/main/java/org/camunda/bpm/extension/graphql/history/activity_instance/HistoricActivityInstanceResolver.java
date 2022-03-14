@@ -9,6 +9,7 @@ import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.camunda.bpm.extension.graphql.resolvers.Util;
 import org.camunda.bpm.extension.graphql.types.KeyValuePair;
+import org.camunda.bpm.extension.graphql.types.filters.keyvalue.KeyValueFilter;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -25,8 +26,9 @@ class HistoricActivityInstanceResolver implements GraphQLResolver<HistoricActivi
     }
 
 
-    public List<KeyValuePair> getVariables(HistoricActivityInstance instance, List<String> keys) {
-        List<String> keysTreated = keys == null ? Arrays.asList() : keys;
+    public List<KeyValuePair> getVariables(HistoricActivityInstance instance, KeyValueFilter filter) {
+        List<String> keysTreated = filter == null ? Arrays.asList() : filter.getKey().getIn();
+
         HistoricVariableInstanceQuery query = historyService.createHistoricVariableInstanceQuery()
                 .processInstanceId(instance.getProcessInstanceId());
         VariableMap variableMap = new VariableMapImpl();

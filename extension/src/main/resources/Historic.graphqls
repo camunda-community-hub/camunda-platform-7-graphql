@@ -45,7 +45,7 @@
      tenantId: String
      removalTime: Date
      "Use the filter to select only variables keys informed"
-     variables(filterByKeys: [String]): [KeyValuePair]
+     variables(filter: KeyValueFilterInput): [KeyValuePair]
  }
 
  type HistoricIncident {
