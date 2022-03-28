@@ -92,7 +92,7 @@ Build the GraphQL server
 
 ### Tomcat installation
 - Get the latest Release (`.war` file) from the 
-[Camunda Repo](https://app.camunda.com/nexus/content/repositories/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/) <br>
+[Camunda Repo](https://artifacts.camunda.com/artifactory/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/) <br>
 - deploy it to your Tomcat server e.g. copy it to the Tomcat /webapps` folder
 
 ### Wildfly installation
