@@ -44,7 +44,8 @@
      isCanceled: Boolean
      tenantId: String
      removalTime: Date
-     variables: [KeyValuePair]
+     "Use the filter to select only variables keys informed"
+     variables(filter: KeyValueFilterInput): [KeyValuePair]
  }
 
  type HistoricIncident {
