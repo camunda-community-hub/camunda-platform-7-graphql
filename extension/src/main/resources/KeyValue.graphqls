@@ -10,6 +10,15 @@ input KeyValuePairInput {
     valueType: ValueTypeEnum
 }
 
+input KeyValueFilterInput {
+    key: KeyFilterInput
+}
+
+input KeyFilterInput {
+    in:[String]
+}
+
+
 enum ValueTypeEnum {
     OBJECT
     INT
