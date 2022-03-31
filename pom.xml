@@ -11,7 +11,7 @@
 
   <groupId>org.camunda.bpm.extension</groupId>
   <artifactId>camunda-bpm-graphql-root</artifactId>
-  <version>v0.4.0</version>
+  <version>0.4.1</version>
   <packaging>pom</packaging>
 
   <properties>

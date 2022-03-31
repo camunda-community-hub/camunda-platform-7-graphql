@@ -47,7 +47,7 @@
     <dependency>
       <groupId>org.camunda.bpm.extension</groupId>
       <artifactId>camunda-bpm-graphql</artifactId>
-      <version>v0.4.0</version>
+      <version>0.4.1</version>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
