@@ -32,7 +32,7 @@ In your Camunda Spring Boot project add the following dependencies
 
 Camunda Extension GraphQL
 ```groovy
-    implementation group: 'org.camunda.bpm.extension.graphql', name: 'camunda-bpm-graphql', version: '0.4.0'
+    implementation group: 'org.camunda.platform7.extension.graphql', name: 'camunda-platform-7-graphql', version: '0.4.3'
 ```
 
 Spring Boot GraphQL Kickstart (the version 11.1.0 or higher)
@@ -47,8 +47,8 @@ Spring Boot GraphQL Kickstart (the version 11.1.0 or higher)
 Camunda Extension GraphQL
 ```xml
     <dependency>
-        <groupId>org.camunda.bpm.extension.graphql</groupId>
-        <artifactId>camunda-bpm-graphql</artifactId>
+        <groupId>org.camunda.platform7.extension.graphql</groupId>
+        <artifactId>camunda-platform-7-graphql</artifactId>
         <version>0.4.0</version>
     </dependency>
 ```
