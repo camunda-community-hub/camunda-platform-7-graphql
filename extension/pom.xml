@@ -8,7 +8,7 @@
     <version>0.4.3-SNAPSHOT</version>
   </parent>
 
-  <artifactId>camunda-bpm-graphql</artifactId>
+  <artifactId>camunda-platform-7-graphql</artifactId>
 
   <packaging>jar</packaging>
 
