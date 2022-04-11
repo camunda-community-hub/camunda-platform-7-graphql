@@ -9,8 +9,8 @@
     <version>1.2.2</version>
   </parent>
 
-  <groupId>org.camunda.bpm.extension</groupId>
-  <artifactId>camunda-bpm-graphql-root</artifactId>
+  <groupId>org.camunda.platform7.extension</groupId>
+  <artifactId>camunda-platform-7-graphql-root</artifactId>
   <version>0.4.3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -51,6 +51,7 @@
   <modules>
     <module>extension</module>
     <module>extension-webapp</module>
+    <module>example</module>
   </modules>
 
   <dependencyManagement>
@@ -78,8 +79,8 @@
       </dependency>
       <!-- modules -->
       <dependency>
-        <groupId>org.camunda.bpm.extension</groupId>
-        <artifactId>camunda-bpm-graphql</artifactId>
+        <groupId>org.camunda.platform7.extension</groupId>
+        <artifactId>camunda-platform-7-graphql</artifactId>
         <version>${project.version}</version>
         <scope>provided</scope>
       </dependency>
