@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.camunda.platform7.extension</groupId>
     <artifactId>camunda-platform-7-graphql-root</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>camunda-platform-7-graphql-webapp</artifactId>
@@ -60,7 +60,7 @@
     <dependency>
       <groupId>org.camunda.platform7.extension</groupId>
       <artifactId>camunda-platform-7-graphql</artifactId>
-      <version>0.5.0</version>
+      <version>0.5.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.camunda.bpm.springboot</groupId>
