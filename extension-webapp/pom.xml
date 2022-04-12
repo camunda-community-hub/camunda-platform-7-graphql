@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.camunda.bpm.extension</groupId>
-    <artifactId>camunda-bpm-graphql-root</artifactId>
+    <groupId>org.camunda.platform7.extension</groupId>
+    <artifactId>camunda-platform-7-graphql-root</artifactId>
     <version>0.4.3-SNAPSHOT</version>
   </parent>
 
-  <artifactId>camunda-bpm-graphql-webapp</artifactId>
+  <artifactId>camunda-platform-7-graphql-webapp</artifactId>
 
   <packaging>war</packaging>
 
@@ -58,8 +58,8 @@
       <version>11.1.0</version>
     </dependency>
     <dependency>
-      <groupId>org.camunda.bpm.extension</groupId>
-      <artifactId>camunda-bpm-graphql</artifactId>
+      <groupId>org.camunda.platform7.extension</groupId>
+      <artifactId>camunda-platform-7-graphql</artifactId>
       <version>0.4.3-SNAPSHOT</version>
     </dependency>
     <dependency>

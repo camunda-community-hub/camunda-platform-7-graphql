@@ -24,7 +24,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.event.EventListener;
 
-@SpringBootApplication(scanBasePackages = "org.camunda.bpm.extension.graphql")
+@SpringBootApplication(scanBasePackages = "org.camunda.platform7.extension.graphql")
 @EnableProcessApplication
 public class WebappExampleProcessApplication {
 

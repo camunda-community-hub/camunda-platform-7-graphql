@@ -2,7 +2,7 @@
   {
     "scenario": "query to find process instance by businessKey",
     "json": {
-      "query": "{ historicProcessInstances(businessKey:\"552365\" ) { id businessKey processDefinitionKey processDefinitionId processDefinitionName processDefinitionVersion startTime endTime removalTime durationInMillis startUserId startActivityId superProcessInstanceId rootProcessInstanceId superCaseInstanceId caseInstanceId tenantId state} }"
+      "query": "{ historicProcessInstances(businessKey:\"552365888\" ) { id businessKey processDefinitionKey processDefinitionId processDefinitionName processDefinitionVersion startTime endTime removalTime durationInMillis startUserId startActivityId superProcessInstanceId rootProcessInstanceId superCaseInstanceId caseInstanceId tenantId state} }"
     }
   },
   {
@@ -11,7 +11,7 @@
       "historicProcessInstances": [
         {
           "id": "9",
-          "businessKey": "552365",
+          "businessKey": "552365888",
           "processDefinitionKey": "weather-process",
           "processDefinitionId": "weather-process:1:5",
           "processDefinitionName": null,
@@ -35,7 +35,7 @@
   {
     "scenario": "query to find process instance with activity instances associated",
     "json": {
-      "query": "{ historicProcessInstances(businessKey:\"552365_activities\" ) { id historicActivityInstances { id parentActivityInstanceId activityId activityName }} }"
+      "query": "{ historicProcessInstances(businessKey:\"552365888_activities\" ) { id historicActivityInstances { id parentActivityInstanceId activityId activityName }} }"
     }
   },
   {
@@ -83,7 +83,7 @@
   {
     "scenario": "query to find process instance with incidents associated",
     "json": {
-      "query": "{ historicProcessInstances(businessKey:\"552365_incident\" ) { id historicIncidents{ id processInstanceId } } }"
+      "query": "{ historicProcessInstances(businessKey:\"552365888_incident\" ) { id historicIncidents{ id processInstanceId } } }"
     }
   },
   {
