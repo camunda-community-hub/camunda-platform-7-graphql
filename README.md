@@ -5,7 +5,7 @@
 Camunda Platform GraphQL
 ===============
 
-Camunda Platform GraphQL is a Community Extension for Camunda Platform that allows you to use [GraphQL](http://graphql.org/) to query and mutate [Process Engine data](https://docs.camunda.org/manual/latest/user-guide/process-engine/process-engine-api/) in a simple way. <br>
+Camunda Platform GraphQL is a Community Extension for Camunda Platform 7 that allows you to use [GraphQL](http://graphql.org/) to query and mutate [Process Engine data](https://docs.camunda.org/manual/latest/user-guide/process-engine/process-engine-api/) in a simple way. <br>
 
 
 ![Overview](extension/src/main/resources/png/overview_01.png?raw=true "Overview")
@@ -74,7 +74,7 @@ Spring Boot GraphQL Kickstart (the version 11.1.0 or higher)
     </dependency>
 ```
 
-Use the [example](https://github.com/camunda-community-hub/camunda-platform-graphql/tree/main/example) if necessary. 
+Use the [example](https://github.com/camunda-community-hub/camunda-platform-7-graphql/tree/main/example) if necessary. 
 
 By default the GraphQL and GraphiQL are available at the uri /graphql and /graphiql respectively, this configuration
 and others can be change by properties. The available settings can be consulted directly in the project of
@@ -93,7 +93,7 @@ Build the GraphQL server
 
 ### Tomcat installation
 - Get the latest Release (`.war` file) from the 
-[Camunda Repo](https://artifacts.camunda.com/artifactory/camunda-bpm-community-extensions/org/camunda/bpm/extension/graphql/camunda-bpm-graphql/) <br>
+[Camunda Repo](https://artifacts.camunda.com/artifactory/camunda-bpm-community-extensions/org/camunda/platform7/extension/camunda-platform-7-graphql-webapp/) <br>
 - deploy it to your Tomcat server e.g. copy it to the Tomcat /webapps` folder
 
 ### Wildfly installation
