@@ -22,7 +22,7 @@
 
     <!-- versions -->
     <version.camunda>7.12.0</version.camunda>
-    <version.camundaSpringBoot>3.4.0</version.camundaSpringBoot>
+    <version.camundaSpringBoot>3.4.4</version.camundaSpringBoot>
     <version.springBoot>2.2.1.RELEASE</version.springBoot>
     <version.spin>1.8.0</version.spin>
 
