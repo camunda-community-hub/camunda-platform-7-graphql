@@ -17,7 +17,7 @@
     <maven.compiler.source>${version.java}</maven.compiler.source>
     <maven.compiler.target>${version.java}</maven.compiler.target>
     <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
-    <camunda.spring-boot.version>7.13.0</camunda.spring-boot.version>
+    <camunda.spring-boot.version>7.20.0</camunda.spring-boot.version>
     <spin.version>1.8.0</spin.version>
   </properties>
 
